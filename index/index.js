@@ -8,7 +8,19 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: helloData,
+  data: {
+    background: ['http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'],
+    indicatorDots: true,
+    vertical: false,
+    autoplay: true,
+    circular: true,
+    interval: 2000,
+    duration: 500,
+    previousMargin: 0,
+    nextMargin: 0
+  },
 
   /**
    * 生命周期函数--监听页面加载
