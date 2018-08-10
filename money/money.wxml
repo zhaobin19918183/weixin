@@ -1,0 +1,42 @@
+
+<view class='backViewColor' >
+   <view class=" bc_green">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" auto-focus placeholder="请输入手机号"/>
+        <image class='imagePeople' src='../lib/people.jpg'></image>
+      </view>
+      <text class='textCss'>{{name}}</text>
+    </view>
+   </view>
+    <text class='text1' >{{huafei}}</text>
+    <view class=" bc_red" >
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    
+    </view>
+      <view class=" bc_red" >
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    
+    </view>
+     <view  >
+     <button class='btn' bindtap='' >　30元　　售价29.99元</button>
+    </view>
+     <text class='text1' >{{liuliang}}</text>
+     <view class=" bc_red" >
+    <button class='btn' bindtap='' >　1G流量　售价30元</button>
+    <button class='btn' bindtap='' >　　　　　更多流量</button>
+    <button class='btn' bindtap='' >送一百兆宽带免费用</button>
+    
+    </view>
+
+</view>
+<view class='button_view'>
+<button class='btnback'>手机营业厅</button>
+<button class='btnback' >旧手机换钱</button>
+<button class='btnback'>话费送好友</button>
+<button class='btnback'>更多服务</button>
+</view>

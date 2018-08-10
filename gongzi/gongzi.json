@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "navigationBarBackgroundColor": "#292929",
+  "usingComponents": {},
+  "navigationBarTitleText": "工资查询",
+  "navigationBarTextStyle": "white"
+ 
+
+}

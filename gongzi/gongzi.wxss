@@ -1,0 +1,114 @@
+/* gongzi/gongzi.wxss */
+.appointent-date-div{
+    display:inline-block;
+    width:20%;
+    text-align: center;
+   
+  }
+  .flex-item{
+   display: inline-block;
+    width:150rpx;
+     height: 88rpx;
+   font-size: 26rpx;
+ text-align: center;
+   color: #999;
+  cursor: pointer;
+   line-height: 30rpx;
+ }
+.data_name{
+  font-size: 36rpx;
+   line-height: 52rpx;
+   
+ }
+ .active-tag .flex-item{
+  background: #EC5D2A;
+  color:#fff;  
+  border:1rpx solid #fff;
+ }
+ .view0
+ {
+    width: 100%;
+   height: 100%;
+
+   background: gainsboro;
+ }
+ .view1
+ {
+   width: 100%;
+   height: 100px;
+   margin-top: 10px;
+   background: white;
+ }
+ /*横向布局  */
+.layout_horizontal{
+
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+}
+
+/*划线  */
+.line {
+   background-color: gainsboro;
+   height: 2rpx;
+   width: 100%;
+}
+.text1
+{
+  margin-left: 10px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+.view2
+{
+  margin-top: 30px;
+  font-size: 0.8rem;
+  width: 50%;
+   height: 100px;
+  /* background: yellowgreen; */
+   text-align: center;
+   color: black;
+   cursor: pointer;
+}
+.imagePeople
+{
+   width:30px; 
+   height:30px;
+  margin-left:8px;
+  margin-top: 10px;
+}
+.text2
+{
+  margin-left: 10px;
+  font-size: 0.5rem;
+  margin-top: 10px;
+}
+.text3
+{
+  margin-left: 10px;
+  font-size: 0.6rem;
+  margin-top: 20px;
+ 
+}
+.text4
+{
+  margin-left: 75%;
+  font-size: 0.5rem;
+  margin-top: 10px;
+ 
+}
+
+.view3
+{
+   width: 100%;
+   height: 120px;
+   margin-top: 10px;
+   background: white;
+}

@@ -1,0 +1,6 @@
+
+  <view class="page-section">
+
+    <button bindtap='ontext'  data-id="{{helloData.name}}">如是</button>
+    <button bindtap='gongzi'  data-id="{{helloData.name}}">gongzi</button>
+  </view>

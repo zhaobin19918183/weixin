@@ -1,0 +1,55 @@
+<view class='view0'>
+<scroll-view scroll-x="true" style="background:white;height:50px; white-space: nowrap;">
+   <view class='appointent-date'>
+   <view  class="appointent-date-div {{state==index?'active-tag':''}}" bindtap="select_date"  wx:for="{{dates}}" data-key='{{index}}'>
+      <view class="flex-item" >
+         <rich-text class='data_name'>{{item.data_name}}</rich-text>
+         <rich-text>{{item.name}}</rich-text>
+       </view>
+     </view>  
+   </view>
+   </scroll-view>
+  <view class='view1 layout_vertical'>
+  <text class='text1'>姓名　　：赵斌</text>
+  <text class='text1'>社保卡号：1111111111111111</text>
+  <text class='text1'>社保账号：1111111111111111</text>
+  </view >
+
+  <view class='view1 layout_horizontal'>
+    <view class='view2'>
+         <rich-text >企业缴纳总计</rich-text>
+         <rich-text>￥10000</rich-text>
+    </view>
+      <view class='view2'>
+         <rich-text >个人缴纳总计</rich-text>
+         <rich-text>￥10000</rich-text>
+    </view>    
+  </view>
+
+  <view class='view3 layout_vertical' >
+<!-- 循环创建 -->
+<view    wx:for="{{array}}" data-key='{{index}}'>
+  <view class='layout_horizontal'>
+  <image class='imagePeople' src='../lib/people.jpg'></image> 
+  <text class='text3'>{{item.key}}</text>
+  </view>
+
+  <view class='layout_horizontal'>
+  <text class='text2'>缴纳基数</text>
+  <text class='text4'>{{item.value1}}</text>
+  </view>
+
+  <view class='layout_horizontal'>
+  <text class='text2'>企业缴纳</text>
+  <text class='text4'>{{item.value2}}</text>
+  </view>
+
+  <view class='layout_horizontal'>
+  <text class='text2'>个人缴纳</text>
+  <text class='text4'>{{item.value2}}</text>
+  </view>
+  <view class='line'></view>
+  </view> 
+ </view> 
+
+ </view>

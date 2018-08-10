@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "index/index",
+    "roshi/roshi",
+    "money/money",
+    "gongzi/gongzi"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小程序",
+    "navigationBarTextStyle": "black"
+  }
+  ,
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "money/money",
+        "text": "充值"
+      },
+     
+      {
+        "pagePath": "gongzi/gongzi",
+        "text": "查工资"
+      },
+
+      {
+        "pagePath": "gongzi/gongzi",
+        "text": "查社保"
+      }
+      ,
+      {
+        "pagePath": "gongzi/gongzi",
+        "text": "查公积金"
+      }
+    ]
+  }
+}

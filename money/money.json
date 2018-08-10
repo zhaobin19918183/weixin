@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "navigationBarBackgroundColor": "#292929",
+  "usingComponents": {},
+  "navigationBarTitleText": "手机充值",
+   "navigationBarTextStyle": "white"
+}
