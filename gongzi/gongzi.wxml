@@ -38,7 +38,6 @@
   <text class='text2'>缴纳基数</text>
   <text class='text4'>{{item.value1}}</text>
   </view>
-
   <view class='layout_horizontal'>
   <text class='text2'>企业缴纳</text>
   <text class='text4'>{{item.value2}}</text>

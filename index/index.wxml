@@ -4,15 +4,37 @@
     <button bindtap='ontext'  data-id="{{helloData.name}}">如是</button>
     <button bindtap='gongzi'  data-id="{{helloData.name}}">gongzi</button>
   </view> -->
-   <view >
-      <swiper 
-        class=" page-section-spacing"  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
-        interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px ">
-        <block wx:for="{{background}}" wx:key="*this">
-          <swiper-item>
-          <image src="{{item}}" class="slide-image" width="600" height="150"/>
-            <!-- <view class="swiper-item {{item}}"></view> -->
-          </swiper-item>
-        </block>
-      </swiper>
-    </view>
+<view>
+  <!-- 滚动图 -->
+  <swiper class=" page-section-spacing" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px ">
+    <block wx:for="{{background}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--  -->
+
+  <view class="layout_horizontal">
+    <button class='btn' bindtap=''>
+      <image class='btnImg' src='../lib/image/查社保@2x.png'></image>
+      <view>查社保</view>
+    </button>
+    <button class='btn' bindtap=''>
+      <image class='btnImg' src='../lib/image/查社保@2x.png'></image>
+      <view>查公积金</view>
+    </button>
+    <button class='btn' bindtap=''>
+      <image class='btnImg' src='../lib/image/查社保@2x.png'></image>
+      <view>查工资</view>
+    </button>
+  </view>
+   <view class='line'></view>
+  <!--  -->
+<view class="layout_horizontal">
+
+
+
+</view>
+  <!--  -->
+</view>
