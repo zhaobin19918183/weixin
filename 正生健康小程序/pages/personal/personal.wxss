@@ -1,0 +1,24 @@
+/**index.wxss**/
+
+@import '../../utils/all.wxss';
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  
+  margin-left: 30px;
+  margin-top: 30px;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+.yaoqing
+{
+  background: rgb(141, 51, 224);
+  color: white;
+}

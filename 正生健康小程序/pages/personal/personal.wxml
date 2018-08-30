@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="">
+  <view >
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image  class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <view wx:if="{{length > 5}}"> 1 </view>
+      <view wx:elif="{{length < 4}}"> 2 </view> 
+    </block>
+  <view>
+  <button class='yaoqing' bindtap='show'>生成邀请卡</button>
+   <button class='yaoqing' >我的成就</button>
+   <!-- 弹出层 -->
+<view class="modal-box" hidden="{{flag}}" bindtap="hide">
+
+    <view class="modal-body">
+
+      <view class="modal-content">
+      
+        <button class="knowBtn" bindtap="hide">我知道了</button>
+     </view>
+    </view>
+  </view>
+  </view>
+
+
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

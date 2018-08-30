@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "慧吃慧动100天",
+    "navigationBarBackgroundColor": "#ec5d2a",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+      "column-chart": "../../components/column-chart/column-chart"
+    }
+}

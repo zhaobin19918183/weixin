@@ -1,0 +1,16 @@
+/* pages/report/report.wxss */
+.back
+{
+  background: blueviolet;
+  height: 200px;
+  width: 100%;
+
+}
+
+.canvas
+{
+  background: white;
+  height: 200px;
+  width: 100%;
+
+}

@@ -1,0 +1,91 @@
+/* pages/troops/troops.wxss */
+@import '../../utils/all.wxss';
+/**index.wxss**/
+radio-group{
+  width: 100%;
+}
+.flex_box{
+  display: flex;
+  width: 100%;
+  background: white;
+}
+.flex_item{
+  flex: 1;
+  text-align: center;
+}
+.flex_item label{
+  text-align: center;
+  background: orange;
+  padding: 10px;
+  display: inline-block;
+  width: 70%;
+  font-size: 0.8rem;
+  color: blue;
+   border: 2px solid black;
+   /* 颜色自定义 ---尺度自己调 */
+   box-shadow:0px 0px 2px 2px red;
+ 
+}
+.flex_item label.active{
+  text-align: center;
+  color: red;
+  border: 2px solid red;
+   box-shadow:2px 2px 2px 2px blueviolet;
+ 
+   
+}
+.tableview
+{
+     background: linear-gradient(red, blue);
+     height: 200px
+}
+/*横向布局  */
+.layout_horizontal{
+
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+  
+}
+
+/*划线  */
+.line {
+   background-color: gainsboro;
+   height: 2rpx;
+   width: 100%;
+}
+.image
+{
+  width: 32px;
+  height: 32px;
+ 
+  
+}
+.label0
+{
+  margin-left: 10px;
+  width: 100px
+}
+.label1
+{
+  font-family: "楷体";
+  color:white;
+  font-size: 30rpx;
+  background: black;
+ 
+}
+.container
+{
+  margin-left: 20px;
+  margin-right: 20px
+}

@@ -1,0 +1,77 @@
+<!--pages/home/home.wxml-->
+
+
+<view class='layout_horizontal' >
+<view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}'>
+<button  class='butTopThree' bindtap='btn'>展示 or 隐藏</button>
+  </view>
+
+
+<view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
+
+<button class='butTopThree' bindtap=''>活动规则</button>
+<button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
+<button class='butTopTwo' bindtap=''>总积分</button> 
+<button class='butTopTwo' bindtap='toReport'>入队报道</button>
+<text>
+小程序·云开发当前处于公测中，收到邀请的开发者安装测试版本的开发者工具（链接）后即可进行开发，点此申请公测 。
+
+开发者可以使用云开发开发微信小程序、小游戏，无需搭建服务器，即可使用云端能力。
+
+云开发为开发者提供完整的云端支持，弱化后端和运维概念，无需搭建服务器，使用平台提供的 API 进行核心业务开发，即可实现快速上线和迭代，同时这一能力，同开发者已经使用的云服务相互兼容，并不互斥。
+
+目前提供三大基础能力支持：
+
+云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写自身业务逻辑代码
+
+数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 数据库
+
+文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
+</text>
+
+</view>
+
+
+
+
+
+
+
+
+ <!-- <view class="container">
+     <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas"   canvas-id="canvasProgress">  </canvas> 
+        <view class="progress_text">
+            <view class="progress_dot"></view> 
+            <text class='progress_info'> {{progress_txt}}</text>
+        </view>     
+    </view>
+</view> -->
+
+<!-- <view class='layout_horizontal2'>
+<button class='' bindtap='ToRankList' id='1' >我的排行榜</button>
+<button class='' bindtap='ToRankList' id='2'>工作室排行榜</button>
+</view>
+<view class='layout_horizontal2'>
+<button class='' bindtap='ToRankList' id='3'>服务中心排行榜</button>
+<button class='' bindtap='ToRankList' id='4'>分公司排行榜</button>
+</view> -->
+
+<!-- 弹出层 -->
+<view class="modal-box" hidden="{{flag}}" bindtap="hide">
+
+    <view class="modal-body">
+
+      <view class="modal-content">
+      
+        <button class="knowBtn" bindtap="hide">我知道了</button>
+     </view>
+    </view>
+
+</view>
+</view>
+
+
+
+

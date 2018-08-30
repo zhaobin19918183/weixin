@@ -1,0 +1,12 @@
+<!--pages/rankList/rankList.wxml-->
+<view>
+<text>{{title}}</text>
+<scroll-view scroll-y="true" class='tableview' bindtap = "handletap" bindtouchstart = "handletouchtart" bindtouchmove="handletouchmove" bindtouchend="handletouchend" >
+    <view wx:for="{{arrayData}}" wx:for-index="idx" wx:for-item="itemName" class='layout_horizontal'>
+    <label>{{idx+1}}</label>
+    <image  class='image' src='/utils/jp.png'></image>
+    <label class='label0'>{{itemName.message}}</label>
+    <label class='label1'>1234567890</label>
+  </view>
+</scroll-view>
+</view>

@@ -1,0 +1,6 @@
+
+copyText =  function()
+
+{
+
+}
