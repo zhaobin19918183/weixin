@@ -4,14 +4,14 @@
 <view class='layout_horizontal' >
 <view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}'>
 <button  class='butTopThree' bindtap='btn'>展示 or 隐藏</button>
-  </view>
+</view>
 
 
 <view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
 
-<button class='butTopThree' bindtap=''>活动规则</button>
+<button class='butTopThree' bindtap='getUserInfo'>活动规则</button>
 <button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
-<button class='butTopTwo' bindtap=''>总积分</button> 
+<button  open-type="share" >总积分</button> 
 <button class='butTopTwo' bindtap='toReport'>入队报道</button>
 <text>
 小程序·云开发当前处于公测中，收到邀请的开发者安装测试版本的开发者工具（链接）后即可进行开发，点此申请公测 。

@@ -5,9 +5,10 @@
 <head>
     <!-- 移动端适配   全屏  支持屏幕放大缩小的倍率 -->
     <meta charset="utf-8">
-    <meta name="full-screen" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=3,minimum-scale=1">
+
     <link rel="stylesheet" href="../css/homeCss.css" type="text/css" />
      <script type="text/javascript" src="../js/homejs.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
@@ -15,14 +16,19 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>博士讲健康</title>
   <script>
-      $(function(){
+    $(document.body).css({
+       "overflow-x":"hidden",
+  
+    });
+    $(function(){
         // 初始化轮播
             $("#myCarousel").carousel('cycle');
         
     });
-</script>
+  </script>
 </head>
 <body>
+<div style="background-color: black;height: 44px;text-align:center;line-height:44px;"><font size="4" color="white" >博士讲健康</font></div>
 <div id="myCarousel" class="carousel slide">
     <!-- 轮播（Carousel）指标 -->
     <ol class="carousel-indicators">
@@ -75,17 +81,17 @@
 <div class="scroll">
 <hr style="filter: progid:dximagetransform.microsoft.shadow(color:#987cb9,direction:145,strength:0)" width="100%" color="#987cb9" size=1>
 <p class="text-left" style="margin-left: 20px"><font size="4" face="arial" color="orange">精品课程</p>
-<div style="margin-top: 10px;margin-left: 20px">
+<div style="margin-left: 20px">
     <div class="container">
     <div class="row" style="width:500px">
         <div class="media">
-            <a href="#" class="media-left media-middle media-bottom">
+            <a href="../html/excellentCourseDetail.html" class="media-left media-middle media-bottom">
                 <img src="../image/1.jpg" width="100" height="100"  />
             </a>
             <div class="media-body">
                 <h4 class="media-heading" ><font size="3" face="arial" color="black">春风十里不如你美！<br>所有的养生方法都在这里了</h4>
-                <p><font size="3" face="arial" color="black">javajavajavajavajavajavajavajavajava
-                    javajavajavajavajavajavajavajavajava
+                <p><font size="3" face="arial" color="black">javajavajavajavajava<br>javajavajavajava<br>
+                    赵斌最帅
                 </p>
             </div>
         </div>
@@ -94,7 +100,7 @@
 </div>
 <hr style="filter: progid:dximagetransform.microsoft.shadow(color:#987cb9,direction:145,strength:0)" width="100%" color="#987cb9" size=1>
 <p class="text-left" style="margin-left: 20px"><font size="4" face="arial" color="orange">健康科普</p>
-<div style="margin-top: 10px;margin-left: 20px">
+<div style="margin-left: 20px">
     
     <div class="container">
     <div class="row" style="width:500px">
@@ -104,8 +110,8 @@
             </a>
             <div class="media-body">
                 <h4 class="media-heading" ><font size="4" face="arial" color="black">春风十里不如你美！<br>所有的养生方法都在这里了</h4>
-                <p><font size="3" face="arial" color="black">javajavajavajavajavajavajavajavajava
-                    javajavajavajavajavajavajavajavajava
+                <p><font size="3" face="arial" color="black">javajavajavajavajav<br>javajavajavajava
+                    javajavajavajavaj<br>avajavajavajavajava
                 </p>
             </div>
         </div>
@@ -113,6 +119,8 @@
 </div>
 </div>
 <hr style="filter: progid:dximagetransform.microsoft.shadow(color:#987cb9,direction:145,strength:0)" width="100%" color="#987cb9" size=1>
+</div>
+<!-- 底部菜单 -->
 <div class="main_nav_bottom">
                 <nav class="navbar navbar-default navbar-fixed-bottom">
                     <div class="container" align="center">
@@ -134,9 +142,6 @@
                     </div>
                 </nav>
 </div>  
-</div>
-
-
 
 </body>
 

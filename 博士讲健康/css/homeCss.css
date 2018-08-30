@@ -26,11 +26,14 @@ background:url('../image/3.png') no-repeat center center / 100% 100%
      line-height: 40px;
 }
 div.scroll {   
-height: 50%;   
-width: 100%;   
-overflow: auto;   
+height: 42%;   
+width: 200%;  
+overflow: auto;    
+overflow-x:hidden;
+
 background-color: white;   
 padding: 8px;   
+
 }
 .search
 {
