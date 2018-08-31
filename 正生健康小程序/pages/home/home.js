@@ -119,8 +119,16 @@ Page({
       })
     }
     
+    // app.globalData.userInfo = e.detail.userInfo
+    // this.setData({
+    //   userInfo: e.detail.userInfo,
+    //   hasUserInfo: true
+
+    // })
+
+    console.log(123456789)
     if (app.globalData.userInfo) {
-      
+      console.log(456)
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -157,7 +165,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    console.log(123456789)
   
 
   },
@@ -165,6 +173,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log(23456789)
     var that = this;
     GetList(that);
     this.rawCircle(2)
@@ -254,25 +263,14 @@ Page({
   },
   getUserInfo: function (e) {
    
-    if (app.globalData.userInfo)
-    {
-       wx.navigateTo({
-        url: '../personal/personal'
-       })
-    }
-    else
-    {
-      app.globalData.userInfo = e.detail.userInfo
-      this.setData({
-        userInfo: e.detail.userInfo,
-        hasUserInfo: true
-        
-      })
-      wx.navigateTo({
-        url: '../personal/personal'
-      })
-    }
-    
+  
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+
+    })
+      
   }
   
   ,

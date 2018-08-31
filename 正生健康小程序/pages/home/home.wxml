@@ -3,7 +3,15 @@
 
 <view class='layout_horizontal' >
 <view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}' style='margin-top: 30%;'>
-<button  class='butTopThree' bindtap='btn'>头像</button>
+<button    open-type="getUserInfo" bindgetuserinfo="getUserInfo"   class='butTopThree' bindtap='btn'>
+<!-- <image   class='firstimg'  src='../imgs/公司.png' ></image> -->
+<!-- <image   class='firstimg'  src="{{hasUserInfo? '{{userInfo.avatarUrl}}': '{{userInfo.avatarUrl}}'}}" ></image> -->
+
+<image  class='firstimg' wx:if="{{!hasUserInfo}}" src='../imgs/公司.png'></image>
+<image  class='firstimg' wx:else src='{{userInfo.avatarUrl}}'></image>
+
+<!-- <image class='firstimg'  src='{{userInfo.avatarUrl}}' ></image> -->
+</button>
 </view>
 <!-- 顶部四个按钮 -->
 <view class='layout_horizontal' style='background:black; width: 100%;margin-top: 1%;'>
