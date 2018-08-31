@@ -7,7 +7,7 @@
 }
 page
 {
-  background: #ec5d2a
+  background:white
 }
 
 
@@ -61,23 +61,7 @@ radio-group{
   align-items: center; */
 }
 
-/*横向布局  */
-.layout_horizontal2{
 
-  display: flex;
-  /*row 横向  column 列表  */
-  flex-direction: row;
-
-}
-
-
-/*纵向布局  */
-.layout_vertical{
-  display: flex;
-  /*row 横向  column 列表  */
-  flex-direction: column;
-  
-}
 
 /*划线  */
 .line {
@@ -97,14 +81,7 @@ radio-group{
   margin-left: 10px;
   width: 100px
 }
-.label1
-{
-  font-family: "楷体";
-  color:white;
-  font-size: 30rpx;
-  background: black;
- 
-}
+
 .container
 {
   margin-left: 20px;
@@ -160,43 +137,45 @@ radio-group{
   width:16rpx;
   height: 16rpx;  
   border-radius: 50%;
-  background-color: #fb9126;
+  background-color:white;
 }
 /* 点击前 */
 .butTopOne
 {
 
  position: fixed;
- margin-top: 10%;
- margin-left: 70%;
+ margin-top: 20%;
+ margin-left: 75%;
  width: 30%;
  height: 60px;
  font-size: 0.7rem;
  color: white;
- background-color: orange;
+ background-color: white;
 }
 /* 点击后 */
 .butTopTwo
 {
  position: fixed;
- margin-top: 10%;
- margin-left:2%;
+ margin-top: 20%;
+ margin-left:4%;
  width: 30%;
  height: 60px;
  font-size: 0.7rem;
  color: white;
- background-color: orange;
+ background-color: white;
 }
 
 .butTopThree
 {
- margin-top: 0px;
+ margin-top: 20px;
  margin-left: 0px;
- width: 60px;
- height: 60px;
+ width: 100px;
+ height: 80px;
  font-size: 0.7rem;
  color: white;
  background-color: orange;
+ border-bottom-left-radius: 40px;
+ border-top-left-radius: 40px;
 }
 
 .show {
@@ -217,3 +196,35 @@ radio-group{
   height: 100%;
   background: chartreuse;
 }
+
+.firstB
+{
+  width: 80%;
+  height:60px;
+  background: orange;
+  margin-left: 10%;
+ 
+
+}
+.label1
+{
+  
+  font-family: "楷体";
+  width: 100%;
+  color:white;
+  font-size: 20rpx;
+  text-align: center;
+  /* background: black; */
+  margin-left: 1%;
+}
+
+.firstimg
+{
+ width: 100%;
+ height: 100%;
+
+}
+button::after{
+border: none;
+}
+

@@ -6,6 +6,7 @@
     "pages/clockIn/clockIn",
     "pages/report/report",
     "pages/rankList/rankList"
+  
   ],
   "window": {
     "backgroundTextStyle": "light",

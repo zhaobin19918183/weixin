@@ -2,12 +2,21 @@
 
 
 <view class='layout_horizontal' >
-<view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}'>
-<button  class='butTopThree' bindtap='btn'>展示 or 隐藏</button>
+<view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}' style='margin-top: 30%;'>
+<button  class='butTopThree' bindtap='btn'>头像</button>
 </view>
-
-
+<!-- 顶部四个按钮 -->
+<view class='layout_horizontal' style='background:black; width: 100%;margin-top: 1%;'>
+<view wx:for="{{arrayData}}"  wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='background:red; width: 25%;'>
+   <button  class='firstB' id='{{itemName.id}}' bindtap="toReport">
+   <image class='firstimg'  src="{{itemName.imgurl}}" ></image>
+    </button>
+    <label class='label1'>{{itemName.message}}</label>
+</view>
+</view>
 <view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
+
+
 
 <button class='butTopThree' bindtap='getUserInfo'>活动规则</button>
 <button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
@@ -36,9 +45,9 @@
 
 
 
+<!-- 
 
-
- <!-- <view class="container">
+ <view class="container">
      <view class='progress_box'>
         <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
         <canvas class="progress_canvas"   canvas-id="canvasProgress">  </canvas> 
@@ -49,27 +58,9 @@
     </view>
 </view> -->
 
-<!-- <view class='layout_horizontal2'>
-<button class='' bindtap='ToRankList' id='1' >我的排行榜</button>
-<button class='' bindtap='ToRankList' id='2'>工作室排行榜</button>
-</view>
-<view class='layout_horizontal2'>
-<button class='' bindtap='ToRankList' id='3'>服务中心排行榜</button>
-<button class='' bindtap='ToRankList' id='4'>分公司排行榜</button>
-</view> -->
 
-<!-- 弹出层 -->
-<view class="modal-box" hidden="{{flag}}" bindtap="hide">
 
-    <view class="modal-body">
 
-      <view class="modal-content">
-      
-        <button class="knowBtn" bindtap="hide">我知道了</button>
-     </view>
-    </view>
-
-</view>
 </view>
 
 

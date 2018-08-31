@@ -18,45 +18,33 @@ var canvasHeight = 0;
 
 import drawQrcode from '../../utils/weapp.qrcode.esm.js'
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
-var GetLis1t = function (that) {
+
+
+var GetList = function (that) {
+ 
   that.setData({
-    hidden: false
-  });
-  wx.request({
-    url: url,
-    data:{
-      show_centent: false,
-      if_show: false,
-      page : page,
-      page_size : page_size,
-      sort : sort,
-      is_easy : is_easy,
-      lange_id : lange_id,
-      pos_id : pos_id,
-      unlearn : unlearn,
-      
-
-    },
-    success: function (res) {
-      //console.info(that.data.list);
-      var list = that.data.list;
-      for (var i = 0; i < res.data.list.length; i++) {
-        list.push(res.data.list[i]);
-
-      }
-      that.setData({
-        list : list
-
-      });
-      page++;
-      that.setData({
-        hidden: true
-
-      });
+    arrayData: [{
+      message: '分公司排行榜',
+      imgurl:"../imgs/公司.png",
+      id:1
+    }, {
+      message: '服务中心排行榜',
+        imgurl: "../imgs/公司.png",
+        id: 2
     }
-
-  });
-
+      , {
+      message: '工作室排行榜',
+        imgurl: "../imgs/公司.png",
+        id: 3
+    }
+      , {
+      message: '个人排行榜',
+        imgurl: "../imgs/公司.png",
+        id: 4
+    }
+   
+    ]
+  })
 }
 
 
@@ -177,7 +165,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    GetList(that);
     this.rawCircle(2)
   },
   rawCircle: function (step) {
@@ -235,7 +224,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     return {
-      title: '正生',
+      title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
       path: '/pages/home/home?id=13624249960',
       success: function (res) {
@@ -287,11 +276,13 @@ Page({
   }
   
   ,
-  toReport:function()
+  toReport:function(e)
   {
-    wx.navigateTo({
-      url: '../report/report'
-    })
+
+    console.log(e.target.id)
+    // wx.navigateTo({
+    //   url: '../report/report'
+    // })
   }
   ,
   show: function () {

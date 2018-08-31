@@ -35,3 +35,20 @@
   width: 100%;
   height: 40%;
 }
+/*横向布局  */
+.layout_horizontal2{
+
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+
+}
+
+
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+  
+}
