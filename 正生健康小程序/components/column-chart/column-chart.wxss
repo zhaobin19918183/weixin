@@ -21,7 +21,7 @@
     line-height: 44rpx;
     font-size: 32rpx;
     text-align: left;
-    color: #1A173B;
+    color:red;
 }
 
 .column_chart_title_unit{

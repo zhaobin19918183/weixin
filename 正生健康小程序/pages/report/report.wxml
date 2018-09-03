@@ -1,12 +1,1 @@
-<view>
-<!-- <double-column-chart id="double-column-chart" canvasData="{{doubleColumnCanvasData}}" title="{{doubleColumnTitle}}" units="{{doubleColumnUnit}}"  /> -->
-
-
-
-
-</view>
-
-<view >
-    <!-- <canvas canvas-id="ringCanvas"  class='back' bindtouchstart="touchHandler"></canvas> -->
-<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>   
-</view>
+ <column-chart id="column-chart" canvasData="{{columnCanvasData}}" />

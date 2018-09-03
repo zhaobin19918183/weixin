@@ -1,52 +1,35 @@
 // pages/home/home.js
-var wxCharts = require('../../utils/wxcharts.js');
-var lineChart = null;
-var startPos = null;
 var app = getApp()
-var url = "https://hchd.zeacen.com";
-var page = 0;
-var page_size = 20;
-var sort = "last";
-var is_easy = 0;
-var lange_id = 0;
-var pos_id = 0;
-var unlearn = 0;
-
 var rate = 0;
 var canvasWidth = 0;
 var canvasHeight = 0;
-
-import drawQrcode from '../../utils/weapp.qrcode.esm.js'
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
-
-
 var GetList = function (that) {
  
   that.setData({
     arrayData: [{
       message: '分公司排行榜',
-      imgurl:"../imgs/公司.png",
+      imgurl:"../imgs/img01_05.png",
       id:1
     }, {
       message: '服务中心排行榜',
-        imgurl: "../imgs/公司.png",
+        imgurl: "../imgs/img01_07.png",
         id: 2
     }
       , {
       message: '工作室排行榜',
-        imgurl: "../imgs/公司.png",
+        imgurl: "../imgs/img01_09.png",
         id: 3
     }
       , {
       message: '个人排行榜',
-        imgurl: "../imgs/公司.png",
+        imgurl: "../imgs/img01_11.png",
         id: 4
     }
    
     ]
   })
 }
-
 
 Page({
 
@@ -63,12 +46,33 @@ Page({
     hasUserInfo: false,
     columnCanvasData: {
       canvasId: 'columnCanvas',
-    }
+    },
+    isDown: false,
+    percent: 0,
+    isDown1: false,
+    percent1: 0,
+
+    // banner
+    imgUrls: [
+      'http://7xnmrr.com1.z0.glb.clouddn.com/red.png',
+      'http://7xnmrr.com1.z0.glb.clouddn.com/yellow.png',
+      'http://7xnmrr.com1.z0.glb.clouddn.com/green.png'
+    ],
+    indicatorDots: true, //是否显示面板指示点
+    autoplay: true, //是否自动切换
+    interval: 1500, //自动切换时间间隔,3s
+    duration: 1000, //  滑动动画时长1s
+
 
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
   }
 ,
 
+  durationChange: function (e) {
+    this.setData({
+      duration: e.detail.value
+    })
+  },
   btn: function () {
     var that = this;
     if (!this.data.show_centent) {
@@ -97,6 +101,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+
 
 
   onLoad: function (e) {
@@ -176,25 +181,31 @@ Page({
     console.log(23456789)
     var that = this;
     GetList(that);
-    this.rawCircle(2)
-  },
-  rawCircle: function (step) {
-    var context = wx.createCanvasContext('canvasProgress');
-    // 设置渐变
-    var gradient = context.createLinearGradient(200, 100, 100, 200);
-    gradient.addColorStop("0", "#2661DD");
-    gradient.addColorStop("0.5", "#40ED94");
-    gradient.addColorStop("1.0", "#5956CC");
 
-    context.setLineWidth(10);
-    context.setStrokeStyle(gradient);
-    context.setLineCap('round')
-    context.beginPath();
-    // 参数step 为绘制的圆环周长，从0到2为一周 。 -Math.PI / 2 将起始角设在12点钟位置 ，结束角 通过改变 step 的值确定
-    context.arc(160, 80, 50, -Math.PI / 2, step * Math.PI - Math.PI / 2, false);
-    context.stroke();
-    context.draw()
+
+    setTimeout(function () {
+      //要延时执行的代码
+      that.startDown();
+    }, 1000) //延迟)
+    setTimeout(function () {
+      //要延时执行的代码
+      that.startDown1();
+    }, 1500) //延迟)
   },
+  startDown: function (e) {
+    this.setData({
+      isDown: true,
+      percent: 2,
+    })
+  }
+  ,
+  startDown1: function (e) {
+    this.setData({
+      isDown1: true,
+      percent1: 50,
+    })
+  }
+,
   onReady: function () {
 
     
@@ -278,9 +289,9 @@ Page({
   {
 
     console.log(e.target.id)
-    // wx.navigateTo({
-    //   url: '../report/report'
-    // })
+    wx.navigateTo({
+      url: '../report/report'
+    })
   }
   ,
   show: function () {

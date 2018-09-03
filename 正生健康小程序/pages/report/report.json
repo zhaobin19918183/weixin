@@ -3,7 +3,7 @@
   "navigationBarTitleText": "柱状图",
   "backgroundColor": "#F5F5F5",
   "backgroundTextStyle": "dark",
-    "usingComponents": {
-      "double-column-chart": "../../components/double-column-chart/double-column-chart"
-    }
+   "usingComponents": {
+    "column-chart": "../../components/column-chart/column-chart"
+  }
 }

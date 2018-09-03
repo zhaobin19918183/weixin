@@ -1,70 +1,129 @@
 <!--pages/home/home.wxml-->
 
+<view class=''>
 
-<view class='layout_horizontal' >
-<view  wx:if='true' class='{{show_centent?"butTopTwo":"butTopOne"}}' style='margin-top: 30%;'>
-<button    open-type="getUserInfo" bindgetuserinfo="getUserInfo"   class='butTopThree' bindtap='btn'>
-<!-- <image   class='firstimg'  src='../imgs/公司.png' ></image> -->
-<!-- <image   class='firstimg'  src="{{hasUserInfo? '{{userInfo.avatarUrl}}': '{{userInfo.avatarUrl}}'}}" ></image> -->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
+  <swiper-item wx:for="{{imgUrls}}">
+    <image src="{{item}}" />
+  </swiper-item>
+</swiper>
 
-<image  class='firstimg' wx:if="{{!hasUserInfo}}" src='../imgs/公司.png'></image>
-<image  class='firstimg' wx:else src='{{userInfo.avatarUrl}}'></image>
-
-<!-- <image class='firstimg'  src='{{userInfo.avatarUrl}}' ></image> -->
-</button>
-</view>
+<view style=" width:100%;height:200px;text-align:center">
 <!-- 顶部四个按钮 -->
-<view class='layout_horizontal' style='background:black; width: 100%;margin-top: 1%;'>
-<view wx:for="{{arrayData}}"  wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='background:red; width: 25%;'>
-   <button  class='firstB' id='{{itemName.id}}' bindtap="toReport">
+<view    style=" display:flex;width:100%;text-align:center"  >
+<view wx:for="{{arrayData}}"  wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical'        style='width:25%;height:19%;'>
+   <button   class='firstB' id='{{itemName.id}}' bindtap="">
    <image class='firstimg'  src="{{itemName.imgurl}}" ></image>
-    </button>
-    <label class='label1'>{{itemName.message}}</label>
+   </button>
+   <label class='label1'>{{itemName.message}}</label>
 </view>
 </view>
-<view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
+<!-- 签到 -->
 
+<view class='layout_horizontal'>
 
+<image src='../imgs/qiadao.GIF' style='width:80px;height:80px;background;' ></image>
+<view class='layout_vertical'>
 
-<button class='butTopThree' bindtap='getUserInfo'>活动规则</button>
-<button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
-<button  open-type="share" >总积分</button> 
-<button class='butTopTwo' bindtap='toReport'>入队报道</button>
-<text>
-小程序·云开发当前处于公测中，收到邀请的开发者安装测试版本的开发者工具（链接）后即可进行开发，点此申请公测 。
-
-开发者可以使用云开发开发微信小程序、小游戏，无需搭建服务器，即可使用云端能力。
-
-云开发为开发者提供完整的云端支持，弱化后端和运维概念，无需搭建服务器，使用平台提供的 API 进行核心业务开发，即可实现快速上线和迭代，同时这一能力，同开发者已经使用的云服务相互兼容，并不互斥。
-
-目前提供三大基础能力支持：
-
-云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写自身业务逻辑代码
-
-数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 数据库
-
-文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-</text>
+<button class='qiandao'>每日签到</button>
+<button class='qiandao1'>Daily check-in</button>
+</view>
 
 </view>
 
 
+<view class='{{show_centent?"butTopTwo":"butTopOne"}}'>
+  <button      class='butTopThree' bindtap='btn'>
+  <!-- <image  class='firstimg' wx:if="{{!hasUserInfo}}" src='../imgs/公司.png'></image>
+  <image  class='firstimg' wx:else src='{{userInfo.avatarUrl}}'></image> -->
+  </button>
+
+  <view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
+  <button class='butTopThree' bindtap='toReport'>活动规则</button>
+  <button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
+  <button  open-type="share" >总积分</button> 
+  <button class='butTopTwo' bindtap='toReport'>入队报道</button>
+</view>
+</view>
+
+</view>
 
 
+<!-- 个人排行榜 -->
+
+<view style="width:100%;background:black;margin-top:2%;height:200px;background-image: url('../imgs/img1.jpg')">
+  <button style='width:40px;height:40px;background:#e97118;margin-top:10px'></button>
+</view>
+<view style='background:red;height:4px' ></view>
+<!-- 工作室排行榜 -->
+
+<view class='gongzuoshi' style="background-image: url('../imgs/img5.png');">
+<view class='layout_horizontal ' >
+<button style='background:#e97118;width:10px;height:20px;margin-left:1%' ></button>
+<label  style='font-size:30rpx;width:100%;height:20px;margin-left:10px'>工作室排行榜</label>
+</view>
+<view   style='height:70%;height:70%;text-align:center;'>
+<image  style='height:100%;height:100%;'  src='../imgs/jt.png'></image>
+</view>
+<view class='layout_horizontal' style='margin-top:15px;text-align:center'>
+<label  style='font-size:20rpx;width:20%;height:20px;margin-left:8%;margin-top:-5px'>无锡分公司</label>
+<label  style='font-size:20rpx;width:20%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
+<label  style='font-size:20rpx;width:30%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
+</view>
 
 
-<!-- 
+</view>
+<view style='background:red;height:4px' ></view>
+<!-- 服务中心排行榜 -->
 
- <view class="container">
-     <view class='progress_box'>
-        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
-        <canvas class="progress_canvas"   canvas-id="canvasProgress">  </canvas> 
-        <view class="progress_text">
-            <view class="progress_dot"></view> 
-            <text class='progress_info'> {{progress_txt}}</text>
-        </view>     
-    </view>
-</view> -->
+<view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
+
+<view class='layout_horizontal' style='margin-top:5px;' >
+<button style='background:#e97118;width:10px;height:20px;margin-left:1%' ></button>
+<label  style='font-size:20px;width:100%;height:20px;margin-left:10px'>服务中心排行榜</label>
+</view>
+<view class='layout_vertical' style='margin-top:10px'>
+<label  style='font-size:15px;width:100%;height:20px;margin-left:30px;'>第一宁：无锡分公司</label>
+<label  style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
+<label  style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
+</view>
+<image  style='height:70%;width:130%;margin-left:-10%;margin-top:-5%;'  src='../imgs/dt.png'></image>
+</view>
+<view style='background:red;height:4px' ></view>
+<!-- 分公司排行榜 -->
+
+<view class='layout_horizontal' style="width:100%;background:orange;height:200px;background-image: url('../imgs/img8.jpg')">
+
+ <!-- <progress   style='margin-top:50%;' percent="{{percent1}}"  active='{{isDown1}}' />
+ -->
+ <!-- <progress   style='margin-top:10%;' percent="{{percent1}}"  active='{{isDown1}}' /> -->
+
+ <image  style='height:100px;width:100px;margin-top:12%'  src='../imgs/img01_38.png'></image>
+ 
+  
+</view>
+
+<progress   style='margin-top:-30%;margin-left:28%;width:10%' percent="100"  active='true' />
+<progress   style='margin-top:-19%;margin-left:38%;width:2%' stroke-width='115' percent="100"  active='true' />
+
+<view style='margin-top:25%'>
+
+<view style='width:30%;margin-top:-20%;margin-left:25%'>
+<progress   style='margin-top:-30%;margin-left:45%' percent="140"  active='{{isDown1}}' />
+<button style='background:orange;margin-left:110%;height:30px;margin-top:-20%'>1</button>
+</view>
+
+<view   style='width:40%;margin-top:-22%;margin-left:24%'>
+<progress   style='margin-top:-20%;margin-left:40%' percent="100"  active='{{isDown1}}' />
+<button style='background:black;margin-left:110%;height:30px;margin-top:-20%'>1</button>
+</view>
+
+<view  style='width:80%;margin-top:-20.5%;margin-left:9%'>
+<progress   style='margin-top:-20%;margin-left:38%' percent="100"  active='{{isDown1}}' /> 
+<button style='background:black;margin-left:100%;height:30px;margin-top:-7%'>1</button>
+</view>
+
+</view>
 
 
 

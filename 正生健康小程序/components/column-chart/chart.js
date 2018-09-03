@@ -389,10 +389,10 @@ function drawColumn(series, opts, config, context) {
   context.translate(opts._scrollDistance_ && opts._scrollDistance_ !== 0 && opts.enableScroll === true ? opts._scrollDistance_ : 0, 0);
 
   context.beginPath();
-  //绘制数据连接点样式
+  //绘制数据连接点样式 渐变色
   areaDatas.forEach(function (item) {
     const grd = context.createLinearGradient(item.x, item.y, item.x, startPoint.y)
-    grd.addColorStop(0, '#0077FF')
+    grd.addColorStop(0, '#ec5d2a')
     grd.addColorStop(1, '#3DB2FF')
 
     // Fill with gradient
