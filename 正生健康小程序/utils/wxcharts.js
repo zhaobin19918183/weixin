@@ -1130,9 +1130,16 @@ function drawAreaDataPoints(series, opts, config, context) {
     splitPointList.forEach(function (points) {
       // 绘制区域数据
       context.beginPath();
-      context.setStrokeStyle(eachSeries.color);
-      context.setFillStyle(eachSeries.color);
-      context.setGlobalAlpha(0.6);
+
+      const grd = context.createLinearGradient(0, 0, 30, 300)
+      grd.addColorStop(0, '#e97118')
+      grd.addColorStop(1, 'white')
+
+      context.setFillStyle(grd)
+
+      // context.setStrokeStyle(eachSeries.color);
+      // context.setFillStyle(eachSeries.color);
+      // context.setGlobalAlpha(0.6);
       context.setLineWidth(2);
       if (points.length > 1) {
         var firstPoint = points[0];

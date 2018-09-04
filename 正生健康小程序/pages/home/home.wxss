@@ -3,6 +3,14 @@
 .canvas {
     width: 100%;
     height: 200px;
+    margin-top: 60px
+    
+}
+.canvas1 {
+    width: 90%;
+    height: 100%;
+    margin-top: 4%;
+    position: absolute;
     
 }
 page
@@ -56,7 +64,7 @@ swiper-item image {
 .butTopOne
 {
 
- /* position: fixed; */
+
  margin-top: -20%;
  margin-left: 75%;
  width: 30%;
@@ -67,7 +75,7 @@ swiper-item image {
 /* 点击后 */
 .butTopTwo
 {
- /* position: fixed; */
+
  margin-left:4%;
  margin-top: -20%;
  width: 30%;
@@ -80,7 +88,7 @@ swiper-item image {
 {
 
  margin-left: 0px;
- width: 100px;
+ width: 30%;
  height: 80px;
  font-size: 0.7rem;
  color: white;
@@ -90,11 +98,13 @@ swiper-item image {
 }
 
 .show {
-  position: fixed;
-  margin-left: 30%;
-  width: 70%;
+  /* position: fixed; */
+  /* margin-left:100%; */
+  width: 80%;
   height: 100%;
+  margin-top: -53%;
   background: chartreuse;
+
 }
 @keyframes myfirst_show
 {
@@ -102,8 +112,8 @@ swiper-item image {
 100% {right: 0px;}
 }
 .hide{
-  position: fixed;
-  width: 70%;
+  /* position: fixed; */
+  width: 80%;
   height: 100%;
   background: chartreuse;
 }
@@ -193,8 +203,76 @@ border: none;
  
 
     width:100%;
-    height:200px;
+    height:240px;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
 
 }
+
+
+.image-parent {
+  height: 100%; 
+  position: relative;
+  
+}
+
+.child1 {
+  width: 100%;
+  position: absolute;
+  
+  /* margin: auto; */
+
+  
+ 
+}
+.child2 {
+   width: 30%;
+  position: absolute;
+   margin-left:40%;
+   margin-top: 23%;
+  
+ 
+}
+.child3 {
+  width: 30%;
+  position: absolute;
+   margin-left:60%;
+   margin-top: 33%;
+}
+
+.bg {
+  position: fixed;
+  display: none;
+  /* position: absolute; */
+  top: 0%;
+  left: 20%;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1001;
+ 
+ 
+  filter: alpha(opacity=70);
+}
+ 
+.show {
+  display: none;
+  text-align: center;
+   position: fixed;
+  top: 45%;
+  left: 20%;
+  width: 53%;
+  height: 10%;
+  padding: 8px;
+  border: 8px solid #e8e9f7;
+  background-color: white;
+  z-index: 1002;
+  overflow: auto;
+}
+.txt{
+   position: fixed;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: royalblue
+}
+

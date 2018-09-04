@@ -1,140 +1,141 @@
 <!--pages/home/home.wxml-->
 
-<view class=''>
+<view style='height:200px'>
+  <swiper style='height:100%' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
+    <swiper-item wx:for="{{imgUrls}}">
+      <image src="{{item}}" />
+    </swiper-item>
+  </swiper>
 
-<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
-  <swiper-item wx:for="{{imgUrls}}">
-    <image src="{{item}}" />
-  </swiper-item>
-</swiper>
+  <view style=" width:100%;height:200px;text-align:center">
+    <!-- 顶部四个按钮 -->
+    <view style=" display:flex;width:100%;text-align:center">
+      <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:19%;'>
+        <button class='firstB' id='{{itemName.id}}' bindtap="">
+          <image class='firstimg' src="{{itemName.imgurl}}"></image>
+        </button>
+        <label class='label1'>{{itemName.message}}</label>
+      </view>
+    </view>
+    <!-- 签到 -->
 
-<view style=" width:100%;height:200px;text-align:center">
-<!-- 顶部四个按钮 -->
-<view    style=" display:flex;width:100%;text-align:center"  >
-<view wx:for="{{arrayData}}"  wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical'        style='width:25%;height:19%;'>
-   <button   class='firstB' id='{{itemName.id}}' bindtap="">
-   <image class='firstimg'  src="{{itemName.imgurl}}" ></image>
-   </button>
-   <label class='label1'>{{itemName.message}}</label>
-</view>
-</view>
-<!-- 签到 -->
-
-<view class='layout_horizontal'>
-
-<image src='../imgs/qiadao.GIF' style='width:80px;height:80px;background;' ></image>
-<view class='layout_vertical'>
-
-<button class='qiandao'>每日签到</button>
-<button class='qiandao1'>Daily check-in</button>
-</view>
-
-</view>
+    <view class='layout_horizontal'>
 
 
-<view class='{{show_centent?"butTopTwo":"butTopOne"}}'>
-  <button      class='butTopThree' bindtap='btn'>
-  <!-- <image  class='firstimg' wx:if="{{!hasUserInfo}}" src='../imgs/公司.png'></image>
-  <image  class='firstimg' wx:else src='{{userInfo.avatarUrl}}'></image> -->
-  </button>
+      <image src='../imgs/gif1/1.jpg' style='width:80px;height:80px;background;'></image>
+      <view class='layout_vertical'>
 
-  <view   wx:if='{{if_show}}' class='{{show_centent?"show":"hide"}}'>
-  <button class='butTopThree' bindtap='toReport'>活动规则</button>
-  <button class='butTopOne'   open-type="getUserInfo" bindgetuserinfo="getUserInfo">参加天数</button>
-  <button  open-type="share" >总积分</button> 
-  <button class='butTopTwo' bindtap='toReport'>入队报道</button>
-</view>
-</view>
+        <button class='qiandao'>每日签到</button>
+        <button class='qiandao1'>Daily check-in</button>
+      </view>
+    </view>
 
-</view>
+    <view class="bg" bindtap='hideview' style='display:{{display}}'></view>
+    <view class="show" bindtap='hideview' style='display:{{display}}'>申请成功
+      <view class='txt'>您的密码为:123456</view>
+    </view>
 
+    <view class='{{show_centent?"butTopTwo":"butTopOne"}} '>
+      <view class='layout_horizontal' style='width:375px;height:600px'>
+        <button class='butTopThree' bindtap='showview'></button>
 
-<!-- 个人排行榜 -->
-
-<view style="width:100%;background:black;margin-top:2%;height:200px;background-image: url('../imgs/img1.jpg')">
-  <button style='width:40px;height:40px;background:#e97118;margin-top:10px'></button>
-</view>
-<view style='background:red;height:4px' ></view>
-<!-- 工作室排行榜 -->
-
-<view class='gongzuoshi' style="background-image: url('../imgs/img5.png');">
-<view class='layout_horizontal ' >
-<button style='background:#e97118;width:10px;height:20px;margin-left:1%' ></button>
-<label  style='font-size:30rpx;width:100%;height:20px;margin-left:10px'>工作室排行榜</label>
-</view>
-<view   style='height:70%;height:70%;text-align:center;'>
-<image  style='height:100%;height:100%;'  src='../imgs/jt.png'></image>
-</view>
-<view class='layout_horizontal' style='margin-top:15px;text-align:center'>
-<label  style='font-size:20rpx;width:20%;height:20px;margin-left:8%;margin-top:-5px'>无锡分公司</label>
-<label  style='font-size:20rpx;width:20%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
-<label  style='font-size:20rpx;width:30%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
-</view>
+      </view>
+    </view>
 
 
-</view>
-<view style='background:red;height:4px' ></view>
-<!-- 服务中心排行榜 -->
-
-<view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
-
-<view class='layout_horizontal' style='margin-top:5px;' >
-<button style='background:#e97118;width:10px;height:20px;margin-left:1%' ></button>
-<label  style='font-size:20px;width:100%;height:20px;margin-left:10px'>服务中心排行榜</label>
-</view>
-<view class='layout_vertical' style='margin-top:10px'>
-<label  style='font-size:15px;width:100%;height:20px;margin-left:30px;'>第一宁：无锡分公司</label>
-<label  style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
-<label  style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
-</view>
-<image  style='height:70%;width:100%;margin-left:0%;'  src='../imgs/dt.png'></image>
-</view>
-<view style='background:red;height:4px' ></view>
-
-<!-- 分公司排行榜 -->
+  </view>
 
 
-<view  style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
+  <!-- 个人排行榜 -->
 
-<view class='layout_horizontal' style='margin-top:5px;' >
-<button style='background:#e97118;width:10px;height:20px;margin-left:1%' ></button>
-<label  style='font-size:20px;width:100%;height:20px;margin-left:10px'>分公司排行榜</label>
-</view>
-<view class='layout_horizontal' style="width:100%;height:200px)">
- <view style='margin-top:110px;height:200px;width:30%'>
-<image  style='height:50%;width:100%;'  src='../imgs/img01_38.png'></image>
-</view>
-<view style='height:200px;width:15%'>
-<progress   style='margin-top:153px;margin-left:0%;width:100%' percent="100"  active='true' />
-</view>
-
-<view style='margin-top:14px;height:200px;width:1.5%' >
-<progress   style='margin-top:30px' stroke-width='210' percent="100"  active='true' />
-</view>
+  <view style="width:100%;background:black;margin-top:2%;height:200px;background-image: url('../imgs/img1.jpg')">
+    <view class='layout_horizontal '>
+      <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
+      <label style='font-size:30rpx;width:100%;height:20px;margin-left:10px'>个人排行榜</label>
+    </view>
 
 
-<view style='margin-top:40px;height:200px;width:58%' >
-<progress   style='margin-top:4px' stroke-width='5' percent="90"  active='true' />
-<view class='layout_vertical'>
-<text style='font-size: 15px; margin-left: 20%;'>沈阳</text> 
-<text style='font-size: 15px;margin-left: 20%'>总积分:12000</text> 
-</view>
+    <view class="image-parent">
 
-<progress   style='margin-top:62px;' stroke-width='5' percent="60"  active='true' />
-<view class='layout_vertical'>
-<text style='font-size: 15px;margin-left: 20%'>沈阳</text> 
-<text style='font-size: 15px;margin-left: 20%'>总积分:12000</text> 
-</view>
-<progress   style='margin-top:50px' stroke-width='5' percent="30"  active='true' />
-<view class='layout_vertical'>
-<text style='font-size: 15px;margin-left: 20%'>沈阳</text> 
-<text style='font-size: 15px;margin-left: 20%'>总积分:12000</text> 
-</view>
-</view>
+      <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:24%;opacity:0'>
+        <text class="init" animation="{{slide1}}" style='margin-top:30%;font-size:20rpx;'>夷陵老祖-积分:9990000</text>
+        <progress class="init" animation="{{slide1}}" stroke-width='2' percent="100" active='true' />
+      </view>
+
+      <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:45%;margin-top:13%;opacity:0'>
+        <label style='font-size:20rpx;'>墨香铜臭-积分:9990000</label>
+        <progress stroke-width='2' percent="100" active='true' />
+      </view>
+
+      <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:65%;margin-top:25%;opacity:0'>
+        <text style='margin-top:35%;font-size:20rpx;'>蓝忘机-积分:9990000</text>
+        <progress class='child1' stroke-width='2' percent="100" active='true' />
+      </view>
+
+      <canvas canvas-id="canvasLine" class="canvas1" style='position: relative;'>
+        <image class="init" animation="{{slide_up1}}" style='width:20%;height:72%;margin-left:20%;margin-top:70%;position: absolute' src='../imgs/a1.png'></image>
+        <image animation="{{slide_up2}}" style='width:20%;height:72%;margin-left:43%;margin-top:70%;position: absolute' src='../imgs/a2.png'></image>
+        <image animation="{{slide_up3}}" style='width:20%;height:72%;margin-left:65%;margin-top:70%;position: absolute' src='../imgs/a3.png'></image>
+      </canvas>
+    </view>
+
+  </view>
+  <view style='background:red;height:4px'></view>
+
+  <!-- 工作室排行榜 -->
+
+  <view class='gongzuoshi' style="background-image: url('../imgs/img5.png');">
+    <view class='layout_horizontal '>
+      <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
+      <label style='font-size:30rpx;width:100%;height:20px;margin-left:10px'>工作室排行榜</label>
+    </view>
+
+    <!-- 
+<image  style='height:30%;width:10%;margin-left:18%;margin-top:10%'  src='../imgs/tim111g.GIF'></image>
+<image  style='height:30%;width:10%;margin-left:15%'  src='../imgs/tim111g.GIF'></image>
+<image  style='height:30%;width:10%;margin-left:18%'  src='../imgs/tim111g.GIF'></image> -->
 
 
-</view>
-</view>
+    <view style="width:100%;height:80%;text-align:center;">
+      <image class="init" animation="{{slide1}}" style='height:90%;width:100%;opacity:0' src='../imgs/jt.png'></image>
+    </view>
+
+    <view class='layout_horizontal' style='text-align:center;'>
+      <label style='font-size:20rpx;width:20%;height:20px;margin-left:8%;margin-top:-5px'>无锡分公司</label>
+      <label style='font-size:20rpx;width:20%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
+      <label style='font-size:20rpx;width:30%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
+    </view>
+  </view>
+
+  <view style='background:red;height:4px'></view>
+  <!-- 服务中心排行榜 -->
+
+  <view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
+
+    <view class='layout_horizontal' style='margin-top:5px;'>
+      <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
+      <label style='font-size:20px;width:100%;height:20px;margin-left:10px'>服务中心排行榜</label>
+    </view>
+    <view class='layout_vertical' style='margin-top:10px'>
+      <label style='font-size:15px;width:100%;height:20px;margin-left:30px;'>第一宁：无锡分公司</label>
+      <label style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
+      <label style='font-size:15px;width:100%;height:20px;margin-left:30px'>第一宁：无锡分公司</label>
+    </view>
+    <image style='height:70%;width:100%;margin-left:0%;' src='../imgs/dt.png'></image>
+  </view>
+  <view style='background:red;height:4px'></view>
+
+  <!-- 分公司排行榜 -->
+
+
+  <view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
+
+    <view class='layout_horizontal' style='margin-top:5px;'>
+      <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
+      <label style='font-size:20px;width:100%;height:20px;margin-left:10px'>分公司排行榜</label>
+    </view>
+    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="touchHandler"></canvas>
+  </view>
 
 
 </view>
