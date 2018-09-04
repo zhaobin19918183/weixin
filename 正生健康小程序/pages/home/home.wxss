@@ -87,7 +87,7 @@ swiper-item image {
 .butTopThree
 {
 
- margin-left: 0px;
+ margin-left: 23%;
  width: 30%;
  height: 80px;
  font-size: 0.7rem;
@@ -276,3 +276,23 @@ border: none;
   color: royalblue
 }
 
+/* .anim
+{width:120px; 
+height:120px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin-top: -60px; 
+margin-left: -60px; 
+-webkit-animation: auto-circle 0.5s step-end infinite; 
+display: none;
+}
+ @-webkit-keyframes auto-circle
+ {
+    0%{background-image:url(../imgs/gif1/1.jpg);} 
+    20%{background-image:url(../imgs/gif1/2.jpg);}
+    40%{background-image:url(../imgs/gif1/3.jpg);} 
+    60%{background-image:url(../imgs/gif1/4.jpg);}
+    80%{background-image:url(../imgs/gif1/5.jpg);} 
+    100%{background-image:url(../imgs/gif1/6.jpg);} 
+   } */

@@ -16,38 +16,43 @@
         </button>
         <label class='label1'>{{itemName.message}}</label>
       </view>
-    </view>
+ </view>
     <!-- 签到 -->
 
-    <view class='layout_horizontal'>
-
-
-      <image src='../imgs/gif1/1.jpg' style='width:80px;height:80px;background;'></image>
-      <view class='layout_vertical'>
-
+<view class='layout_horizontal' style="background-image: url('../imgs/img1.jpg')">
+    
+      <!-- <image src='../imgs/gif1/1.jpg' style='width:100px;height:80px;background;'></image> -->
+      <image  style='width:100px;height:80px;' src="{{imgeUrlAni}}" animation="{{animationData}}"></image>
+      <view class='layout_vertical' style='width:50%'>
         <button class='qiandao'>每日签到</button>
         <button class='qiandao1'>Daily check-in</button>
       </view>
-    </view>
+       <button class='butTopThree' bindtap='showview'></button>
+</view>
 
-    <view class="bg" bindtap='hideview' style='display:{{display}}'></view>
+<view class='layout_horizontal' style="background:yellow;height:200px;background-image: url('../imgs/img1.jpg')" >
+<image src='../imgs/you.png' style='margin-top:10%;margin-left:5%;width:30%;height:25%'></image>
+<text style='margin-top:13%;width:30%;height:25%'>我要参与</text>
+<image src='../imgs/zuo.png' style='margin-top:10%;width:30%;height:25%'></image>
+</view>
+
+
+<view class="bg" bindtap='hideview' style='display:{{display}}'>
+</view>
     <view class="show" bindtap='hideview' style='display:{{display}}'>申请成功
       <view class='txt'>您的密码为:123456</view>
     </view>
 
     <view class='{{show_centent?"butTopTwo":"butTopOne"}} '>
       <view class='layout_horizontal' style='width:375px;height:600px'>
-        <button class='butTopThree' bindtap='showview'></button>
-
       </view>
     </view>
 
 
-  </view>
-
+ </view>
+ <!-- 我要参与 -->
 
   <!-- 个人排行榜 -->
-
   <view style="width:100%;background:black;margin-top:2%;height:200px;background-image: url('../imgs/img1.jpg')">
     <view class='layout_horizontal '>
       <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
@@ -81,21 +86,12 @@
 
   </view>
   <view style='background:red;height:4px'></view>
-
   <!-- 工作室排行榜 -->
-
   <view class='gongzuoshi' style="background-image: url('../imgs/img5.png');">
     <view class='layout_horizontal '>
       <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
       <label style='font-size:30rpx;width:100%;height:20px;margin-left:10px'>工作室排行榜</label>
     </view>
-
-    <!-- 
-<image  style='height:30%;width:10%;margin-left:18%;margin-top:10%'  src='../imgs/tim111g.GIF'></image>
-<image  style='height:30%;width:10%;margin-left:15%'  src='../imgs/tim111g.GIF'></image>
-<image  style='height:30%;width:10%;margin-left:18%'  src='../imgs/tim111g.GIF'></image> -->
-
-
     <view style="width:100%;height:80%;text-align:center;">
       <image class="init" animation="{{slide1}}" style='height:90%;width:100%;opacity:0' src='../imgs/jt.png'></image>
     </view>
@@ -106,10 +102,8 @@
       <label style='font-size:20rpx;width:30%;height:20px;margin-left:10%;margin-top:-5px'>无锡分公司</label>
     </view>
   </view>
-
   <view style='background:red;height:4px'></view>
   <!-- 服务中心排行榜 -->
-
   <view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
 
     <view class='layout_horizontal' style='margin-top:5px;'>
@@ -124,10 +118,7 @@
     <image style='height:70%;width:100%;margin-left:0%;' src='../imgs/dt.png'></image>
   </view>
   <view style='background:red;height:4px'></view>
-
   <!-- 分公司排行榜 -->
-
-
   <view style="width:100%;margin-top:2%;height:300px;background-image: url('../imgs/img5.png')">
 
     <view class='layout_horizontal' style='margin-top:5px;'>
@@ -136,6 +127,5 @@
     </view>
     <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="touchHandler"></canvas>
   </view>
-
 
 </view>

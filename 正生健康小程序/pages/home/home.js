@@ -6,7 +6,7 @@ var canvasWidth = 0;
 var canvasHeight = 0;
 var areaChart = null;
 var deviceHeight = false;
-
+var imgeUrlAni= ""
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
 
@@ -39,7 +39,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    imgeUrlAni:"../imgs/gif1/1.jpg",
+    animationData: {},
     show_centent: false,
     if_show: false,
     flag: true,
@@ -221,6 +222,40 @@ Page({
    */
   onShow: function() {
     
+    var animation = wx.createAnimation({
+      duration: 1000,
+      timingFunction: 'ease',
+    })
+    this.animation = animation
+    this.setData({
+      animationData: animation.export()
+    })
+    var n = 0;
+    var m = true;
+    //连续动画需要添加定时器,所传参数每次+1就行
+    setInterval(function () {
+      n = n + 1;
+      console.log(n);
+      if (m) {
+        this.setData({
+          imgeUrlAni: "../imgs/gif1/{{n}}.jpg",
+        })
+        // this.animation.scale(1.2, 1.2).step()
+        m = !m;
+      } else {
+        imgeUrlAni: "../imgs/gif1/{{n}}.jpg",
+        // this.animation.scale(1, 1).step()
+        m = !m;
+      }
+      
+
+      this.setData({
+        animationData: this.animation.export()
+      })
+    }.bind(this), 2000)
+
+
+
     var that = this;
     
     setTimeout(function () {
