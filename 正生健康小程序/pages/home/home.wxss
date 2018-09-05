@@ -1,9 +1,11 @@
 /* pages/home/home.wxss */
 @import '../../utils/all.wxss';
 .canvas {
-    width: 100%;
-    height: 200px;
-    margin-top: 60px
+  
+    height: 220px;
+    width:100%;
+    margin-top: 30px
+
     
 }
 .canvas1 {
@@ -88,9 +90,9 @@ swiper-item image {
 
 .butTopThree
 {
-
- margin-left: 23%;
- width: 30%;
+ margin-top: 2%;
+ margin-left: 60%;
+ width: 40%;
  height: 80px;
  font-size: 0.7rem;
  color: white;
@@ -145,8 +147,6 @@ swiper-item image {
 {
  width: 65px;
  height: 65px;
-
-
  border-radius: 150px;
 
 }
@@ -204,8 +204,8 @@ border: none;
 .gongzuoshi{
  
 
-    width:100%;
-    height:240px;
+    
+    height:220px;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
 
@@ -214,7 +214,7 @@ border: none;
 
 .image-parent {
   height: 100%; 
-  position: relative;
+  /* position: relative; */
   
 }
 
@@ -246,10 +246,11 @@ border: none;
   position: fixed;
   display: none;
   /* position: absolute; */
-  top: 0%;
-  left: 20%;
-  width: 80%;
-  height: 100%;
+  top: 5%;
+  right: 5%;
+  left: 5%;
+  width: 90%;
+  height: 56%;
   background-color: orange;
   z-index: 1001;
  
