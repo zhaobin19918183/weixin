@@ -8,6 +8,7 @@ var areaChart = null;
 var deviceHeight = false;
 var imgeUrlAni = ""
 var imgeUrlAni2 = ""
+var imgeUrlAni1 = ""
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
 
@@ -40,8 +41,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgeUrlAni: "../imgs/gif1/1.jpg",
-    imgeUrlAni2: "../imgs/gif2/1.png",
+
+  
     animationData: {},
     show_centent: false,
     if_show: false,
@@ -103,7 +104,6 @@ Page({
 
   onLoad: function(e) {
 
-
     var windowWidth = 320;
 
     try {
@@ -112,8 +112,6 @@ Page({
     } catch (e) {
       console.error('getSystemInfoSync failed!');
     }
-
-
     areaChart = new wxCharts({
       canvasId: 'areaCanvas',
       type: 'area',
@@ -160,7 +158,7 @@ Page({
 
 
     var that = this;
-    console.log("123456" + e.id)
+    
     if (e.id) {
       wx.showModal({
         title: "上传服务器",
@@ -215,12 +213,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    console.log(123456789)
+    
 
 
   },
   // 动图实现方法
   animationFunc: function() {
+   
     var animation = wx.createAnimation({
       duration: 1,
       timingFunction: 'ease',
@@ -231,22 +230,29 @@ Page({
     })
     var n = 0;
     var k = 0;
+    var b = 0;
     var m = true;
     //连续动画需要添加定时器,所传参数每次+1就行
     setInterval(function() {
+      b = b + 1;
       n = n + 1;
       k = k + 1;
-      console.log(k);
       if (m) {
         this.setData({
           imgeUrlAni: "../imgs/gif1/" + n + ".jpg",
           imgeUrlAni1: "../imgs/gif2/" + k + ".png",
+          imgeUrlAni2: "../imgs/gif2/" + k + ".png",
+          
         })
+        console.log(b)
         if (k > 6) {
           k = 0
         }
         if (n > 12) {
           n = 0
+        }
+        if (b > 1) {
+          b = 0
         }
         m = !m;
       } else {
@@ -262,20 +268,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-
+    console.log("onShow")
     var that = this;
     that.animationFunc()
 
     setTimeout(function() {
       app.show(that, 'slide1', 1)
+    
 
     }.bind(this), 2000);
 
     wx.getSystemInfo({
       success: function(res) {
-
-        console.log(res.windowHeight);
         setTimeout(function() {
           app.slideupshow(that, 'slide_up1', -res.windowHeight / 2.6, 1)
 
@@ -331,25 +335,18 @@ Page({
   },
   onReady: function() {
 
-    // var context = wx.createContext();//创建并返回绘图上下文context对象。
-    // context.beginPath();//开始一个新的路径
-    // context.moveTo(50, 0);//路径的起点
-    // context.lineTo(50, 150);//路径的起点
-    // context.lineTo(350, 150);//路径的终点
-    // context.stroke();//对当前路径进行描边
-    // context.closePath();//关闭当前路径
-    // wx.drawCanvas({//
-    //   canvasId: 'canvasLine',//画布标识，对应的cavas-id
-    //   actions: context.getActions()//导出context绘制的直线并显示到页面
-
-    // });
 
   },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    var that = this
+    app.show(that, 'slide1', 0)
+    app.slideupshow(that, 'slide_up1', 200, 1)
+    app.slideupshow(that, 'slide_up2', 200, 1)
+    app.slideupshow(that, 'slide_up3', 300, 1)
+    
   },
 
   /**

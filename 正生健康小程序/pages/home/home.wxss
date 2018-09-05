@@ -3,7 +3,7 @@
 .canvas {
   
     height: 220px;
-    width:100%;
+    width: 90%;
     margin-top: 30px
 
     
@@ -245,7 +245,6 @@ border: none;
 .bg {
   position: fixed;
   display: none;
-  /* position: absolute; */
   top: 5%;
   right: 5%;
   left: 5%;
@@ -253,8 +252,7 @@ border: none;
   height: 56%;
   background-color: orange;
   z-index: 1001;
- 
-  filter: alpha(opacity=70);
+
 }
  
 .show {

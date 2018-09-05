@@ -6,9 +6,8 @@
       <image src="{{item}}" />
     </swiper-item>
   </swiper>
-
-  <view style="height:200px;text-align:center;">
-    <!-- 顶部四个按钮 -->
+ <!-- 顶部四个按钮 -->
+ <view style="height:200px;text-align:center;">
     <view style=" display:flex;text-align:center">
       <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:19%;'>
         <button class='firstB' id='{{itemName.id}}' bindtap="">
@@ -16,7 +15,7 @@
         </button>
         <label class='label1'>{{itemName.message}}</label>
       </view>
-    </view>
+ </view> 
 <!-- 签到 -->
   <view class='layout_horizontal' style='margin-top:2%;box-shadow:0px 0px 3px 3px gray'>
 
@@ -25,9 +24,8 @@
         <button class='qiandao' style='font-size:40rpx'>每日签到</button>
         <button class='qiandao1'>Daily check-in</button>
       </view>
-
       <button class='butTopThree' bindtap='showview' style='position: absolute'>
-        <image style='margin-top:10%;width:35px;height:50px;position: absolute;margin-left:-30%' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
+        <image style='background:white;width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
         <view class='layout_vertical' style='margin-left:80%'>
           <text style='font-size:25rpx'>活</text>
           <text style='font-size:25rpx;margin-top:-50%'>动</text>
@@ -35,18 +33,19 @@
           <text style='font-size:25rpx;margin-top:-50%'>则</text>
         </view>
       </button>
+     <image src='../imgs/you.png' style='margin-left:25%;width:13%;height:4%;margin-top:25%;position: absolute'></image>
+    <button style='font-size:25rpx;position: absolute;margin-left:38%;width:25%;height:4%;margin-top:25%;'>我要参与</button>
+    <image src='../imgs/zuo.png' style='margin-left:62%;width:13%;height:4%;position: absolute;margin-top:25%;'></image>
     </view>
-
-
-    <image src='../imgs/you.png' style='margin-left:20%;width:13%;height:4%;margin-top:25%;position: absolute'></image>
-    <text style='font-size:30rpx;position: absolute;margin-left:35%;width:30%;height:6%;margin-top:25%;'>我要参与</text>
-    <image src='../imgs/zuo.png' style='margin-left:65%;width:13%;height:4%;position: absolute;margin-top:25%;'></image>
-
-    <view class="bg" bindtap='hideview' style='display:{{display}};position: absolute'>
+   <!-- 活动规则 -->
+    <view class="bg" bindtap='hideview' style='display:{{display}};'>
+    <button style='font-size:25rpx;background:white;'>返回</button>
+    
     </view>
 
     <image src='../imgs/img2.png' style='position: relative；display: block;width:100%;;height:100%'></image>
   </view>
+
   <!-- 个人排行榜 -->
   <view style="margin-top:2%;height:220px;box-shadow:0px 0px 3px 3px gray;">
     <view class='layout_horizontal ' style='position: absolute'>
@@ -87,10 +86,6 @@
     <image style='margin-left:45%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
 
     <image style='margin-top:18%;margin-left:70%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
-
-    <!-- <view style="height:160px;text-align:center;position: absolute;margin-left:10%;margin-right:10%;width:80%;background:red;margin-top:7%">1
-      
-    </view> -->
     <image class="init" animation="{{slide1}}" style='hopacity:0;height:160px;text-align:center;position: absolute;margin-left:10%;margin-right:10%;width:80%;margin-top:7%' src='../imgs/jt.png'></image>
     <view class='layout_horizontal' style='position: absolute;margin-top:50%;margin-left:5%;'>
       <label style='font-size:20rpx;width:100px;height:20px;margin-left:15%;'>无锡分公司</label>
@@ -103,7 +98,6 @@
   </view>
   <!-- 服务中心排行榜 -->
   <view class='' style="margin-top:2%;height:300px;">
-
     <view class='layout_horizontal' style='margin-top:5px;position: absolute;'>
       <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
       <label style='font-size:30rpx;height:20px;width:150px;margin-left:5px'>服务中心排行榜</label>
@@ -118,7 +112,6 @@
     <button style='font-size:20rpx;position: absolute;margin-top:55%;margin-top:55%'>杭州分公司 9990000</button>
     <image style='position: absolute;;margin-left:10%;margin-top:15%;' src='../imgs/dt.png'></image>
     <image src='../imgs/img5.png' style='position: relative；display: block;width:100%;;height:100%'></image>
-
   </view>
   <!-- 分公司排行榜 -->
   <view style=";margin-top:2%;height:220px;;box-shadow:0px 0px 3px 3px gray;">
@@ -127,7 +120,7 @@
       <button style='background:#e97118;width:10px;height:20px;margin-left:1%'></button>
       <label style='font-size:30rpx;height:20px;width:150px'>分公司排行榜</label>
     </view>
-    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="touchHandler" style='margin-left:3%;position: absolute;'></canvas>
+    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="" style='margin-left:3%;position: absolute;'></canvas>
     <image src='../imgs/img8.jpg' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>
 
