@@ -250,7 +250,7 @@ border: none;
   left: 5%;
   width: 90%;
   height: 56%;
-  background-color: orange;
+  background-color: #fca464;
   z-index: 1001;
 
 }
