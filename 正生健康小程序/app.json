@@ -5,8 +5,8 @@
     "pages/troops/troops",
     "pages/clockIn/clockIn",
     "pages/report/report",
-    "pages/rankList/rankList"
-  
+    "pages/rankList/rankList",
+    "pages/my/myData"
   ],
   "window": {
     "backgroundTextStyle": "light",

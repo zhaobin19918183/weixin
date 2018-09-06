@@ -1,0 +1,72 @@
+<!-- 顶部 -->
+  <view style='background:red;width:100%;height:170px;box-shadow:0px 0px 3px 3px gray'>
+    <image class="userinfo-avatar" style='position: absolute' src="{{userInfo.avatarUrl}}"></image>
+    <text class="userinfo-nickname" style='position: absolute'>{{userInfo.nickName}}</text>
+    <image class='qiandao1' src="../imgs/persional/qiandao1.png"></image>
+    <view class='layout_horizontal2'>
+
+      <image class='dk03' src="../imgs/persional/dk03.png"></image>
+      <view class='layout_vertical dk031'>
+        <label style='text-align:center;color:black'>0</label>
+        <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
+      </view>
+
+
+      <image class='dk06' src="../imgs/persional/dk06.png"></image>
+      <view class='layout_vertical dk061 '>
+        <label style='text-align:center;color:black'>0</label>
+        <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
+      </view>
+
+
+      <image class='dk09' src="../imgs/persional/dk09.png"></image>
+      <view class='layout_vertical dk091'>
+        <label style='text-align:center;color:black'>0</label>
+        <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
+      </view>
+
+    </view>
+
+    <image src='../imgs/img5.png' style='position: relative；display: block;width:100%;height:100%'></image>
+    </view>
+
+<view style='background:red;width:100%;height:600px;box-shadow:0px 0px 3px 3px gray'>
+<text style='position: absolute;margin-left:10%;width:80%;text-align: center;'>我的工作室</text>
+<view class="table" style='position: absolute'>
+  <view class="tr bg-w">
+    <view class="th">我的工作室</view>
+    <view class="th">正生集团</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{code}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.text}}</view>
+      
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.text}}</view>
+      
+    </view>
+  </block>
+
+
+</view>
+<text style='position: absolute;margin-left:10%;width:80%;text-align: center;margin-top:60%;'>打卡情况</text>
+
+ <scroll-view scroll-y="true" class='tableview'>
+          <!-- <view wx:for="{{arrayTableData}}" wx:for-index="idx" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+            
+        
+          </view> -->
+          
+        </scroll-view>
+
+<image src='../imgs/img5.png' style='position: relative；display: block;width:100%;height:100%'></image>
+</view>
+
+
+<view style='width:100%;height:170px;box-shadow:0px 0px 3px 3px gray'>
+
+ <image src='../imgs/img5.png' style='position: relative；display: block;width:100%;height:100%;box-shadow:0px 0px 3px 3px gray'></image>
+</view>
