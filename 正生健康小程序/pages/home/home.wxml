@@ -9,8 +9,8 @@
 
    <!-- 活动规则 -->
     <view class="bg" bindtap='hideview' style='display:{{display}};'>
-      <button style='font-size:25rpx;margin-left:70%;white:20%'>返回</button>
-      <scroll-view scroll-y="true" style="height: 90%">
+      <button style='font-size:25rpx;margin-left:70%;white:20%;position: absolute'>返回</button>
+      <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
         <view class="scroll-y">
         <view style='text-align:center;'>
         <text tyle='font-size:40rpx; '>活动介绍</text>
@@ -34,6 +34,7 @@
           </view>
         </view>
       </scroll-view>
+      <image src='../imgs/background1.png'   style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>
     </view>
  <!-- 顶部四个按钮 -->
   <view style="height:200px;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
@@ -54,7 +55,7 @@
         <button class='qiandao1'>Daily check-in</button>
       </view>
       <button class='butTopThree' bindtap='showview' style='position: absolute'>
-        <image style='background:white;width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
+      <image style='width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
         <view class='layout_vertical' style='margin-left:80%'>
           <text style='font-size:25rpx'>活</text>
           <text style='font-size:25rpx;margin-top:-50%'>动</text>

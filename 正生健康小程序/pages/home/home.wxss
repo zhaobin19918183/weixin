@@ -238,13 +238,14 @@ border: none;
 }
 
 .bg {
+  border-radius: 20px;
   position: fixed;
   display: none;
-  top: 5%;
+  top: 20%;
   right: 5%;
   left: 5%;
   width: 90%;
-  height: 56%;
+  height: 60%;
   background-color: #fca464;
   z-index: 1001;
 

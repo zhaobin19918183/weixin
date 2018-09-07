@@ -113,7 +113,6 @@ Page({
   onLoad: function(e) {
 
     var windowWidth = 320;
-
     try {
       var res = wx.getSystemInfoSync();
       windowWidth = res.windowWidth;
@@ -153,20 +152,7 @@ Page({
       width: windowWidth,
       height: 200
     });
-
-
-
-    var windowWidth = 320;
-    try {
-      var res = wx.getSystemInfoSync();
-      windowWidth = res.windowWidth;
-    } catch (e) {
-      console.error('getSystemInfoSync failed!');
-    }
-
-
     var that = this;
-    
     if (e.id) {
       wx.showModal({
         title: "上传服务器",
@@ -175,7 +161,32 @@ Page({
       })
     }
 
-
+   if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
 
   },
   /**
@@ -209,8 +220,8 @@ Page({
       if (m) {
         this.setData({
           imgeUrlAni: "../imgs/gif1/" + n + ".jpg",
-          imgeUrlAni1: "../imgs/gif2/" + k + ".png",
-          imgeUrlAni2: "../imgs/gif2/" + k + ".png",
+          imgeUrlAni1: "../imgs/gif2/"+ k + ".png",
+          imgeUrlAni2: "../imgs/gif3/"+ b +  ".png",
           
         })
       
@@ -220,7 +231,7 @@ Page({
         if (n > 12) {
           n = 0
         }
-        if (b > 1) {
+        if (b > 4) {
           b = 0
         }
         m = !m;
@@ -240,13 +251,10 @@ Page({
     console.log("onShow")
     var that = this;
     that.animationFunc()
-
     setTimeout(function() {
       app.show(that, 'slide1',1)
     
-
     }.bind(this), 3000);
-
     wx.getSystemInfo({
       success: function(res) {
         setTimeout(function() {
@@ -264,12 +272,9 @@ Page({
       GetList(that);
   },
   showview: function() {
-
     var that = this;
     this.setData({
       display: "block",
-
-
     })
 
   },
@@ -352,9 +357,8 @@ Page({
   },
   getUserInfo: function(e) {
 
-    console.log(123456789)
     if (app.globalData.userInfo) {
-      console.log(456)
+
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -387,9 +391,9 @@ Page({
         }
       })
 
-      wx.navigateTo({
-        url: '../personal/personal'
-      })
+      // wx.navigateTo({
+      //   url: '../personal/personal'
+      // })
 
     }
 

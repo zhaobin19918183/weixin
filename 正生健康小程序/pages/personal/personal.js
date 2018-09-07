@@ -153,6 +153,7 @@ Page({
   },
 
   onShow: function(e) {
+    
     var that = this;
     GetList(that);
     GetTableVIewList(that);

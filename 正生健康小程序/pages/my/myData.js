@@ -39,7 +39,7 @@ Page({
     doubleColumnCanvasData: {
       canvasId: 'doubleColumn',
     },
-    doubleColumnTitle: "广告统计",
+    doubleColumnTitle: "总积分",
     doubleColumnUnit: [{
       color: "#13CE66",
       title: "展现量"
