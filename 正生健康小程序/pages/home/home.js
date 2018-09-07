@@ -242,10 +242,10 @@ Page({
     that.animationFunc()
 
     setTimeout(function() {
-      app.show(that, 'slide1', 1)
+      app.show(that, 'slide1',1)
     
 
-    }.bind(this), 2000);
+    }.bind(this), 3000);
 
     wx.getSystemInfo({
       success: function(res) {

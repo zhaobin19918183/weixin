@@ -376,6 +376,7 @@ Page({
     wx.navigateBack()
   },
   firstHome: function () {
+    console.log(11111111111111111111111)
     wx.navigateTo({
       url: '../home/home'
     })
