@@ -187,8 +187,7 @@ border: none;
 .tableview
 {
   margin-top: 2%;
-  background: gainsboro;
-  box-shadow:0px 0px 0px 3px gray
+ 
 
 }
 .label1
@@ -223,16 +222,19 @@ border: none;
     border-right: 2px solid #ddd;
     justify-content: center;
     text-align: center;
+     line-height: 57rpx;
 }
 .bg-w{
   
   background: snow;
 }
 .bg-g{
-  background: red;
+  line-height: 57rpx;
+  background: #ec5d2a;
   opacity:0.4
 }
 .th {
+  line-height: 57rpx;
   width: 50%;
   border-right: 2px solid #ddd;
   justify-content: center;

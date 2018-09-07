@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/index/index",
     "pages/personal/personal",
     "pages/troops/troops",
     "pages/clockIn/clockIn",
@@ -12,6 +13,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+    
   }
 }

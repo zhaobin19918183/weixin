@@ -52,3 +52,18 @@
   flex-direction: column;
   
 }
+.buttom{
+  width: 45px;
+  height:30px;
+  background:black;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom:10; 
+  font-size: 0.7rem;
+  text-align: center;
+  color: white;
+  opacity: 0.8;
+  line-height: 55rpx;
+
+}

@@ -42,8 +42,16 @@ Page({
    */
   data: {
 
-  
-    animationData: {},
+    // 组件所需的参数
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标
+      title: '慧吃慧动100天', //导航栏 中间的标题
+    },
+
+    // 此页面 页面内容距最顶部的距离
+    height: app.globalData.height * 2 + 40,
+
+
     show_centent: false,
     if_show: false,
     flag: true,
@@ -242,41 +250,18 @@ Page({
     wx.getSystemInfo({
       success: function(res) {
         setTimeout(function() {
-          app.slideupshow(that, 'slide_up1', -res.windowHeight / 2.6, 1)
+          app.slideupshow(that, 'slide_up1', -res.windowHeight / 2.8, 1)
 
         }.bind(that), 200);
         setTimeout(function() {
-          app.slideupshow(that, 'slide_up2', -res.windowHeight / 2.6, 1)
+          app.slideupshow(that, 'slide_up2', -res.windowHeight / 2.8, 1)
         }.bind(that), 400);
         setTimeout(function() {
-          app.slideupshow(that, 'slide_up3', -res.windowHeight / 2.6, 1)
+          app.slideupshow(that, 'slide_up3', -res.windowHeight / 2.8, 1)
         }.bind(that), 600);
       },
     })
-
-    //   
       GetList(that);
-
-    //   setTimeout(function() {
-    //     //要延时执行的代码
-    //     that.startDown();
-    //   }, 1000) //延迟)
-    //   setTimeout(function() {
-    //     //要延时执行的代码
-    //     that.startDown1();
-    //   }, 1500) //延迟)
-    // },
-    // startDown: function(e) {
-    //   this.setData({
-    //     isDown: true,
-    //     percent: 2,
-    //   })
-    // },
-    // startDown1: function(e) {
-    //   this.setData({
-    //     isDown1: true,
-    //     percent1: 50,
-    //   })
   },
   showview: function() {
 
@@ -414,10 +399,14 @@ Page({
   toPersonal: function(e) {
 
    
-  
     console.log(e.target.id)
    
   },
+  topfourbuttonaction:function(e)
+  {
+    console.log("顶部四个按钮点击排行榜"+e.target.id)
+  }
+  ,
   show: function() {
 
     this.setData({
@@ -433,7 +422,31 @@ Page({
       flag: true
     })
 
+  },
+  backAction:function()
+  {
+    wx.navigateBack()
+  },
+  firstHome:function()
+  {
+    wx.navigateTo({
+      url: '../home/home'
+    })
   }
+  ,
+  mydataAction:function()
+  {
+    wx.navigateTo({
+      url: '../my/myData'
+    })
+  }
+,
+pensonalAction:function()
+{
+  wx.navigateTo({
+    url: '../personal/personal'
+  })
+}
 
 
 

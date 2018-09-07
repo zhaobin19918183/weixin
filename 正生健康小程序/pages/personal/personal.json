@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "正生健康个人中心",
-    "navigationBarBackgroundColor": "#ec5d2a",
-    "navigationBarTextStyle": "white"
+  "usingComponents": {
+    "nav-bar": "../index/index"
+  }
 }

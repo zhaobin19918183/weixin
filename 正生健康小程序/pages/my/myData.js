@@ -6,9 +6,35 @@ var showCamera = false
 var rate = 0;
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
+var GetList = function (that) {
+  that.setData({
+    arrayData: [{
+      imgurl: "../imgs/dt.png",
+      id: 1
+    }, {
+        imgurl: "../imgs/dt.png",
+      id: 2
+    }, {
+        imgurl: "../imgs/dt.png",
+      id: 3
+    }, {
+        imgurl: "../imgs/dt.png",
+      id: 4
+    }
 
+    ]
+  })
+}
 Page({
   data: {
+
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标
+      title: '慧吃慧动100天', //导航栏 中间的标题
+    },
+
+    // 此页面 页面内容距最顶部的距离
+    height: app.globalData.height * 2 + 40,
 
     doubleColumnCanvasData: {
       canvasId: 'doubleColumn',
@@ -79,7 +105,8 @@ Page({
   },
 
   onShow: function (e) {
-  
+    var that = this;
+    GetList(that);
   },
   onShareAppMessage: function (res) {
     return {
@@ -343,6 +370,27 @@ Page({
     point3.title = Math.floor(avg) * 3;
     yAxisData.push(point3);
     return yAxisData;
+  }
+  ,
+  backAction: function () {
+    wx.navigateBack()
+  },
+  firstHome: function () {
+    wx.navigateTo({
+      url: '../home/home'
+    })
+  }
+  ,
+  mydataAction: function () {
+    wx.navigateTo({
+      url: '../my/myData'
+    })
+  }
+  ,
+  pensonalAction: function () {
+    wx.navigateTo({
+      url: '../personal/personal'
+    })
   }
 
 
