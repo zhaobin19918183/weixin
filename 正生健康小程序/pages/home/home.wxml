@@ -9,7 +9,7 @@
 
    <!-- 活动规则 -->
     <view class="bg" bindtap='hideview' style='display:{{display}};'>
-      <button style='font-size:25rpx;margin-left:70%;white:20%;position: absolute'>返回</button>
+      <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;background-image:url(../imgs/guanbi.png);'></image>
       <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
         <view class="scroll-y">
         <view style='text-align:center;'>
