@@ -1,6 +1,6 @@
 /**index.wxss**/
 @import '../../utils/all.wxss';
-
+@import "/wxSearch/wxSearch.wxss";
 .userinfo-avatar {
   width: 168rpx;
   height: 168rpx;

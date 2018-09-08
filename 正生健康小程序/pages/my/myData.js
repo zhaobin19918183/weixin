@@ -1,30 +1,126 @@
 //index.js
 //获取应用实例
+var WxSearch = require('../../wxSearch/wxSearch.js')
 const app = getApp()
 var showAdverst = true
 var showCamera = false
 var rate = 0;
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
-var GetList = function (that) {
+var GetTableVIewList = function (that) {
+
   that.setData({
-    arrayData: [{
-      imgurl: "../imgs/dt.png",
+    arrayTableData: [{
+      message: '分公司排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 16000,
       id: 1
     }, {
-        imgurl: "../imgs/dt.png",
+      message: '服务中心排行榜',
+      imgurl: "../imgs/img01_07.png",
+      numberData: 16000,
       id: 2
     }, {
-        imgurl: "../imgs/dt.png",
+      message: '工作室排行榜',
+      imgurl: "../imgs/img01_09.png",
+      numberData: 16000,
       id: 3
     }, {
-        imgurl: "../imgs/dt.png",
+      message: '个人排行榜',
+      imgurl: "../imgs/img01_11.png",
+      numberData: 16000,
       id: 4
     }
 
     ]
   })
 }
+var GetTableVIewList2 = function (that) {
+
+  that.setData({
+
+    arrayTableData: [{
+      message: '服务在中心1排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 1
+    },
+    {
+      message: '服务在中心2排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 2
+    }, {
+      message: '服务在中心3排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 3
+    }, {
+      message: '服务在中心4排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    },
+    {
+      message: '服务在中心5排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    },
+    {
+      message: '服务在中心6排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    }
+
+    ]
+  })
+}
+var GetList = function (that) {
+
+  that.setData({
+    arrayData: [{
+      message: '分公司排行榜',
+      imgurl: "../imgs/img01_05.png",
+      id: 1
+    }, {
+      message: '服务中心排行榜',
+      imgurl: "../imgs/img01_07.png",
+      id: 2
+    }, {
+      message: '工作室排行榜',
+      imgurl: "../imgs/img01_09.png",
+      id: 3
+    }, {
+      message: '个人排行榜',
+      imgurl: "../imgs/img01_11.png",
+      id: 4
+    }
+
+    ]
+
+  })
+}
+// var GetList = function (that) {
+//   that.setData({
+//     arrayData: [{
+//       imgurl: "../imgs/dt.png",
+//       id: 1
+//     }, {
+//         imgurl: "../imgs/dt.png",
+//       id: 2
+//     }, {
+//         imgurl: "../imgs/dt.png",
+//       id: 3
+//     }, {
+//         imgurl: "../imgs/dt.png",
+//       id: 4
+//     }
+
+//     ]
+//   })
+// }
 Page({
   data: {
 
@@ -107,7 +203,22 @@ Page({
   onShow: function (e) {
     var that = this;
     GetList(that);
+    GetTableVIewList(that);
   },
+  panghangbang: function (e) {
+    console.log(e.target.id)
+
+    if (e.target.id == 1) {
+      var that = this;
+      GetTableVIewList(that);
+    }
+    if (e.target.id == 2) {
+      var that = this;
+      GetTableVIewList2(that);
+    }
+
+  },
+  
   onShareAppMessage: function (res) {
     return {
       title: '成都多普力-新能源交通领域专业配套服务商',
