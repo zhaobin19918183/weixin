@@ -409,6 +409,9 @@ Page({
   topfourbuttonaction:function(e)
   {
     console.log("顶部四个按钮点击排行榜"+e.target.id)
+    wx.navigateTo({
+      url: '../rankList/rankList'
+    })
   }
   ,
   show: function() {

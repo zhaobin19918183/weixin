@@ -1,123 +1,96 @@
 // pages/rankList/rankList.js
 // pages/home/home.js
 var app = getApp()
-var url = "http://www.imooc.com/course/ajaxlist";
-var page = 0;
-var page_size = 20;
-var sort = "last";
-var is_easy = 0;
-var lange_id = 0;
-var pos_id = 0;
-var unlearn = 0;
-11
-import drawQrcode from '../../utils/weapp.qrcode.esm.js'
-// 获取数据的方法，具体怎么获取列表数据大家自行发挥
-var GetLis1t = function (that) {
+var GetTableVIewList = function (that) {
+
   that.setData({
-    hidden: false
-  });
-  wx.request({
-    url: url,
-    data: {
-      page: page,
-      page_size: page_size,
-      sort: sort,
-      is_easy: is_easy,
-      lange_id: lange_id,
-      pos_id: pos_id,
-      unlearn: unlearn
-
-    },
-    success: function (res) {
-      //console.info(that.data.list);
-      var list = that.data.list;
-      for (var i = 0; i < res.data.list.length; i++) {
-        list.push(res.data.list[i]);
-
-      }
-      that.setData({
-        list: list
-
-      });
-      page++;
-      that.setData({
-        hidden: true
-
-      });
+    arrayTableData: [{
+      message: '分公司排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 16000,
+      id: 1
+    }, {
+      message: '服务中心排行榜',
+      imgurl: "../imgs/img01_07.png",
+      numberData: 16000,
+      id: 2
+    }, {
+      message: '工作室排行榜',
+      imgurl: "../imgs/img01_09.png",
+      numberData: 16000,
+      id: 3
+    }, {
+      message: '个人排行榜',
+      imgurl: "../imgs/img01_11.png",
+      numberData: 16000,
+      id: 4
     }
 
-  });
+    ]
+  })
+}
+var GetTableVIewList2 = function (that) {
 
+  that.setData({
+
+    arrayTableData: [{
+      message: '服务在中心1排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 1
+    },
+    {
+      message: '服务在中心2排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 2
+    }, {
+      message: '服务在中心3排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 3
+    }, {
+      message: '服务在中心4排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    },
+    {
+      message: '服务在中心5排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    },
+    {
+      message: '服务在中心6排行榜',
+      imgurl: "../imgs/img01_05.png",
+      numberData: 17000,
+      id: 4
+    }
+
+    ]
+  })
 }
 var GetList = function (that) {
-  console.log("asdfgyj")
+
   that.setData({
     arrayData: [{
-      message: 'foo1111',
+      message: '分公司排行榜',
+      imgurl: "../imgs/img01_05.png",
+      id: 1
     }, {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
+      message: '服务中心排行榜',
+      imgurl: "../imgs/img01_07.png",
+      id: 2
     }, {
-      message: 'bar22222'
+      message: '工作室排行榜',
+      imgurl: "../imgs/img01_09.png",
+      id: 3
+    }, {
+      message: '个人排行榜',
+      imgurl: "../imgs/img01_11.png",
+      id: 4
     }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }
-      , {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }, {
-      message: 'bar22222'
-    }
-
 
     ]
   })
@@ -128,16 +101,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: ''
+    // 组件所需的参数
+    nvabarData: {
+      showCapsule: 1, //是否显示左上角图标
+      title: '慧吃慧动100天', //导航栏 中间的标题
+    },
+
+    // 此页面 页面内容距最顶部的距离
+    height: app.globalData.height * 2 + 40,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      title: options.id
-    }) 
+   
   },
 
   /**
@@ -150,9 +128,26 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (e) {
     var that = this;
     GetList(that);
+    GetTableVIewList(that);
+
+   
+  }
+  ,
+  panghangbang: function (e) {
+    console.log(e.target.id)
+
+    if (e.target.id == 1) {
+      var that = this;
+      GetTableVIewList(that);
+    }
+    if (e.target.id == 2) {
+      var that = this;
+      GetTableVIewList2(that);
+    }
+
   },
 
   /**
@@ -188,5 +183,27 @@ Page({
    */
   onShareAppMessage: function () {
   
+  }
+  , 
+  backAction: function () {
+    wx.navigateBack()
+  },
+  firstHome: function () {
+    console.log(11111111111111111111111)
+    wx.navigateTo({
+      url: '../home/home'
+    })
+  }
+  ,
+  mydataAction: function () {
+    wx.navigateTo({
+      url: '../my/myData'
+    })
+  }
+  ,
+  pensonalAction: function () {
+    wx.navigateTo({
+      url: '../personal/personal'
+    })
   }
 })
