@@ -207,13 +207,23 @@ Page({
     GetTableVIewList(that);
   },
   onShareAppMessage: function (res) {
+    wx.login({
+      success: function (res) {
+        
+        var code = res.code; //返回code
+        console.log("code === " + code );
+
+      }
+    })
+    console.log(app.globalData.userInfo)
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
-      path: '/pages/share/share?id=13624249960',
+      path: '/pages/share/share?id=',
       imageUrl: '../imgs/background1.png',
       success: function (res) {
         // 转发成功
+
         console.log("转发成功")
         wx.showToast({
           title: '转发成功',
@@ -223,6 +233,7 @@ Page({
       },
       fail: function (res) { // 转发失败
         console.log("转发失败")
+        
       }
     }
   },
