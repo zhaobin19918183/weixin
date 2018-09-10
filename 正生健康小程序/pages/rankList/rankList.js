@@ -1,6 +1,8 @@
 // pages/rankList/rankList.js
 // pages/home/home.js
+
 var app = getApp()
+var WxSearch = require('../../wxSearch/wxSearch.js')
 var GetTableVIewList = function (that) {
 
   that.setData({
@@ -109,14 +111,56 @@ Page({
 
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    var data = options.id;
+    console.log('onLoad===' + data)
+    var that = this
+    //初始化的时候渲染wxSearchdata
+    WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
+    WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
+  wxSearchFn: function (e) {
+
+    var that = this
+    console.log(that.data.wxSearchData.value)
+    WxSearch.wxSearchAddHisKey(that);
+
+  },
+  wxSearchInput: function (e) {
+    var that = this
+    WxSearch.wxSearchInput(e, that);
+  },
+  wxSerchFocus: function (e) {
+    var that = this
+    WxSearch.wxSearchFocus(e, that);
+  },
+  wxSearchBlur: function (e) {
+    var that = this
+    WxSearch.wxSearchBlur(e, that);
+  },
+  wxSearchKeyTap: function (e) {
+    var that = this
+    WxSearch.wxSearchKeyTap(e, that);
+  },
+  wxSearchDeleteKey: function (e) {
+    var that = this
+    WxSearch.wxSearchDeleteKey(e, that);
+  },
+  wxSearchDeleteAll: function (e) {
+    var that = this;
+    WxSearch.wxSearchDeleteAll(that);
+  },
+  wxSearchTap: function (e) {
+    var that = this
+    WxSearch.wxSearchHiddenPancel(that);
+  }
+  ,
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -206,4 +250,5 @@ Page({
       url: '../personal/personal'
     })
   }
+  
 })

@@ -280,10 +280,11 @@ Page({
   },
   yiqiandao:function()
   {
-    wx.navigateTo({
-      url: '../my/myData'
-    })
-
+    // wx.navigateTo({
+    //   url: '../my/myData'
+    // })
+    var that = this;
+    this.bindChooiceProduct()
   },
   backAction: function () {
     wx.navigateBack()
@@ -305,7 +306,93 @@ Page({
       url: '../personal/personal'
     })
   }
+  ,
+  //  网络申请
+  httPrequest: function (type) {
+    if (type == 0) {
+      wx.showLoading({
+        title: '加载中',
+      })
+    }
+    wx.request({
+      url: '',
+      method: 'get',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
 
+      },
+      fail: function () {
+
+      }
+      ,
+      complete: function () {
+        //关闭菊花
+        if (type == 0) {
+          wx.hideLoading()
+        } else {
+          wx.stopPullDownRefresh()
+        }
+      }
+
+    })
+
+  }
+,
+  bindChooiceProduct: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 3,  //最多可以选择的图片总数  
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
+        var tempFilePaths = res.tempFilePaths;
+        //启动上传等待中...  
+        wx.showToast({
+          title: '正在上传...',
+          icon: 'loading',
+          mask: true,
+          duration: 10000
+        })
+        var uploadImgCount = 0;
+        for (var i = 0, h = tempFilePaths.length; i < h; i++) {
+          wx.uploadFile({
+            url: '',
+            filePath: tempFilePaths[i],
+            name: 'uploadfile_ant',
+            formData: {
+              'imgIndex': i
+            },
+            header: {
+              "Content-Type": "multipart/form-data"
+            },
+            success: function (res) {
+              uploadImgCount++;
+              var data = JSON.parse(res.data);
+              //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }  
+              //如果是最后一张,则隐藏等待中  
+              if (uploadImgCount == tempFilePaths.length) {
+                wx.hideToast();
+              }
+            },
+            fail: function (res) {
+              wx.hideToast();
+              wx.showModal({
+                title: '错误提示',
+                content: '上传图片失败',
+                showCancel: false,
+                success: function (res) { }
+              })
+            }
+          });
+        }
+      }
+    });  
+    
+    }
+    
 
 
 })

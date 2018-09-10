@@ -5,6 +5,7 @@ var rate = 0;
 var canvasWidth = 0;
 var canvasHeight = 0;
 var areaChart = null;
+var loginBool = 0;
 var deviceHeight = false;
 var imgeUrlAni = ""
 var imgeUrlAni2 = ""
@@ -50,8 +51,6 @@ Page({
 
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
-
-
     show_centent: false,
     if_show: false,
     flag: true,
@@ -66,7 +65,7 @@ Page({
     percent: 0,
     isDown1: false,
     percent1: 0,
-
+    loginBool:0,
     // banner
     imgUrls: [
       'http://7xnmrr.com1.z0.glb.clouddn.com/red.png',
@@ -111,7 +110,7 @@ Page({
 
 
   onLoad: function(e) {
-
+  
     var windowWidth = 320;
     try {
       var res = wx.getSystemInfoSync();
@@ -129,13 +128,13 @@ Page({
         name: '总积分',
         data: [1114000, 111200, 12000, ],
         format: function(val) {
-          return '' + val.toFixed(2);
+          return '' + val;
         }
       }],
       yAxis: {
         title: '',
         format: function(val) {
-          return val.toFixed(2);
+          return val;
         },
         min: 0,
         fontColor: '#666',
@@ -161,45 +160,20 @@ Page({
       })
     }
 
-   if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+   
 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    
+
 
 
   },
   // 动图实现方法
   animationFunc: function() {
-   
+
     var animation = wx.createAnimation({
       duration: 1,
       timingFunction: 'ease',
@@ -220,11 +194,11 @@ Page({
       if (m) {
         this.setData({
           imgeUrlAni: "../imgs/gif1/" + n + ".jpg",
-          imgeUrlAni1: "../imgs/gif2/"+ k + ".png",
-          imgeUrlAni2: "../imgs/gif3/"+ b +  ".png",
-          
+          imgeUrlAni1: "../imgs/gif2/" + k + ".png",
+          imgeUrlAni2: "../imgs/gif3/" + b + ".png",
+
         })
-      
+
         if (k > 6) {
           k = 0
         }
@@ -251,9 +225,18 @@ Page({
     console.log("onShow")
     var that = this;
     that.animationFunc()
+    that.slideupshowFun()
+    GetList(that);
+    // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
+     getApp().globalData.testid = 0
+
+
+  },
+  slideupshowFun: function() {
+    var that = this;
     setTimeout(function() {
-      app.show(that, 'slide1',1)
-    
+      app.show(that, 'slide1', 1)
+
     }.bind(this), 3000);
     wx.getSystemInfo({
       success: function(res) {
@@ -269,7 +252,6 @@ Page({
         }.bind(that), 600);
       },
     })
-      GetList(that);
   },
   showview: function() {
     var that = this;
@@ -297,7 +279,7 @@ Page({
     app.slideupshow(that, 'slide_up1', 200, 1)
     app.slideupshow(that, 'slide_up2', 200, 1)
     app.slideupshow(that, 'slide_up3', 300, 1)
-    
+
   },
 
   /**
@@ -353,10 +335,39 @@ Page({
   ToRulesView: function(e) {
 
 
-
   },
+  globalData: {
+    userInfo: null,
+    testid: 0
+  }  
+  ,
   getUserInfo: function(e) {
+   
+    var that = this;
+    if (getApp().globalData.testid != 1)
+      {
 
+        console.log("未登录")
+        console.log('user的值是：' + getApp().globalData.testid)
+        that.loginTrueOrFalse()
+        
+      } 
+      else
+      {
+      wx.showToast({
+        title: '已经签到',
+        icon: 'succes',
+        duration: 1000,
+        mask: true
+      })
+        console.log("已经登录")
+        console.log('user的值是：' + getApp().globalData.testid)
+      }
+
+    }
+    ,
+  loginTrueOrFalse:function()
+  {
     if (app.globalData.userInfo) {
 
       this.setData({
@@ -366,10 +377,7 @@ Page({
       wx.navigateTo({
         url: '../personal/personal'
       })
-
-
     } else if (this.data.canIUse) {
-      console.log(123)
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
@@ -379,7 +387,6 @@ Page({
         })
       }
     } else {
-      console.log(789)
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
@@ -388,32 +395,29 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+          wx.navigateTo({
+            url: '../personal/personal'
+          })
         }
       })
 
-      // wx.navigateTo({
-      //   url: '../personal/personal'
-      // })
+
 
     }
-
-    }
-
+  }
     ,
   toPersonal: function(e) {
 
-   
+
     console.log(e.target.id)
-   
+
   },
-  topfourbuttonaction:function(e)
-  {
-    console.log("顶部四个按钮点击排行榜"+e.target.id)
+  topfourbuttonaction: function(e) {
+    console.log("顶部四个按钮点击排行榜" + e.target.id)
     wx.navigateTo({
-      url: '../rankList/rankList'
+      url: '../rankList/rankList?id=' + e.target.id
     })
-  }
-  ,
+  },
   show: function() {
 
     this.setData({
@@ -430,31 +434,59 @@ Page({
     })
 
   },
-  backAction:function()
-  {
+  backAction: function() {
     wx.navigateBack()
   },
-  firstHome:function()
-  {
+  firstHome: function() {
     wx.navigateTo({
       url: '../home/home'
     })
-  }
-  ,
-  mydataAction:function()
-  {
+  },
+  mydataAction: function() {
     wx.navigateTo({
       url: '../my/myData'
     })
+  },
+  pensonalAction: function() {
+    wx.navigateTo({
+      url: '../personal/personal'
+    })
   }
-,
-pensonalAction:function()
-{
-  wx.navigateTo({
-    url: '../personal/personal'
-  })
-}
+ , 
+//  网络申请
+  httPrequest: function (type)
+ {
+   if (type == 0) {
+      wx.showLoading({
+        title: '加载中',
+      })
+    }
+   wx.request({
+     url: '',
+     method: 'get',
+     header: {
+       'content-type': 'application/x-www-form-urlencoded'
+     },
+     success: function (res)
+     {
 
+     },
+     fail: function () {
+
+     }
+     ,
+     complete: function () {
+       //关闭菊花
+       if (type == 0) {
+         wx.hideLoading()
+       } else {
+         wx.stopPullDownRefresh()
+       }
+     }
+
+   })
+
+ }
 
 
 })

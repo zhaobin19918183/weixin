@@ -1,8 +1,8 @@
 <!-- !--pages/home/home.wxml--> 
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view style='height:200px'>
-  <swiper style='height:100%' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
-    <swiper-item wx:for="{{imgUrls}}">
+  <swiper style='height:100%'    indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
+    <swiper-item   wx:key="{{imgUrls}}" wx:for="{{imgUrls}}">
       <image src="{{item}}" />
     </swiper-item>
   </swiper>
