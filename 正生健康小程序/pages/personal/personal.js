@@ -206,12 +206,13 @@ Page({
     GetList(that);
     GetTableVIewList(that);
   },
-  onShareAppMessage: function(res) {
+  onShareAppMessage: function (res) {
     return {
-      title: '成都多普力-新能源交通领域专业配套服务商',
+      title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
-      path: '/pages/index/index?id=13624249960',
-      success: function(res) {
+      path: '/pages/share/share?id=13624249960',
+      imageUrl: '../imgs/background1.png',
+      success: function (res) {
         // 转发成功
         console.log("转发成功")
         wx.showToast({
@@ -220,7 +221,7 @@ Page({
           duration: 2000,
         })
       },
-      fail: function(res) { // 转发失败
+      fail: function (res) { // 转发失败
         console.log("转发失败")
       }
     }

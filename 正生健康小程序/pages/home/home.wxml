@@ -81,7 +81,7 @@
       <progress class="init" stroke-width='2' percent="100" active='true'  active-color="purple" background-color="transparent"/>
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute;margin-left:50%;margin-top:25%;;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
       <label style='font-size:20rpx;'>墨香铜臭-积分:990,000</label>
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>

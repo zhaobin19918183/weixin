@@ -7,7 +7,8 @@
     "pages/clockIn/clockIn",
     "pages/report/report",
     "pages/rankList/rankList",
-    "pages/my/myData"
+    "pages/my/myData",
+    "pages/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,6 +16,5 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
-    
   }
 }
