@@ -3,12 +3,9 @@
     "pages/home/home",
     "pages/index/index",
     "pages/personal/personal",
-    "pages/troops/troops",
-    "pages/clockIn/clockIn",
-    "pages/report/report",
     "pages/rankList/rankList",
-    "pages/my/myData",
-    "pages/share/share"
+    "pages/my/myData"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

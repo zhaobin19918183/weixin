@@ -1,4 +1,0 @@
-<view>
-<button class='' bindtap=''>一键打卡</button>
-<button class='' bindtap='choice'>传照打卡</button>
-</view>
