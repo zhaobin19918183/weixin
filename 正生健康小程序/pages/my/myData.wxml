@@ -98,8 +98,8 @@
       <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
         <label style='position: absolute;word-break:break-all;color:white'>大连战队</label>
       </view>
-      <label class='labelt2' style='position: absolute;margin-left:50%'>小四爷1</label>
-      <label class='labelt2' style='position: absolute;margin-left:63%'>19000</label>
+      <label class='labelt2' style='position: absolute;margin-left:50%;color:white'>小四爷1</label>
+      <label class='labelt2' style='position: absolute;margin-left:63%;color:white'>19000</label>
       <label class='button1' style='position: absolute;margin-left:78%'>大连战队</label>
       <image src='' mode='widthFix' style='position: relative；display: block;width:100%;height:100%;background:#ec5d2a'></image>
     </view>
