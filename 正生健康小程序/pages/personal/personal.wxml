@@ -114,7 +114,7 @@
     </view>
   </view>
 </view>
-<label class='buttom' bindtap=''>签到</label>
+<label class='buttom'  style='color:orange' bindtap=''>签到</label>
 <label class='buttom' style='margin-top:35px' bindtap=''>排行榜</label>
 <label class='buttom' style='margin-top:70px' bindtap='mydataAction'>我的</label>
 <label class='buttom' style='margin-top:105px' bindtap='backAction'>返回</label>

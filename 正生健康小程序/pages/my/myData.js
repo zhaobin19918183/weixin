@@ -102,7 +102,6 @@ var GetList = function (that) {
 
   })
 }
-
 Page({
   data: {
 

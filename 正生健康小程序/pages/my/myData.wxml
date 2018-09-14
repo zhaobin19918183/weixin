@@ -15,13 +15,11 @@
       <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
     </view>
 
-
     <image class='dk06' src="../imgs/persional/dk06.png"></image>
     <view class='layout_vertical dk061 '>
       <label style='text-align:center;color:black'>0</label>
       <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
     </view>
-
 
     <image class='dk09' src="../imgs/persional/dk09.png"></image>
     <view class='layout_vertical dk091'>
@@ -64,8 +62,6 @@
   </scroll-view>
   <image src='../imgs/background2.png' mode='widthFix' style='position: relative；display: block;width:100%;height:600px'></image>
 </view>
-
-
 <!-- 底部四个 -->
 <view>
   <view style=" display:flex;text-align:center;margin-top:2%;">
@@ -121,11 +117,9 @@
 
   </scroll-view>
 </view>
-
-
 <label class='post' style='justify-content: center;' bindtap=''>签到</label>
 <label class='post1' style='margin-top:35px;justify-content: center;' bindtap=''>排行榜</label>
-<label class='post2' style='margin-top:70px;justify-content: center;' bindtap=''>我的</label>
+<label class='post2' style='margin-top:70px;justify-content: center;color:orange' bindtap=''>我的</label>
 <label class='post3' style='margin-top:105px;justify-content: center;' bindtap='backAction'>返回</label>
 <label class='post4' style='margin-top:140px;' bindtap='firstHome'>首页</label>
 <!-- <label class='post' style='margin-top:140px;' bindtap='firstHome'>首页</label> -->

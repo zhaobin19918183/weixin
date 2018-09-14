@@ -65,7 +65,7 @@ Page({
     percent: 0,
     isDown1: false,
     percent1: 0,
-    loginBool:0,
+    loginBool: 0,
     // banner
     imgUrls: [
       'http://7xnmrr.com1.z0.glb.clouddn.com/red.png',
@@ -76,7 +76,6 @@ Page({
     autoplay: true, //是否自动切换
     interval: 1500, //自动切换时间间隔,3s
     duration: 1000, //  滑动动画时长1s
-
     display: ''
 
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -110,7 +109,7 @@ Page({
 
 
   onLoad: function(e) {
-  
+
     var windowWidth = 320;
     try {
       var res = wx.getSystemInfoSync();
@@ -160,7 +159,7 @@ Page({
       })
     }
 
-   
+
 
   },
   /**
@@ -228,7 +227,7 @@ Page({
     that.slideupshowFun()
     GetList(that);
     // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
-     getApp().globalData.testid = 0
+    getApp().globalData.testid = 0
 
 
   },
@@ -340,35 +339,29 @@ Page({
   globalData: {
     userInfo: null,
     testid: 0
-  }  
-  ,
+  },
   getUserInfo: function(e) {
-   
-    var that = this;
-    if (getApp().globalData.testid != 1)
-      {
 
-        console.log("未登录")
-        console.log('user的值是：' + getApp().globalData.testid)
-        that.loginTrueOrFalse()
-        
-      } 
-      else
-      {
+    var that = this;
+    if (getApp().globalData.testid != 1) {
+
+      console.log("未登录")
+      console.log('user的值是：' + getApp().globalData.testid)
+      that.loginTrueOrFalse()
+
+    } else {
       wx.showToast({
         title: '已经签到',
         icon: 'succes',
         duration: 1000,
         mask: true
       })
-        console.log("已经登录")
-        console.log('user的值是：' + getApp().globalData.testid)
-      }
-
+      console.log("已经登录")
+      console.log('user的值是：' + getApp().globalData.testid)
     }
-    ,
-  loginTrueOrFalse:function()
-  {
+
+  },
+  loginTrueOrFalse: function() {
     if (app.globalData.userInfo) {
 
       this.setData({
@@ -405,8 +398,7 @@ Page({
 
 
     }
-  }
-    ,
+  },
   toPersonal: function(e) {
 
 
@@ -435,6 +427,13 @@ Page({
     })
 
   },
+  paihangbang:function()
+  {
+    wx.navigateTo({
+      url: '../rankList/rankList'
+    })
+  }
+  ,
   backAction: function() {
     wx.navigateBack()
   },
@@ -452,42 +451,38 @@ Page({
     wx.navigateTo({
       url: '../personal/personal'
     })
-  }
- , 
-//  网络申请
-  httPrequest: function (type)
- {
-   if (type == 0) {
+  },
+  //  网络申请
+  httPrequest: function(type) {
+    if (type == 0) {
       wx.showLoading({
         title: '加载中',
       })
     }
-   wx.request({
-     url: '',
-     method: 'get',
-     header: {
-       'content-type': 'application/x-www-form-urlencoded'
-     },
-     success: function (res)
-     {
+    wx.request({
+      url: '',
+      method: 'get',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
 
-     },
-     fail: function () {
+      },
+      fail: function() {
 
-     }
-     ,
-     complete: function () {
-       //关闭菊花
-       if (type == 0) {
-         wx.hideLoading()
-       } else {
-         wx.stopPullDownRefresh()
-       }
-     }
+      },
+      complete: function() {
+        //关闭菊花
+        if (type == 0) {
+          wx.hideLoading()
+        } else {
+          wx.stopPullDownRefresh()
+        }
+      }
 
-   })
+    })
 
- }
+  }
 
 
 })

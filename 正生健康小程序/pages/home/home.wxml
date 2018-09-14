@@ -77,17 +77,17 @@
     </view>
 
     <view class="init" animation="{{slide1}}" style='margin-left:25%;margin-top:10%;width:30%;position: absolute;opacity:0'>
-      <text class="init" style='margin-top:30%;font-size:20rpx;'>夷陵老祖-积分:990,000</text>
+      <text class="init" style='margin-top:30%;font-size:20rpx;'>积分:990,000</text>
       <progress class="init" stroke-width='2' percent="100" active='true'  active-color="purple" background-color="transparent"/>
     </view>
 
     <view class="init" animation="{{slide1}}" style='width:30%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
-      <label style='font-size:20rpx;'>墨香铜臭-积分:990,000</label>
+      <label style='font-size:20rpx;'>积分:990,000</label>
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>
 
     <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:70%;margin-top:45%;opacity:0'>
-      <text style='margin-top:35%;font-size:20rpx;'>蓝忘机-积分:990,000</text>
+      <text style='margin-top:35%;font-size:20rpx;'>积分:990,000</text>
       <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent"  />
     </view>
     <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:15%;margin-top:70%;position: absolute' src='../imgs/a1.png'></image>
@@ -144,8 +144,7 @@
 
 </view>
  <label class='buttom' bindtap='pensonalAction'>签到</label>
- <label class='buttom' style='margin-top:35px' bindtap=''>排行榜</label>
+ <label class='buttom' style='margin-top:35px' bindtap='paihangbang'>排行榜</label>
  <label class='buttom' style='margin-top:70px' bindtap='mydataAction'>我的</label>
- <label class='buttom' style='margin-top:105px' bindtap=''>返回</label>
- <label class='buttom' style='margin-top:140px' bindtap=''>首页</label>
+ <label class='buttom' style='margin-top:105px;color:orange' bindtap=''>首页</label>
 
