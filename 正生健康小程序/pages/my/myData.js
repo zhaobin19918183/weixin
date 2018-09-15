@@ -491,6 +491,11 @@ Page({
   }
   ,
 
+  paihangbang: function () {
+    wx.navigateTo({
+      url: '../rankList/rankList'
+    })
+  },
   wxSearchFn: function (e) {
 
     var that = this

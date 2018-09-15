@@ -55,8 +55,7 @@ Page({
     }).get({
       success: res => {
         this.setData({
-          // queryResult: JSON.stringify(res.data, null, 2)
-          queryResult:JSON.stringify(res.data,null,1)
+          queryResult: JSON.stringify(res.data, null, 2)
         })
         console.log('[数据库] [查询记录] 成功: ', res)
       },

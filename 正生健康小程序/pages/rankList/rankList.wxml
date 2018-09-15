@@ -53,7 +53,7 @@
   </scroll-view>
 </view>
 <label class='post' style='justify-content: center;' bindtap=''>签到</label>
-<label class='post1' style='margin-top:35px;justify-content: center;' bindtap=''>排行榜</label>
-<label class='post2' style='margin-top:70px;justify-content: center;' bindtap=''>我的</label>
+<label class='post1' style='margin-top:35px;justify-content: center;' bindtap='paihangbang'>排行榜</label>
+<label class='post2' style='margin-top:70px;justify-content: center;' bindtap='mydataAction'>我的</label>
 <label class='post3' style='margin-top:105px;justify-content: center;' bindtap='backAction'>返回</label>
 <label class='post4' style='margin-top:140px;' bindtap='firstHome'>首页</label>

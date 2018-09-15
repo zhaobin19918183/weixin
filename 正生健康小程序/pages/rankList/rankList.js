@@ -233,7 +233,6 @@ Page({
     wx.navigateBack()
   },
   firstHome: function () {
-    console.log(11111111111111111111111)
     wx.navigateTo({
       url: '../home/home'
     })
@@ -249,6 +248,10 @@ Page({
     wx.navigateTo({
       url: '../personal/personal'
     })
+  },
+    paihangbang: function () {
+    wx.navigateTo({
+      url: '../rankList/rankList'
+    })
   }
-  
 })
