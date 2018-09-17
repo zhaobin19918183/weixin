@@ -76,7 +76,11 @@ Page({
     autoplay: true, //是否自动切换
     interval: 1500, //自动切换时间间隔,3s
     duration: 1000, //  滑动动画时长1s
-    display: ''
+    display: '',
+    display1: 'none',
+    display2: 'block',
+  
+
 
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -262,6 +266,21 @@ Page({
   hideview: function() {
     this.setData({
       display: "none",
+
+    })
+  },
+  showfunc1: function () {
+    var that = this;
+    this.setData({
+      display1: "block",
+      display2: "none",
+    })
+
+  },
+  backFunc: function () {
+    this.setData({
+      display1: "none",
+      display2: "block",
 
     })
   },

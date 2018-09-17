@@ -115,7 +115,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-   
+    display1: 'none',
+    display2: 'block',
 
   },
   //事件处理函数
@@ -307,6 +308,11 @@ Page({
     })
   }
   ,
+  paihangbang: function () {
+    wx.navigateTo({
+      url: '../rankList/rankList'
+    })
+  },
   mydataAction: function () {
     wx.navigateTo({
       url: '../my/myData'
@@ -405,6 +411,21 @@ Page({
     
     }
     
+  ,
+  showfunc1: function () {
+    var that = this;
+    this.setData({
+      display1: "block",
+      display2: "none",
+    })
 
+  },
+  backFunc: function () {
+    this.setData({
+      display1: "none",
+      display2: "block",
+
+    })
+  }
 
 })

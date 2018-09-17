@@ -111,7 +111,8 @@ Page({
 
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
-
+    display1: 'none',
+    display2: 'block',
   },
 
   /**
@@ -254,4 +255,21 @@ Page({
       url: '../rankList/rankList'
     })
   }
+  ,
+  showfunc1: function () {
+    var that = this;
+    this.setData({
+      display1: "block",
+      display2: "none",
+    })
+
+  },
+  backFunc: function () {
+    this.setData({
+      display1: "none",
+      display2: "block",
+
+    })
+  },
+
 })

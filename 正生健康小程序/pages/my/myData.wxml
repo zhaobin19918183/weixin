@@ -117,8 +117,9 @@
 
   </scroll-view>
 </view>
-<label class='post' style='justify-content: center;' bindtap=''>签到</label>
-<label class='post1' style='margin-top:35px;justify-content: center;' bindtap='paihangbang'>排行榜</label>
-<label class='post2' style='margin-top:70px;justify-content: center;color:orange' bindtap=''>我的</label>
-<label class='post3' style='margin-top:105px;justify-content: center;' bindtap='backAction'>返回</label>
-<label class='post4' style='margin-top:140px;' bindtap='firstHome'>首页</label>
+<label class='post' style='justify-content: center;display:{{display1}};' bindtap='pensonalAction'>签到</label>
+<label class='post1' style='justify-content: center;display:{{display1}};' bindtap='paihangbang'>排行榜</label>
+<label class='post2' style='justify-content: center;display:{{display1}};color:orange;' bindtap=''>我的</label>
+<label class='post3' style='justify-content: center;display:{{display1}};' bindtap='firstHome'>首页</label>
+ <label class='post4' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
+<label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>

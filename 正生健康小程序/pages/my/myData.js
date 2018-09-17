@@ -104,7 +104,8 @@ var GetList = function (that) {
 }
 Page({
   data: {
-
+    display1: 'none',
+    display2: 'block',
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标
       title: '慧吃慧动100天', //导航栏 中间的标题
@@ -532,6 +533,21 @@ Page({
     WxSearch.wxSearchHiddenPancel(that);
   }
   ,
+  showfunc1: function () {
+    var that = this;
+    this.setData({
+      display1: "block",
+      display2: "none",
+    })
+
+  },
+  backFunc: function () {
+    this.setData({
+      display1: "none",
+      display2: "block",
+
+    })
+  }
 
 
 })

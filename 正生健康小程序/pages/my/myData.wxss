@@ -252,7 +252,7 @@ button::after {
   float: right;
   background-color: #fff;
   position: fixed;
-  bottom: 350px;
+  bottom: 365px;
   border: 0 solid #fff;
   width: 45px;
   height: 30px;
@@ -268,7 +268,7 @@ button::after {
   float: right;
   background-color: #fff;
   position: fixed;
-  bottom: 300px;
+  bottom: 330px;
   border: 0 solid #fff;
   width: 45px;
   height: 30px;
@@ -285,7 +285,7 @@ button::after {
   float: right;
   background-color: #fff;
   position: fixed;
-  bottom: 250px;
+  bottom: 290px;
   border: 0 solid #fff;
   width: 45px;
   height: 30px;
@@ -302,7 +302,7 @@ button::after {
 
   background-color: #fff;
   position: fixed;
-  bottom: 200px;
+  bottom: 240px;
   border: 0 solid #fff;
   width: 45px;
   height: 30px;
@@ -313,5 +313,5 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx;
-  justify-content: center;
+
 }

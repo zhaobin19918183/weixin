@@ -143,8 +143,10 @@
   </view>
 
 </view>
- <label class='buttom' bindtap='pensonalAction'>签到</label>
- <label class='buttom' style='margin-top:35px' bindtap='paihangbang'>排行榜</label>
- <label class='buttom' style='margin-top:70px' bindtap='mydataAction'>我的</label>
- <label class='buttom' style='margin-top:105px;color:orange' bindtap=''>首页</label>
+ <label class='buttom' style='display:{{display1}};'  bindtap='pensonalAction'>签到</label>
+ <label class='buttom' style='margin-top:35px;display:{{display1}};' bindtap='paihangbang'>排行榜</label>
+ <label class='buttom' style='margin-top:70px;display:{{display1}};' bindtap='mydataAction'>我的</label>
+ <label class='buttom' style='margin-top:105px;color:orange;display:{{display1}};' bindtap=''>首页</label>
+ <label class='buttom' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
+ <label class='buttom' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
 
