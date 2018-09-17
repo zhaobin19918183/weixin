@@ -79,6 +79,12 @@ Page({
     display: '',
     display1: 'none',
     display2: 'block',
+    integral1:"个人1 1000",
+    integral2: "个人2 1000",
+    integral3: "个人3 1000",
+    company1: "无锡分公司1",
+    company2: "无锡分公司2",
+    company3: "无锡分公司3",
   
 
 
