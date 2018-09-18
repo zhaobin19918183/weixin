@@ -120,6 +120,8 @@ Page({
 
   onLoad: function(e) {
 
+   
+
     var windowWidth = 320;
     try {
       var res = wx.getSystemInfoSync();
@@ -363,7 +365,10 @@ Page({
   },
   globalData: {
     userInfo: null,
-    testid: 0
+    testid: 0,
+    encryptedData:null,
+    iv:null,
+    code:null
   },
   getUserInfo: function(e) {
 
@@ -406,9 +411,19 @@ Page({
         })
       }
     } else {
+      wx.login({
+        success: function (res) {
+           console.log('获取id===' + res.code)
+           
+          app.globalData.code = res.code
+        }
+      })
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
+        withCredentials: true,
         success: res => {
+          console.log(" encryptedData 是 "+res.encryptedData)
+          console.log("iv 是"+res.iv)
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: res.userInfo,
@@ -424,6 +439,28 @@ Page({
 
     }
   },
+  getPhoneNumber: function (e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '未授权',
+        success: function (res) { }
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: '同意授权',
+        success: function (res) { }
+      })
+    }
+  }
+
+,
   toPersonal: function(e) {
 
 
@@ -491,7 +528,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-
+        console.log(res.data)
       },
       fail: function() {
 

@@ -52,7 +52,7 @@
       <image style='width:80px;height:70px;position: absolute' src="{{imgeUrlAni}}" animation="{{animationData}}"></image>
       <view class='layout_vertical' style='width:60%;position: absolute;margin-left:10%;margin-top:-20px'>
         <button class='qiandao' style='font-size:40rpx'  open-type="getUserInfo" bindgetuserinfo="getUserInfo">每日签到</button>
-        <button class='qiandao1'>Daily check-in</button>
+        <button class='qiandao1' >Daily check-in</button>
       </view>
       <button class='butTopThree' bindtap='showview' style='position: absolute'>
       <image style='width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
