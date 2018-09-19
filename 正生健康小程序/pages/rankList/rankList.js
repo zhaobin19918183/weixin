@@ -4,7 +4,6 @@
 var app = getApp()
 var WxSearch = require('../../wxSearch/wxSearch.js')
 var GetTableVIewList = function (that) {
-
   that.setData({
     arrayTableData: [{
       message: '分公司排行榜',

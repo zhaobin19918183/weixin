@@ -102,6 +102,9 @@ var GetList = function(that) {
 }
 Page({
   data: {
+    dayNumber: 1,
+    allNumber: 160000,
+    allDay: 16,
     nvabarData: {
       showCapsule: 1, //是否显示左上角图标
       title: '慧吃慧动100天', //导航栏 中间的标题

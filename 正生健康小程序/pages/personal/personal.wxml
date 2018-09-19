@@ -10,19 +10,21 @@
     <button style='background:orange;position: absolute;text-align:center;font-size:25rpx;color:black;width:80px;height:30px;margin-left:55%;margin-top:37px'   open-type="share">告诉好友</button>
     <view class='layout_horizontal2'>
       <image class='dk03' src="../imgs/persional/dk03.png"></image>
-      <view class='layout_vertical dk031'>
-        <label style='text-align:center;color:black'>0</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
-      </view>
-      <image class='dk06' src="../imgs/persional/dk06.png"></image>
-      <view class='layout_vertical dk061 '>
-        <label style='text-align:center;color:black'>0</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
-      </view>
-      <image class='dk09' src="../imgs/persional/dk09.png"></image>
-      <view class='layout_vertical dk091'>
-        <label style='text-align:center;color:black'>0</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
+    <view class='layout_vertical dk031'>
+      <label style='text-align:center;color:black;font-size:15px'>{{dayNumber}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
+    </view>
+
+    <image class='dk06' src="../imgs/persional/dk06.png"></image>
+    <view class='layout_vertical dk061 '>
+      <label style='text-align:center;color:black;font-size:15px'  >{{allNumber}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
+    </view>
+
+    <image class='dk09' src="../imgs/persional/dk09.png"></image>
+    <view class='layout_vertical dk091'>
+      <label style='text-align:center;color:black;font-size:15px'>{{allDay}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>连续签到</label>
       </view>
     </view>
     <image src='../imgs/img1.jpg' style='position: relative；display: block;width:100%;height:100%'></image>

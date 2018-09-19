@@ -104,6 +104,9 @@ var GetList = function (that) {
 }
 Page({
   data: {
+    dayNumber:1,
+    allNumber:160000,
+    allDay: 16,
     display1: 'none',
     display2: 'block',
     nvabarData: {
