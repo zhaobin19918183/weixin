@@ -1,13 +1,16 @@
 {
   "cloud": true,
   "pages": [
+    "pages/home/home",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib"
+    "pages/chooseLib/chooseLib",
+    "pages/MyData/MyData",
+    "pages/shijing/shijing"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -15,5 +18,24 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "云开发 QuickStart",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "black",
+    "selectedColor": "#ec5d2a",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "pages/image/首页-选中后.png",
+        "iconPath": "pages/image/首页-选中前.png",
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "pages/image/我 的当选.png",
+        "iconPath": "pages/image/我 的.png",
+        "pagePath": "pages/MyData/MyData",
+        "text": "我的"
+      }
+    ]
   }
 }

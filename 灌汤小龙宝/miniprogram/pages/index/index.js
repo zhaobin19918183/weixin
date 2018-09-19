@@ -11,6 +11,7 @@ Page({
   },
 
   onLoad: function() {
+    this.onQuery()
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -35,7 +36,31 @@ Page({
       }
     })
   },
+  onQuery: function () {
 
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('shijing').where({
+      chapter: '国风'
+    })
+     .skip(10) // 跳过结果集中的前 10 条，从第 11 条开始返回
+     .limit(10) // 限制返回数量为 10 条  
+    .get({
+      success: res => {
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2)
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  },
   onGetUserInfo: function(e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
