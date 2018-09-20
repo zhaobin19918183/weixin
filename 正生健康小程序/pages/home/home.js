@@ -365,7 +365,7 @@ Page({
   },
   globalData: {
     userInfo: null,
-    testid: 0,
+    testid: 1,
     encryptedData:null,
     iv:null,
     code:null
