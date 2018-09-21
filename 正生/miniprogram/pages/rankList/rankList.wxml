@@ -1,0 +1,60 @@
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<!-- 底部四个 -->
+<view>
+  <view style=" display:flex;text-align:center;margin-top:20%;">
+    <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:20%;'>
+      <button class='firstB' id='{{itemName.id}}' bindtap="panghangbang">
+        <image class='firstimg' src="{{itemName.imgurl}}"></image>
+      </button>
+      <label class='label1'>{{itemName.message}}</label>
+    </view>
+  </view>
+</view>
+<!-- 搜索 -->
+<view style='width:80%:height:100px;margin-top:2%;margin-left:10%'>
+  <view class="wxSearch-section">
+    <view class="wxSearch-pancel">
+      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="搜索" />
+      <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+    </view>
+  </view>
+</view>
+<view>
+</view>
+<view >
+  <scroll-view scroll-y="true" class='tableview'>
+    <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
+      <label style='margin-top:6%;margin-left:8%;position: absolute'>100</label>
+      <image class='imaget1' src='../imgs/img01_38.png' style='position: absolute;margin-left:18%'></image>
+      <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
+        <label style='position: absolute;word-break:break-all;color:white'>大连战队</label>
+      </view>
+      <label class='labelt2' style='position: absolute;margin-left:50%'>小四爷1</label>
+      <label class='labelt2' style='position: absolute;margin-left:63%'>19000</label>
+      <label class='button1' style='position: absolute;margin-left:78%'>大连战队</label>
+      <image src='' mode='widthFix' style='position: relative；display: block;width:100%;height:100%;background:#ec5d2a'></image>
+    </view>
+    <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.message}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+      <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
+        <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
+        <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
+        <image class='imaget1' src='{{itemName.imgurl}}' style='position: absolute;margin-left:18%'></image>
+        <view style='margin-top:8%;width:15%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
+          <label style='position: absolute;word-break:break-all;'>{{itemName.message}}</label>
+        </view>
+        <label class='labelt2' style='position: absolute;margin-left:50%'>小四爷</label>
+        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.numberData}}</label>
+        <label class='button1' style='position: absolute;margin-left:78%'>加入战队</label>
+        <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
+
+      </view>
+    </view>
+
+  </scroll-view>
+</view>
+<label class='post' style='justify-content: center;display:{{display1}};' bindtap='pensonalAction'>签到</label>
+<label class='post1' style='justify-content: center;display:{{display1}};color:orange;' bindtap=''>排行榜</label>
+<label class='post2' style='justify-content: center;display:{{display1}};' bindtap='mydataAction'>我的</label>
+<label class='post3' style='justify-content: center;display:{{display1}};' bindtap='firstHome'>首页</label>
+ <label class='post4' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
+ <label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>

@@ -1,0 +1,152 @@
+<!-- !--pages/home/home.wxml--> 
+<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+<view style='height:200px'>
+  <swiper style='height:100%'    indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
+    <swiper-item   wx:key="{{imgUrls}}" wx:for="{{imgUrls}}">
+      <image src="{{item}}" />
+    </swiper-item>
+  </swiper>
+
+   <!-- 活动规则 -->
+    <view class="bg" bindtap='hideview' style='display:{{display}};'>
+      <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;background-image:url(../imgs/guanbi.png);'></image>
+      <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
+        <view class="scroll-y">
+        <view style='text-align:center;'>
+        <text tyle='font-size:40rpx; '>活动介绍</text>
+        </view>
+        <view style='margin-left:10%'>
+        <text tyle='font-size:40rpx; '>简介</text>
+        </view>
+          <view style='margin-left:10%;width:80%;'>
+          <text style='font-size:20rpx;text-align:left' space="ensp">    个人排行榜。打卡100天后，各个打榜前三名均有相对应的奖励如下
+          </text>
+          </view>
+          <view style='margin-left:10%'>
+        <text tyle='font-size:40rpx; '>奖励</text>
+        </view>
+          <view style='margin-left:10%;width:80%;'>
+            <text style='font-size:20rpx;width:180px;' space="ensp">   欢迎加入由中国营养学会发起的“慧吃慧动——减重100天打卡”活动！在这里，你可以选你喜欢的战队参加，一起开始百团减重大战；你也可以脱离组织，与无数热爱自由的小伙伴们一起比拼pk。每天打卡后，你将计积分冲榜，有机会为贫穷山区学校儿童捐献免费午餐，更有神秘大咖接力助阵！\n</text>
+          </view>
+          <view style='margin-left:10%;width:80%;'>
+          <text style='font-size:20rpx;width:180px;' space="ensp">   “慧吃慧动——减重100天打卡”是由中国营养学会与“免费午餐基金”合作的爱心公益活动，共同呼吁更多的社会力量关注乡村儿童营养，所有参与“慧吃慧动——减重100天”活动的个人，都可通过自身打卡行动，为乡村儿童捐献免费午餐。顺丰优选作为首家响应捐助的单位，和中国营养学会共同认为捐乡村学校，携手推动儿童营养健康。欢迎你，加入我们，每日打卡，小善大爱。迎加入由中国营养学会发起的“慧吃慧动——减重100天打卡”活动！在这里，你可以选你喜欢的战队参加，一起开始百团减重大战；你也可以脱离组织，与无数热爱自由的小伙伴们一起比拼pk。每天打卡后，你将累计积分冲榜，有机会为贫穷山区学校儿童捐献免费午餐，更有神秘大咖接力助阵，为你打call，量身定制最科学、有效的健康减肥方案\n
+         </text>
+          </view>
+        </view>
+      </scroll-view>
+      <image src='../imgs/background1.png'   style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>
+    </view>
+ <!-- 顶部四个按钮 -->
+  <view style="height:200px;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
+    <view style=" display:flex;text-align:center">
+      <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:19%;'>
+        <button class='firstB' id='{{itemName.id}}' bindtap="topfourbuttonaction">
+          <image class='firstimg' src="{{itemName.imgurl}}" bindtap=""></image>
+        </button>
+        <label class='label1' bindtap="">{{itemName.message}}</label>
+      </view>
+    </view>
+    <!-- 签到 -->
+    <view class='layout_horizontal' style='margin-top:2%;box-shadow:0px 0px 3px 3px gray'>
+
+      <image style='width:80px;height:70px;position: absolute' src="{{imgeUrlAni}}" animation="{{animationData}}"></image>
+      <view class='layout_vertical' style='width:60%;position: absolute;margin-left:10%;margin-top:-20px'>
+        <button class='qiandao' style='font-size:40rpx'  open-type="getUserInfo" bindgetuserinfo="getUserInfo">每日签到</button>
+        <button class='qiandao1' open-type='getPhoneNumber'  bindgetphonenumber='getPhoneNumber' >Daily check-in</button>
+      </view>
+      <button class='butTopThree' bindtap='showview' style='position: absolute'>
+      <image style='width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
+        <view class='layout_vertical' style='margin-left:80%'>
+          <text style='font-size:25rpx'>活</text>
+          <text style='font-size:25rpx;margin-top:-50%'>动</text>
+          <text style='font-size:25rpx;margin-top:-50%'>规</text>
+          <text style='font-size:25rpx;margin-top:-50%'>则</text>
+        </view>
+      </button>
+      <image src='../imgs/you.png' style='margin-left:25%;width:13%;height:4%;margin-top:25%;position: absolute'></image>
+      <button style='font-size:25rpx;position: absolute;margin-left:38%;width:25%;height:4%;margin-top:25%;'>我要参与</button>
+      <image src='../imgs/zuo.png' style='margin-left:62%;width:13%;height:4%;position: absolute;margin-top:25%;'></image>
+    </view>
+    <image src='../imgs/img2.png' style='position: relative；display: block;width:100%;;height:100%'></image>
+  </view>
+  <!-- 个人排行榜 -->
+  <view style="margin-top:2%;height:240px;box-shadow:0px 0px 3px 3px gray;">
+    <view class='layout_horizontal ' style='position: absolute'>
+      <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
+      <label style='font-size:30rpx;height:20px;width:120px'>个人排行榜</label>
+    </view>
+
+    <view class="init" animation="{{slide1}}" style='margin-left:25%;margin-top:10%;width:30%;position: absolute;opacity:0'>
+      <text class="init" style='margin-top:30%;font-size:20rpx;'>{{integral1}}</text>
+      <progress class="init" stroke-width='2' percent="100" active='true'  active-color="purple" background-color="transparent"/>
+    </view>
+
+    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
+      <label style='font-size:20rpx;'>{{integral2}}</label>
+      <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
+    </view>
+
+    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:70%;margin-top:45%;opacity:0'>
+      <text style='margin-top:35%;font-size:20rpx;'>{{integral3}}</text>
+      <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent"  />
+    </view>
+    <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:15%;margin-top:70%;position: absolute' src='../imgs/a1.png'></image>
+    <image animation="{{slide_up2}}" style='width:70px;height:200px;margin-left:40%;margin-top:70%;position: absolute' src='../imgs/a2.png'></image>
+    <image animation="{{slide_up3}}" style='width:70px;height:200px;margin-left:63%;margin-top:70%;position: absolute' src='../imgs/a3.png'></image>
+
+
+    <image src='../imgs/img3.png' style='position: relative；display: block;width:100%;;height:100%'></image>
+  </view>
+  <!-- 工作室排行榜 -->
+  <view class='gongzuoshi' style="box-shadow:0px 2px 3px 3px gray;margin-top:2%">
+    <view class='layout_horizontal ' style='position: absolute'>
+      <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
+      <label style='font-size:30rpx;height:20px;width:150px'>工作室排行榜</label>
+    </view>
+    <image style='margin-top:10%;margin-left:20%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
+    <image style='margin-left:45%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
+    <image style='margin-top:18%;margin-left:70%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
+    <image class="init" animation="{{slide1}}" style='opacity:0;height:160px;text-align:center;position: absolute;margin-left:10%;margin-right:10%;width:80%;margin-top:7%' src='../imgs/jt.png'></image>
+    <view class='layout_horizontal' style='position: absolute;margin-top:200px;margin-left:0px;'>
+      <label style='font-size:20rpx;width:100px;height:20px;margin-left:15%;'>{{company1}}</label>
+      <label style='font-size:20rpx;width:100px;height:20px;margin-left:13%;'>{{company2}}</label>
+      <label style='font-size:20rpx;width:100px;height:20px;margin-left:13%;'>{{company3}}</label>
+    </view>
+    <image src='../imgs/img4.png' style='position: relative；display: block;width:100%;;height:100%'></image>
+  </view>
+  <!-- 服务中心排行榜 -->
+  <view class='' style="margin-top:2%;height:300px;">
+    <view class='layout_horizontal' style='margin-top:5px;position: absolute;'>
+      <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
+      <label style='font-size:30rpx;height:20px;width:150px;margin-left:5px'>服务中心排行榜</label>
+    </view>
+    <view class='layout_vertical' style='margin-top:30px;position: absolute'>
+      <label style='font-size:15px;;height:20px;margin-left:30px;'>第一名：{{company1}}</label>
+      <label style='font-size:15px;height:20px;margin-left:30px'>第二名：{{company2}}</label>
+      <label style='font-size:15px;height:20px;margin-left:30px'>第三名：{{company3}}</label>
+    </view>
+    <button style='font-size:20rpx;position: absolute;margin-left:1%;margin-top:30%'>{{company1}} {{integral1}}</button>
+    <button style='font-size:20rpx;position: absolute;margin-left:70%;margin-top:45%'>{{company2}} {{integral2}}</button>
+    <button style='font-size:20rpx;position: absolute;margin-top:55%;margin-top:55%'>{{company3}} {{integral3}}</button>
+    <image style='position: absolute;;margin-left:10%;margin-top:15%;' src='../imgs/dt.png'></image>
+    <image src='../imgs/img5.png' style='position: relative；display: block;width:100%;;height:100%'></image>
+  </view>
+  <!-- 分公司排行榜 -->
+  <view style=";margin-top:2%;height:220px;;box-shadow:0px 0px 3px 3px gray;">
+
+    <view class='layout_horizontal' style='margin-top:5px;position: absolute'>
+      <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
+      <label style='font-size:30rpx;height:20px;width:150px'>分公司排行榜</label>
+    </view>
+    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="" style='margin-left:3%;position: absolute;'></canvas>
+    <image src='../imgs/img8.jpg' style='position: relative；display: block;width:100%;height:100%'></image>
+  </view>
+
+</view>
+ <label class='buttom' style='display:{{display1}};'  bindtap='pensonalAction'>签到</label>
+ <label class='buttom' style='margin-top:35px;display:{{display1}};' bindtap='paihangbang'>排行榜</label>
+ <label class='buttom' style='margin-top:70px;display:{{display1}};' bindtap='mydataAction'>我的</label>
+ <label class='buttom' style='margin-top:105px;color:orange;display:{{display1}};' bindtap=''>首页</label>
+ <label class='buttom' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
+ <label class='buttom' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
+

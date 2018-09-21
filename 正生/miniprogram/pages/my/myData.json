@@ -1,0 +1,8 @@
+{
+
+  "usingComponents": {
+    "double-column-chart": "../../components/double-column-chart/double-column-chart",
+    "nav-bar": "../index/index"
+  }
+
+}

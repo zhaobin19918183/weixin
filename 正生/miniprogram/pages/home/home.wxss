@@ -1,0 +1,281 @@
+/* pages/home/home.wxss */
+@import '../../utils/all.wxss';
+.canvas {
+  
+    height: 220px;
+    width: 90%;
+    margin-top: 30px
+
+    
+}
+.canvas1 {
+    width: 90%;
+    height: 100%;
+    margin-top: 4%;
+    position: absolute;
+    
+}
+
+swiper {
+  height: 100px;
+}
+
+swiper-item image {
+  width: 100%;
+  height: 100%;
+}
+/*横向布局  */
+.layout_horizontal{
+
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+
+}
+
+/*划线  */
+.line {
+   background-color: gainsboro;
+   height: 2rpx;
+   width: 100%;
+}
+.image
+{
+  width: 32px;
+  height: 32px;
+}
+
+.label0
+{
+  margin-left: 10px;
+  width: 100px
+}
+
+.container
+{
+  margin-left: 20px;
+  margin-right: 20px
+}
+
+ 
+
+/* 点击前 */
+.butTopOne
+{
+
+
+ margin-top: -20%;
+ margin-left: 75%;
+ width: 30%;
+ height: 60px;
+ font-size: 0.7rem;
+
+}
+/* 点击后 */
+.butTopTwo
+{
+
+ margin-left:4%;
+ margin-top: -20%;
+ width: 30%;
+ height: 60px;
+ font-size: 0.7rem;
+
+}
+
+.butTopThree
+{
+ margin-top: 2%;
+ margin-left: 60%;
+ width: 40%;
+ height: 80px;
+ font-size: 0.7rem;
+ color: white;
+ background-color: orange;
+ border-bottom-left-radius: 40px;
+ border-top-left-radius: 40px;
+}
+
+.show {
+  /* position: fixed; */
+  /* margin-left:100%; */
+  width: 80%;
+  height: 100%;
+  margin-top: -53%;
+  background: chartreuse;
+
+}
+@keyframes myfirst_show
+{
+0% {right:-70%;}
+100% {right: 0px;}
+}
+.hide{
+  /* position: fixed; */
+  width: 80%;
+  height: 100%;
+  background: chartreuse;
+}
+
+.firstB
+{
+  width: 100%;
+  height:75%;
+  background-color: rgba(255,255,255,0);
+ 
+
+}
+.label1
+{
+  font-family: "楷体";
+  width: 100%;
+  color:black;
+  font-size: 20rpx;
+  margin-top: -10%;
+  /* text-align: center; */
+  /* background: black; */
+
+
+}
+
+.firstimg
+{
+ width: 65px;
+ height: 65px;
+ border-radius: 150px;
+
+}
+button::after{
+border: none;
+}
+.progress1
+{
+  width: 100%;
+  height: 100px;
+
+}
+.viewimage
+{
+  width: 100%;
+  height:100px;
+  background-image: url('../imgs/小程序10_06.png');
+}
+
+.qiandao
+{
+  width: 100%;
+  height:40%;
+  background-color: rgba(255,255,255,0);
+  margin-left: -3%;
+  margin-top: 10%;
+
+  
+}
+.qiandao1
+{
+  width: 100%;
+  height:40%;
+  background-color: rgba(255,255,255,0);
+  margin-left: -3%;
+  font-size: 24rpx;
+
+}
+
+
+.firstVIew {
+
+  position: absolute;
+  z-index: 1;
+
+}
+
+.secondView {
+
+  position: absolute;
+  z-index: 2;
+
+}
+
+.gongzuoshi{
+ 
+
+    
+    height:240px;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+
+}
+
+
+.image-parent {
+  height: 100%; 
+  /* position: relative; */
+  
+}
+
+.child1 {
+  width: 100%;
+  position: absolute;
+  
+  /* margin: auto; */
+
+  
+ 
+}
+.child2 {
+   width: 30%;
+  position: absolute;
+   margin-left:40%;
+   margin-top: 23%;
+  
+ 
+}
+.child3 {
+  width: 30%;
+  position: absolute;
+   margin-left:60%;
+   margin-top: 33%;
+}
+
+.bg {
+  border-radius: 20px;
+  position: fixed;
+  display: none;
+  top: 20%;
+  right: 5%;
+  left: 5%;
+  width: 90%;
+  height: 60%;
+  background-color: #fca464;
+  z-index: 1001;
+
+}
+ 
+.show {
+  display: none;
+  text-align: center;
+   position: fixed;
+  top: 45%;
+  left: 20%;
+  width: 53%;
+  height: 10%;
+  padding: 8px;
+  border: 8px solid #e8e9f7;
+  background-color: white;
+  z-index: 1002;
+  overflow: auto;
+}
+.txt{
+   position: fixed;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: royalblue
+}
+
+/**index.wxss**/
+.home-page {
+  height: 160rpx;
+  width: 100%;
+  border: 1rpx solid red;
+  font-size: 60rpx;
+}
