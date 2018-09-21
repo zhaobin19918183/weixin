@@ -273,9 +273,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
-
-
   },
   bannerImage: function() {
 
@@ -426,27 +423,8 @@ Page({
     code: null
   },
   getUserInfo: function(e) {
-
-  
-    const db = wx.cloud.database()
-    db.collection('personal').doc('W6NW5pKURGseSvDZ').update({
-      // data 传入需要局部更新的数据
-      data: {
-        whetaher : 0
-      },
-      success: function (res) {
-        // res.data 包含该记录的数据
-        console.log("1111"+res)
-      },
-      fail: console.error
-    })
-
-
-
-    console.log('whetaher =mmp==  ', whetaher)
     var that = this;
     if (whetaher != 1) {
-
       console.log("未登录")
       console.log('user的值是：' + app.globalData.openid)
       that.loginTrueOrFalse()

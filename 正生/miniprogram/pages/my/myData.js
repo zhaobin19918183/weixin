@@ -194,6 +194,28 @@ Page({
     var that = this;
     GetList(that);
     GetTableVIewList(that);
+    that.MyData()
+  },
+  MyData: function () {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('personal').get({
+      success: res => {
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          whetaher : res.data[0].whetaher
+        })
+        whetaher = res.data[0].whetaher
+        console.log('[数据库] whetaher ===  ', whetaher)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
   },
   panghangbang: function (e) {
     console.log(e.target.id)
