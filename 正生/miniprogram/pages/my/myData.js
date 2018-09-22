@@ -199,14 +199,27 @@ Page({
   MyData: function () {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
+    console.log('[数据库] 签到成功===  ')
     db.collection('personal').get({
       success: res => {
         this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-          whetaher : res.data[0].whetaher
+          dayNumber: res.data[0].day,
+          allNumber: res.data[0].MyNumber,
+          allDay: res.data[0].allDay,
+          listData: [
+            { "code": "我的工作室", "text": res.data[0].MyWorkRoom[1] },
+            { "code": "我的积分", "text": res.data[0].MyNumber },
+            { "code": "工作室积分", "text": res.data[0].MyWorkRoomNumber },
+            { "code": "服务中心积分", "text": res.data[0].MyCenterNumber},
+            { "code": "分公司积分", "text": res.data[0].MyCompanyNumber },
+
+          ]
+
         })
         whetaher = res.data[0].whetaher
-        console.log('[数据库] whetaher ===  ', whetaher)
+        qiandaoYes = res.data[0].whetaher
+        console.log('[数据库] 签到成功===  ', res.data)
+        
       },
       fail: err => {
         wx.showToast({
@@ -216,6 +229,7 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+
   },
   panghangbang: function (e) {
     console.log(e.target.id)

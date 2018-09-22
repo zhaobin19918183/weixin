@@ -77,12 +77,26 @@ Page({
     display: '',
     display1: 'none',
     display2: 'block',
+
     integral1: "个人1 1000",
     integral2: "个人2 1000",
     integral3: "个人3 1000",
+
     company1: "无锡分公司1",
     company2: "无锡分公司2",
     company3: "无锡分公司3",
+
+    company1Number: "100",
+    company2Number: "100",
+    company3Number: "100",
+
+    center1: "无锡分公司1",
+    center2: "无锡分公司2",
+    center3: "无锡分公司3",
+
+    studio1: "无锡分公司1",
+    studio2: "无锡分公司2",
+    studio3: "无锡分公司3",
     // 个人数据
     whetaher: 0
 
@@ -117,46 +131,46 @@ Page({
 
 
   onLoad: function(e) {
-    var windowWidth = 320;
-    try {
-      var res = wx.getSystemInfoSync();
-      windowWidth = res.windowWidth;
-    } catch (e) {
-      console.error('getSystemInfoSync failed!');
-    }
-    areaChart = new wxCharts({
-      canvasId: 'areaCanvas',
-      type: 'area',
+    // var windowWidth = 320;
+    // try {
+    //   var res = wx.getSystemInfoSync();
+    //   windowWidth = res.windowWidth;
+    // } catch (e) {
+    //   console.error('getSystemInfoSync failed!');
+    // }
+    // areaChart = new wxCharts({
+    //   canvasId: 'areaCanvas',
+    //   type: 'area',
 
-      categories: ['杭州', '大连', '无锡'],
-      animation: true,
-      series: [{
-        name: '总积分',
-        data: [1114000, 111200, 12000, ],
-        format: function(val) {
-          return '' + val;
-        }
-      }],
-      yAxis: {
-        title: '',
-        format: function(val) {
-          return val;
-        },
-        min: 0,
-        fontColor: '#666',
-        gridColor: '#ec5d2a',
-        titleFontColor: '#ec5d2a'
-      },
-      xAxis: {
-        fontColor: '#ec5d2a',
-        gridColor: '#666'
-      },
-      extra: {
-        legendTextColor: '#ec5d2a'
-      },
-      width: windowWidth,
-      height: 200
-    });
+    //   categories: ['杭州', '大连', '无锡'],
+    //   animation: true,
+    //   series: [{
+    //     name: '总积分',
+    //     data: [1114000, 111200, 12000, ],
+    //     format: function(val) {
+    //       return '' + val;
+    //     }
+    //   }],
+    //   yAxis: {
+    //     title: '',
+    //     format: function(val) {
+    //       return val;
+    //     },
+    //     min: 0,
+    //     fontColor: '#666',
+    //     gridColor: '#ec5d2a',
+    //     titleFontColor: '#ec5d2a'
+    //   },
+    //   xAxis: {
+    //     fontColor: '#ec5d2a',
+    //     gridColor: '#666'
+    //   },
+    //   extra: {
+    //     legendTextColor: '#ec5d2a'
+    //   },
+    //   width: windowWidth,
+    //   height: 200
+    // });
     var that = this;
     if (e.id) {
       wx.showModal({
@@ -256,14 +270,73 @@ Page({
   MyData: function() {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
-    db.collection('personal').get({
+    const _ = db.command
+    db.collection('personal').orderBy('MyNumber', 'desc').limit(3).get({
       success: res => {
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
-          whetaher: res.data[0].whetaher
+          integral1: res.data[0].name +" 积分 "  + res.data[0].MyNumber ,
+          integral2: res.data[1].name + " 积分 " + res.data[1].MyNumber,
+          integral3: res.data[2].name + " 积分 " + res.data[2].MyNumber,
+
+          center1: res.data[0].MyCenter[1],
+          center2: res.data[1].MyCenter[1],
+          center3: res.data[2].MyCenter[1],
+
+          studio1: res.data[0].MyWorkRoom[1],
+          studio2: res.data[1].MyWorkRoom[1],
+          studio3: res.data[2].MyWorkRoom[1],
+
+          company1: res.data[0].MyCompany[1],
+          company2: res.data[1].MyCompany[1],
+          company3: res.data[2].MyCompany[1],
+
+          company1Number: res.data[0].MyCompanyNumber,
+          company2Number: res.data[1].MyCompanyNumber,
+          company3Number: res.data[2].MyCompanyNumber,
+         
         })
-        whetaher = res.data[0].whetaher
-        console.log('whetaher ===  ', whetaher)
+        var windowWidth = 320;
+        try {
+          var res = wx.getSystemInfoSync();
+          windowWidth = res.windowWidth;
+        } catch (e) {
+          console.error('getSystemInfoSync failed!');
+        }
+        areaChart = new wxCharts({
+          canvasId: 'areaCanvas',
+          type: 'area',
+
+          categories: [this.data.company1, this.data.company2, this.data.company3],
+          animation: true,
+          series: [{
+            name: '总积分',
+            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
+            format: function (val) {
+              return '' + val;
+            }
+          }],
+          yAxis: {
+            title: '',
+            format: function (val) {
+              return val;
+            },
+            min: 0,
+            fontColor: '#666',
+            gridColor: '#ec5d2a',
+            titleFontColor: '#ec5d2a'
+          },
+          xAxis: {
+            fontColor: '#ec5d2a',
+            gridColor: '#666'
+          },
+          extra: {
+            legendTextColor: '#ec5d2a'
+          },
+          width: windowWidth,
+          height: 200
+        });
+        console.log('res.data ===  ', res.data)
       },
       fail: err => {
         wx.showToast({
@@ -273,6 +346,11 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+  
+
+  
+
+
   },
   bannerImage: function() {
 
