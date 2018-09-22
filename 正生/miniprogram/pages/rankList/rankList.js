@@ -142,7 +142,20 @@ Page({
 
     var that = this
     console.log(that.data.wxSearchData.value)
-    WxSearch.wxSearchAddHisKey(that);
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('Branchrankings').where({
+      Name: that.data.wxSearchData.value
+    })
+      .get({
+        success: function (res) {
+          console.log(res.data)
+          this.setData({
+            arrayTableData: res.data
+          })       
+        }
+      })
+    // WxSearch.wxSearchAddHisKey(that);
 
   },
   wxSearchInput: function (e) {
