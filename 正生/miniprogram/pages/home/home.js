@@ -98,7 +98,20 @@ Page({
     studio2: "无锡分公司2",
     studio3: "无锡分公司3",
     // 个人数据
-    whetaher: 0
+    whetaher: 0,
+    myCompanyName: "",
+    myCompanyId: "",
+    myCompanyNumber: 0,
+
+    myCenterName: "",
+    myCenterNumber: 0,
+
+    myStudionName: "",
+    myStudioNumber: 0,
+
+    myName: "",
+    MyNUmber: 0,
+    name: ""
 
 
   },
@@ -173,14 +186,13 @@ Page({
     // });
     var that = this;
     if (e.id) {
+      this.mydetaildata(e.id)
       wx.showModal({
         title: "上传服务器",
         content: '来自' + e.id,
         showCancel: false,
       })
     }
-
-
 
   },
   /**
@@ -191,6 +203,7 @@ Page({
 
 
   },
+
   // 动图实现方法
   animationFunc: function() {
 
@@ -275,7 +288,7 @@ Page({
       success: res => {
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
-          integral1: res.data[0].name +" 积分 "  + res.data[0].MyNumber ,
+          integral1: res.data[0].name + " 积分 " + res.data[0].MyNumber,
           integral2: res.data[1].name + " 积分 " + res.data[1].MyNumber,
           integral3: res.data[2].name + " 积分 " + res.data[2].MyNumber,
 
@@ -294,7 +307,7 @@ Page({
           company1Number: res.data[0].MyCompanyNumber,
           company2Number: res.data[1].MyCompanyNumber,
           company3Number: res.data[2].MyCompanyNumber,
-         
+
         })
         var windowWidth = 320;
         try {
@@ -311,14 +324,14 @@ Page({
           animation: true,
           series: [{
             name: '总积分',
-            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
-            format: function (val) {
+            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number, ],
+            format: function(val) {
               return '' + val;
             }
           }],
           yAxis: {
             title: '',
-            format: function (val) {
+            format: function(val) {
               return val;
             },
             min: 0,
@@ -346,9 +359,9 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-  
 
-  
+
+
 
 
   },
@@ -483,6 +496,124 @@ Page({
       }
     }
   },
+  mydetaildata:function(openid){
+    const db = wx.cloud.database()
+    console.log("分享id == ", openid)
+    const _ = db.command 
+    db.collection('personal').where({
+      _openid: openid
+    }).get({
+      success: res => {
+        console.log('[数据库] [查询记录] ：', res.data)
+        whetaher = res.data[0].whetaher
+        qiandaoYes = res.data[0].whetaher
+        myCompanyId = res.data[0].MyCompany[0]
+        myCenterId = res.data[0].MyCenter[0]
+        myStudioId = res.data[0].MyWorkRoom[0]
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  },
+  jifeng: function(openid) {
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', openid)
+        db.collection('personal').where({
+          _openid: openid
+          })
+          .get({
+            success: function(res) {
+              db.collection('personal').doc(res.data.id).update({
+                // data 传入需要局部更新的数据
+                data: {
+                  whetaher: 1,
+                  MyCenterNumber: _.inc(5),
+                  MyCompanyNumber: _.inc(5),
+                  MyWorkRoomNumber: _.inc(5),
+                  MyNumber: _.inc(5),
+                  number: _.inc(5),
+                  day: _.inc(1),
+                  allDay: _.inc(1)
+
+                }
+
+              }).then
+              {
+                that.MyBranchrankings()
+                that.MyServiceCenterrankings()
+                that.MyStudioRankings()
+                wx.navigateTo({
+                  url: '../home/home'
+                })
+              }
+            }
+          })
+
+
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+  },
+  MyBranchrankings: function() {
+    var that = this
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('Branchrankings').doc(myCompanyId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        // 表示将 done 字段置为 true
+        number: _.inc(5),
+      },
+      success: function(res) {
+        console.log(res.data)
+      }
+    })
+  },
+  MyServiceCenterrankings: function() {
+    var that = this
+    console.log("myCenterId === " + myCenterId)
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('ServiceCenterrankings').doc(myCenterId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        number: _.inc(5),
+      },
+      success: function(res) {
+        console.log("MyServiceCenterrankings === " + res.data)
+      }
+    })
+
+  },
+  MyStudioRankings: function() {
+    var that = this
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('StudioRankings').doc(myStudioId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        // 表示将 done 字段置为 true
+        number: _.inc(5),
+      },
+      success: function(res) {
+        console.log(res.data)
+      }
+    })
+  },
+
   ToRankList: function(e) {
     console.log("id == " + e.currentTarget.id)
     wx.navigateTo({
@@ -578,8 +709,7 @@ Page({
           content: '未授权',
           success: function(res) {}
         })
-      } else
-     {
+      } else {
         wx.showModal({
           title: '提示',
           showCancel: false,

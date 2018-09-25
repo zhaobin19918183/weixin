@@ -14,7 +14,6 @@
         <label style='text-align:center;color:black;font-size:15px'>{{dayNumber}}</label>
         <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
       </view>
-
       <image class='dk06' src="../imgs/persional/dk06.png"></image>
       <view class='layout_vertical dk061 '>
         <label style='text-align:center;color:black;font-size:15px'>{{allNumber}}</label>

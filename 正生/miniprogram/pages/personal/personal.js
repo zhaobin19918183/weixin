@@ -10,8 +10,9 @@
  var myCompanyId = ""
 var myCenterId = ""
 var myStudioId = ""
+var openidstring = ""
  var GetTableVIewList = function(that) {
-   
+  
    that.setData({
      arrayTableData: [{
          message: '分公司排行榜',
@@ -319,6 +320,7 @@ var myStudioId = ""
        success: res => {
           console.log('[云函数] [login] user openid: ', res.result.openid)
             // 查询当前用户所有的 counters
+         openidstring = res.result.openid
      db.collection('personal').where({
        _openid: res.result.openid
      }).get({
@@ -326,7 +328,7 @@ var myStudioId = ""
          this.setData({
            dayNumber: res.data[0].day,
            allNumber: res.data[0].MyNumber,
-           allDay: res.data[0].allDay,
+           allDay: res.data[0].allDay 
          })
          console.log('[数据库] [查询记录] ：', res)
          whetaher = res.data[0].whetaher
@@ -350,33 +352,19 @@ var myStudioId = ""
        }
      })
 
-
-
-
-
-   
    },
    onShareAppMessage: function(res) {
-     wx.login({
-       success: function(res) {
-
-         var code = res.code; //返回code
-         console.log("code === " + code);
-
-       }
-     })
-     console.log(app.globalData.userInfo)
      return {
        title: '慧吃慧动100天',
        // 分享时在路径后拼接参数，可拼接多个参数。 
-       path: '/pages/share/share?id=',
+       path: '/pages/home/home?id='+openidstring,
        imageUrl: '../imgs/share.png',
        success: function(res) {
          // 转发成功
 
          console.log("转发成功")
          wx.showToast({
-           title: '转发成功',
+           title: "转发成功",
            icon: 'success',
            duration: 2000,
          })

@@ -8,6 +8,7 @@ var showzhandui = false
 var rate = 0;
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
+var openidstring = ""
 var GetTableVIewList = function (that) {
 
   that.setData({
@@ -270,6 +271,23 @@ Page({
       }
     })
 
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        // 查询当前用户所有的 counters
+        openidstring = res.result.openid
+        
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+
+
+
   },
   panghangbang: function (e) {
     console.log(e.target.id)
@@ -401,7 +419,7 @@ Page({
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
-      path: '/pages/home/home?id=13624249960',
+      path: '/pages/home/home?id=' + openidstring,
       imageUrl: '../imgs/share.png',
       success: function (res) {
         // 转发成功
