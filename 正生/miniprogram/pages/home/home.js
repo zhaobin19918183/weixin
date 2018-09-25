@@ -11,6 +11,9 @@ var deviceHeight = false;
 var imgeUrlAni = ""
 var imgeUrlAni2 = ""
 var imgeUrlAni1 = ""
+var myCompanyId = ""
+var myCenterId = ""
+var myStudioId = ""
 var whetaher = 0
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
@@ -187,6 +190,7 @@ Page({
     var that = this;
     if (e.id) {
       this.mydetaildata(e.id)
+      this.jifeng(e.id)
       wx.showModal({
         title: "上传服务器",
         content: '来自' + e.id,
@@ -510,6 +514,7 @@ Page({
         myCompanyId = res.data[0].MyCompany[0]
         myCenterId = res.data[0].MyCenter[0]
         myStudioId = res.data[0].MyWorkRoom[0]
+       
       },
       fail: err => {
         wx.showToast({
@@ -521,14 +526,13 @@ Page({
     })
   },
   jifeng: function(openid) {
-
+    console.log('[数据库] [查询记录] 积分 ：', openid)
     const db = wx.cloud.database()
     const _ = db.command
     wx.cloud.callFunction({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', openid)
         db.collection('personal').where({
           _openid: openid
           })
@@ -537,14 +541,11 @@ Page({
               db.collection('personal').doc(res.data.id).update({
                 // data 传入需要局部更新的数据
                 data: {
-                  whetaher: 1,
                   MyCenterNumber: _.inc(5),
                   MyCompanyNumber: _.inc(5),
                   MyWorkRoomNumber: _.inc(5),
                   MyNumber: _.inc(5),
                   number: _.inc(5),
-                  day: _.inc(1),
-                  allDay: _.inc(1)
 
                 }
 
