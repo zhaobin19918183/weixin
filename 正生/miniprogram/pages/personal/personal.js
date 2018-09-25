@@ -133,7 +133,8 @@
      myStudioNumber: 0,
 
      myName: "",
-     MyNUmber: 0
+     MyNUmber: 0,
+     name: ""
 
    },
    //事件处理函数
@@ -181,16 +182,47 @@
 
    },
 
-   wxSearchFn: function(e) {
-
+   wxSearchFn: function (e) {
      var that = this
-     console.log(that.data.wxSearchData.value)
-     WxSearch.wxSearchAddHisKey(that);
+     const db = wx.cloud.database()
+     // 查询当前用户所有的 counters
+     db.collection(this.data.name).where({
+       Name: that.data.wxSearchData.value
+
+     }).get({
+       success: res => {
+         this.setData({
+           arrayTableData: res.data
+         })
+         if (res.data.length == 0) {
+           wx.showToast({
+             icon: 'none',
+             title: '查询数据为空，请检查查询条件'
+           })
+         }
+         console.log('[数据库] 签到成功===  ', res.data)
+
+       },
+       fail: err => {
+         wx.showToast({
+           icon: 'none',
+           title: '查询记录失败'
+         })
+         console.error('[数据库] [查询记录] 失败：', err)
+       }
+     })
+
 
    },
-   wxSearchInput: function(e) {
+   wxSearchInput: function (e) {
      var that = this
      WxSearch.wxSearchInput(e, that);
+     console.log("搜索框" + that.data.wxSearchData.value)
+     if (that.data.wxSearchData.value == "") {
+       console.log("无数据")
+       that.MyListData(this.data.name)
+     }
+
    },
    wxSerchFocus: function(e) {
      var that = this
@@ -377,6 +409,7 @@
 
    },
     MyListData: function (name) {
+      this.data.name = name
      const db = wx.cloud.database()
      // 查询当前用户所有的 counters
      console.log('[数据库] 签到成功===  ')

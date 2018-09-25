@@ -123,7 +123,9 @@ Page({
     myStudioNumber: 0,
   
     myName:"",
-    MyNUmber:0
+    MyNUmber:0,
+
+    name:""
     
   },
 
@@ -139,28 +141,48 @@ Page({
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
   wxSearchFn: function (e) {
-
     var that = this
-    console.log(that.data.wxSearchData.value)
     const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('Branchrankings').where({
+    // 查询当前用户所有的 counters
+    db.collection(this.data.name).where({
       Name: that.data.wxSearchData.value
-    })
-      .get({
-        success: function (res) {
-          console.log(res.data)
-          this.setData({
-            arrayTableData: res.data
-          })       
+
+    }).get({
+      success: res => {
+        this.setData({
+          arrayTableData: res.data
+        })
+        if (res.data.length == 0 )
+        {
+          wx.showToast({
+            icon: 'none',
+            title: '查询数据为空，请检查查询条件'
+          })
         }
-      })
-    // WxSearch.wxSearchAddHisKey(that);
+        console.log('[数据库] 签到成功===  ', res.data)
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
 
   },
   wxSearchInput: function (e) {
     var that = this
     WxSearch.wxSearchInput(e, that);
+    console.log("搜索框"+that.data.wxSearchData.value)
+    if (that.data.wxSearchData.value == "")
+   {
+      console.log("无数据")
+      that.MyListData(this.data.name)
+   }
+
   },
   wxSerchFocus: function (e) {
     var that = this
@@ -232,6 +254,7 @@ Page({
   MyListData:function(name)
   {
     const db = wx.cloud.database()
+    this.data.name = name
     // 查询当前用户所有的 counters
     console.log('[数据库] 签到成功===  ')
     db.collection(name).orderBy('number', 'desc').get({
@@ -239,7 +262,7 @@ Page({
         this.setData({
           arrayTableData: res.data
         })
-   
+        
         console.log('[数据库] 签到成功===  ', res.data)
 
       },
