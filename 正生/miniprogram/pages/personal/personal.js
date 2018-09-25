@@ -7,6 +7,9 @@
  var showzhandui = false
  var whetaher = 0
  var qiandaoYes = 0
+ var myCompanyId = ""
+var myCenterId = ""
+var myStudioId = ""
  var GetTableVIewList = function(that) {
    
    that.setData({
@@ -124,6 +127,7 @@
      display1: 'none',
      display2: 'block',
      myCompanyName: "",
+     myCompanyId:"",
      myCompanyNumber: 0,
 
      myCenterName: "",
@@ -177,8 +181,6 @@
      //初始化的时候渲染wxSearchdata
      WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
      WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
-
-
 
    },
 
@@ -257,21 +259,81 @@
      that.MyData()
      that.MyPersional()
      that.MyListData('Branchrankings');
+    
+   },
+   MyBranchrankings: function ()
+   {
+     var that = this
+     const db = wx.cloud.database()
+     const _ = db.command
+     db.collection('Branchrankings').doc(myCompanyId).update({
+       // data 传入需要局部更新的数据
+       data: {
+         // 表示将 done 字段置为 true
+         number: _.inc(5),
+       },
+       success: function (res) {
+         console.log(res.data)
+       }
+     })
+   },
+   MyServiceCenterrankings: function () 
+   {
+     var that = this
+     console.log("myCenterId === " + myCenterId)
+     const db = wx.cloud.database()
+     const _ = db.command
+     db.collection('ServiceCenterrankings').doc(myCenterId).update({
+       // data 传入需要局部更新的数据
+       data: {
+         number: _.inc(5),
+       },
+       success: function (res) {
+         console.log("MyServiceCenterrankings === "+res.data)
+       }
+     })
+
+   },
+   MyStudioRankings: function () {
+     var that = this
+     const db = wx.cloud.database()
+     const _ = db.command
+     db.collection('StudioRankings').doc(myStudioId).update({
+       // data 传入需要局部更新的数据
+       data: {
+         // 表示将 done 字段置为 true
+         number: _.inc(5),
+       },
+       success: function (res) {
+         console.log(res.data)
+       }
+     })
    },
    MyData: function() {
+
      const db = wx.cloud.database()
-     // 查询当前用户所有的 counters
-     db.collection('personal').get({
+     const _ = db.command
+     wx.cloud.callFunction({
+       name: 'login',
+       data: {},
+       success: res => {
+          console.log('[云函数] [login] user openid: ', res.result.openid)
+            // 查询当前用户所有的 counters
+     db.collection('personal').where({
+       _openid: res.result.openid
+     }).get({
        success: res => {
          this.setData({
            dayNumber: res.data[0].day,
            allNumber: res.data[0].MyNumber,
            allDay: res.data[0].allDay,
-           
          })
+         console.log('[数据库] [查询记录] ：', res)
          whetaher = res.data[0].whetaher
          qiandaoYes = res.data[0].whetaher
-         console.log('[数据库] 签到成功===  ', res.data[0].whetaher)
+         myCompanyId = res.data[0].MyCompany[0]
+         myCenterId = res.data[0].MyCenter[0]
+         myStudioId = res.data[0].MyWorkRoom[0]
        },
        fail: err => {
          wx.showToast({
@@ -281,6 +343,18 @@
          console.error('[数据库] [查询记录] 失败：', err)
        }
      })
+  
+       },
+       fail: err => {
+         console.error('[云函数] [login] 调用失败', err)
+       }
+     })
+
+
+
+
+
+   
    },
    onShareAppMessage: function(res) {
      wx.login({
@@ -379,6 +453,9 @@
 
                    }).then
                    {
+                     that.MyBranchrankings()
+                     that.MyServiceCenterrankings()
+                     that.MyStudioRankings()
                      wx.navigateTo({
                        url: '../home/home'
                      })
@@ -393,7 +470,7 @@
            }
          })
         
-       
+         
        }
       
      }
