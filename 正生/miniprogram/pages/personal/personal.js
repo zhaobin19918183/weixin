@@ -108,9 +108,9 @@ var openidstring = ""
  }
  Page({
    data: {
-     dayNumber: 1,
-     allNumber: 1,
-     allDay: 1,
+     dayNumber: 0,
+     allNumber:0,
+     allDay: 0,
      nvabarData: {
        showCapsule: 1, //是否显示左上角图标
        title: '慧吃慧动100天', //导航栏 中间的标题
@@ -128,6 +128,7 @@ var openidstring = ""
      display1: 'none',
      display2: 'block',
      myCompanyName: "",
+     Myimage:"",
      myCompanyId:"",
      myCompanyNumber: 0,
 
@@ -146,7 +147,9 @@ var openidstring = ""
    bindViewTap: function() {
 
    },
-   onLoad: function(e) {
+   onLoad: function (options) {
+
+     openidstring = options.id
      this.setData({
        showAdverst: true,
        showCamera: false
@@ -258,7 +261,7 @@ var openidstring = ""
      GetList(that);
      GetTableVIewList(that);
      that.MyData()
-     that.MyPersional()
+     
      that.MyListData('Branchrankings');
     
    },
@@ -321,8 +324,9 @@ var openidstring = ""
           console.log('[云函数] [login] user openid: ', res.result.openid)
             // 查询当前用户所有的 counters
          openidstring = res.result.openid
+         this.MyPersional(openidstring)
      db.collection('personal').where({
-       _openid: res.result.openid
+       _openid: openidstring
      }).get({
        success: res => {
          this.setData({
@@ -392,6 +396,38 @@ var openidstring = ""
      })
 
    },
+   jiaruzhandui:function()
+   {
+     const db = wx.cloud.database()
+     const _ = db.command
+     db.collection('personal').where({
+       _openid: openidstring
+     }).get({
+       success: res => {
+         if (res.data[0] != null) {
+           wx.showToast({
+             title: '不能重复加入战队',
+             icon: 'succes',
+             duration: 1000,
+             mask: true
+           })
+         }
+         else {
+
+         }
+
+       },
+       fail: err => {
+         wx.showToast({
+           icon: 'none',
+           title: '查询记录失败'
+         })
+         console.error('[数据库] [查询记录] 失败：', err)
+       }
+     })
+
+   }
+   ,
    qiandao: function() {
      var that = this;
      that.MyData()
@@ -474,7 +510,7 @@ var openidstring = ""
 
    },
     MyListData: function (name) {
-      this.data.name = name
+     this.data.name = name
      const db = wx.cloud.database()
      // 查询当前用户所有的 counters
      console.log('[数据库] 签到成功===  ')
@@ -506,11 +542,14 @@ var openidstring = ""
        that.MyListData('Branchrankings');
        const db = wx.cloud.database()
        // 查询当前用户所有的 counters
-       db.collection('personal').get({
+       db.collection('personal').where({
+         _openid: openidstring
+       }).get({
          success: res => {
            this.setData({
              myCompanyName: res.data[0].MyCompany[1],
              myCompanyNumber: res.data[0].MyCompanyNumber,
+             Myimage: res.data[0].image
 
            })
            console.log(res.data)
@@ -529,12 +568,15 @@ var openidstring = ""
        that.MyListData('ServiceCenterrankings');
        const db = wx.cloud.database()
        // 查询当前用户所有的 counters
-       db.collection('personal').get({
+       db.collection('personal').where({
+         _openid: openidstring
+       }).get({
          success: res => {
            this.setData({
 
              myCompanyName: res.data[0].MyCenter[1],
              myCompanyNumber: res.data[0].MyCenterNumber,
+             Myimage: res.data[0].image
 
            })
            console.log(res.data)
@@ -551,11 +593,14 @@ var openidstring = ""
      if (e.target.id == 3) {
        const db = wx.cloud.database()
        // 查询当前用户所有的 counters
-       db.collection('personal').get({
+       db.collection('personal').where({
+         _openid: openidstring
+       }).get({
          success: res => {
            this.setData({
              myCompanyName: res.data[0].MyWorkRoom[1],
              myCompanyNumber: res.data[0].MyWorkRoomNumber,
+             Myimage: res.data[0].image
            })
            console.log(res.data)
          },
@@ -583,11 +628,14 @@ var openidstring = ""
      if (e.target.id == 4) {
        const db = wx.cloud.database()
        // 查询当前用户所有的 counters
-       db.collection('personal').get({
+       db.collection('personal').where({
+         _openid: openidstring
+       }).get({
          success: res => {
            this.setData({
              myCompanyName: res.data[0].Name,
-             myCompanyNumber: res.data[0].MyNumber
+             myCompanyNumber: res.data[0].MyNumber,
+              Myimage: res.data[0].image
 
            })
            console.log(res.data)
@@ -605,14 +653,17 @@ var openidstring = ""
 
    },
    
-   MyPersional: function () {
+   MyPersional: function (openidstr) {
      const db = wx.cloud.database()
      // 查询当前用户所有的 counters
-     db.collection('personal').get({
+     db.collection('personal').where({
+       _openid: openidstr
+     }).get({
        success: res => {
          this.setData({
            myCompanyName: res.data[0].MyCompany[1],
            myCompanyNumber: res.data[0].MyCompanyNumber,
+           Myimage: res.data[0].image
 
          })
          console.log(res.data)

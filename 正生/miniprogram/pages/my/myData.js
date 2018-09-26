@@ -1,4 +1,3 @@
-//index.js
 //获取应用实例
 var WxSearch = require('../../wxSearch/wxSearch.js')
 const app = getApp()
@@ -13,6 +12,13 @@ var arrayMyCompany = [];
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
 var openidstring = ""
+
+var workroomName = ""
+var workroomNumber = 0
+var centerNumber = 0
+var companyNumber = 0
+
+
 var GetTableVIewList = function (that) {
 
   that.setData({
@@ -86,7 +92,8 @@ var GetTableVIewList2 = function (that) {
 var GetList = function (that) {
 
   that.setData({
-    arrayData: [{
+    arrayData: [
+      {
       message: '分公司排行榜',
       imgurl: "../imgs/img01_05.png",
       id: 1
@@ -110,9 +117,9 @@ var GetList = function (that) {
 }
 Page({
   data: {
-    dayNumber:1,
-    allNumber:160000,
-    allDay: 16,
+    dayNumber:0,
+    allNumber:0,
+    allDay: 0,
     display1: 'none',
     display2: 'block',
     nvabarData: {
@@ -142,17 +149,18 @@ Page({
     ],
 
     listData: [
-      { "code": "我的工作室", "text": "10000" },
-      { "code": "我的积分", "text": "9999" },
-      { "code": "工作室积分", "text": "55555"},
-      { "code": "服务中心积分", "text": "33333"},
-      { "code": "分公司积分", "text": "44444" },
+      { "code": "我的工作室", "text": 10 },
+      { "code": "我的积分", "text": 0},
+      { "code": "工作室积分", "text": 0},
+      { "code": "服务中心积分", "text": 0},
+      { "code": "分公司积分", "text": 0 },
   
     ],
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     myCompanyName: "",
+    Myimage: "",
     myCompanyNumber: 0,
 
     myCenterName: "",
@@ -170,7 +178,8 @@ Page({
   bindViewTap: function () {
 
   },
-  onLoad: function (e) {
+  onLoad: function (options) {
+    openidstring = options.id
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -213,57 +222,127 @@ Page({
     GetList(that);
     GetTableVIewList(that);
     that.MyData()
-    that.MyPersional()
     that.MyListData('Branchrankings')
   },
-  
   MyListData: function (name) {
     this.data.name = name
     const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    console.log('[数据库] 签到成功===  ')
-    db.collection(name).orderBy('number', 'desc').get({
+    db.collection(name).orderBy('number', 'desc').where({
+      _openid: openidstring
+    }).get({
       success: res => {
         this.setData({
           arrayTableData: res.data
             
         })
-        arrayMydata = res.data;
-        console.log('[数据库] 签到成功===  ', res.data)
 
+        arrayMydata = res.data;
       },
       fail: err => {
         wx.showToast({
           icon: 'none',
           title: '查询记录失败'
         })
-        console.error('[数据库] [查询记录] 失败：', err)
       }
     })
 
   },
   MyData: function () {
+
     const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    console.log('[数据库] 签到成功===  ')
-    db.collection('personal').get({
+    const _ = db.command
+    console.log('[云] ')
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
       success: res => {
-        this.setData({
-          dayNumber: res.data[0].day,
-          allNumber: res.data[0].MyNumber,
-          allDay: res.data[0].allDay,
-          listData: [
-            { "code": "我的工作室", "text": res.data[0].MyWorkRoom[1] },
-            { "code": "我的积分", "text": res.data[0].MyNumber },
-            { "code": "工作室积分", "text": res.data[0].MyWorkRoomNumber },
-            { "code": "服务中心积分", "text": res.data[0].MyCenterNumber},
-            { "code": "分公司积分", "text": res.data[0].MyCompanyNumber },
+        console.log('[云函]', res.result.openid)
+        // 查询当前用户所有的 counters
+        openidstring = res.result.openid
+        this.MyPersional(openidstring)
+        db.collection('personal').where({
+          _openid: res.result.openid
+        }).get({
+          success: res => {
+       
+            this.setData({
+              dayNumber: res.data[0].day,
+              allNumber: res.data[0].MyNumber,
+              allDay: res.data[0].allDay,
+              listData: [
+                 { "code": "我的工作室", "text": res.data[0].MyWorkRoom[1]},
+                { "code": "我的积分", "text": res.data[0].MyNumber },
+                { "code": "工作室积分", "text": res.data[0].MyWorkRoomNumber },
+                { "code": "服务中心积分", "text": res.data[0].MyCenterNumber},
+                { "code": "分公司积分", "text": res.data[0].MyCompanyNumber},
 
-          ]
-
+              ],
+            })
+            console.log('[数据库] [查询记录] ：', res.data)
+            whetaher = res.data[0].whetaher
+            qiandaoYes = res.data[0].whetaher
+            myCompanyId = res.data[0].MyCompany[0]
+            myCenterId = res.data[0].MyCenter[0]
+            myStudioId = res.data[0].MyWorkRoom[0]
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
         })
-        whetaher = res.data[0].whetaher
-        qiandaoYes = res.data[0].whetaher 
+
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+
+  },
+
+  addTeam:function(e)
+  {
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        console.log(res.data)
+        if (res.data[0] != null) {
+          wx.showToast({
+            title: '不能重复加入战队',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+        }
+        else {
+
+          var workroom = []
+        
+          if (arrayMydata.length > 1) {
+           
+            workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
+            this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
+            workroomName = arrayMydata[e.target.id].Name
+            workroomNumber = arrayMydata[e.target.id].number
+            
+            console.log("工作室 == " + arrayMydata[e.target.id].number)
+
+          }
+          else {
+            workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
+            this.searchCenter(arrayMydata[0].centerID, workroom)
+            workroomName = arrayMydata[0].Name
+            workroomNumber = arrayMydata[0].number
+            console.log("工作室 == " + arrayMydata[e.target.id].number)
+          }
+
+        }
+
       },
       fail: err => {
         wx.showToast({
@@ -273,40 +352,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
-    const _ = db.command
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        // 查询当前用户所有的 counters
-        openidstring = res.result.openid 
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-      }
-    })
-  },
-  addTeam:function(e)
-  {
-    var workroom = []
-
-    if (arrayMydata.length > 1)
-    {
-      
-      workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
-      this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
-     
-    }
-    else
-    {
-      workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
-      this.searchCenter(arrayMydata[0].centerID, workroom)
-    }
-
-
-   
   }
   ,
   searchCenter:function(centerid,workroom)
@@ -321,6 +366,9 @@ Page({
     }).get({
       success: res => {
         myCenterArray = [res.data[0]._id,res.data[0].Name]
+        console.log("中心 == " +res.data[0].number)
+        centerNumber = res.data[0].number
+        
         this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
         if (res.data.length == 0) {
           wx.showToast({
@@ -355,7 +403,8 @@ Page({
     }).get({
       success: res => {
         myCompanyArray = [res.data[0]._id, res.data[0].Name]
-        console.log(workroom, centerArray, myCompanyArray)
+        console.log("公司 == " +res.data[0].number)
+        companyNumber = res.data[0].number
         this.addPensonal(workroom, centerArray, myCompanyArray)
         if (res.data.length == 0) {
           wx.showToast({
@@ -375,22 +424,29 @@ Page({
   }
   ,
   addPensonal: function (workroom, centerArray, myCompanyArray) {
+    console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber)
+   var numberdata = 0
    const db = wx.cloud.database()
     db.collection('personal').add({
       // data 字段表示需新增的 JSON 数据
       data: {
-        MyCompanyNumber:0,
+        MyCompanyNumber: companyNumber,
         MyNumber:0,
+        MyCenterNumber: centerNumber,
         MyWorkRoom: workroom,
         MyCompany: myCompanyArray,
         MyCenter: centerArray,
-        MyWorkRoomNumber:0,
+        MyWorkRoomNumber: workroomNumber,
         Name: app.globalData.userInfo.nickName,
-        _openid: openidstring,
         allDay:0,
         day:0,
         image: app.globalData.userInfo.avatarUrl,
-        myStudio: [],
+        myStudio: 
+          [workroomName,
+          numberdata,
+          workroomNumber,
+          centerNumber,
+          companyNumber],
         number:0,
         time:"",
         whetaher:0
@@ -411,11 +467,14 @@ Page({
       that.MyListData('Branchrankings');
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      }).get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].MyCompany[1],
             myCompanyNumber: res.data[0].MyCompanyNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -434,12 +493,15 @@ Page({
       that.MyListData('ServiceCenterrankings');
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      }).get({
         success: res => {
           this.setData({
 
             myCompanyName: res.data[0].MyCenter[1],
             myCompanyNumber: res.data[0].MyCenterNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -456,11 +518,14 @@ Page({
     if (e.target.id == 3) {
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      }).get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].MyWorkRoom[1],
             myCompanyNumber: res.data[0].MyWorkRoomNumber,
+            Myimage: res.data[0].image
           })
           console.log(res.data)
         },
@@ -488,11 +553,14 @@ Page({
     if (e.target.id == 4) {
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      }).get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].Name,
-            myCompanyNumber: res.data[0].MyNumber
+            myCompanyNumber: res.data[0].MyNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -509,14 +577,17 @@ Page({
     }
 
   },
-  MyPersional: function () {
+  MyPersional: function (openidstr) {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
-    db.collection('personal').get({
+    db.collection('personal').where({
+      _openid: openidstr
+    }).get({
       success: res => {
         this.setData({
           myCompanyName: res.data[0].MyCompany[1],
           myCompanyNumber: res.data[0].MyCompanyNumber,
+          Myimage: res.data[0].image
 
         })
         console.log(res.data)

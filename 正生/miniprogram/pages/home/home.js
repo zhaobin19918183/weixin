@@ -16,6 +16,7 @@ var myCenterId = ""
 var myStudioId = ""
 var whetaher = 0
 var shareOpenId = ""
+var openidstring = ""
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
 
@@ -82,25 +83,25 @@ Page({
     display1: 'none',
     display2: 'block',
 
-    integral1: "个人1 1000",
-    integral2: "个人2 1000",
-    integral3: "个人3 1000",
+    integral1: "",
+    integral2: "",
+    integral3: "",
 
-    company1: "无锡分公司1",
-    company2: "无锡分公司2",
-    company3: "无锡分公司3",
+    company1: "",
+    company2: "",
+    company3: "",
 
-    company1Number: "100",
-    company2Number: "100",
-    company3Number: "100",
+    company1Number: "",
+    company2Number: "",
+    company3Number: "",
 
-    center1: "无锡分公司1",
-    center2: "无锡分公司2",
-    center3: "无锡分公司3",
+    center1: "",
+    center2: "",
+    center3: "",
 
-    studio1: "无锡分公司1",
-    studio2: "无锡分公司2",
-    studio3: "无锡分公司3",
+    studio1: "",
+    studio2: "",
+    studio3: "",
     // 个人数据
     whetaher: 0,
     myCompanyName: "",
@@ -117,6 +118,25 @@ Page({
     MyNUmber: 0,
     name: ""
 
+
+  },
+  Myopenid: function () {
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        // 查询当前用户所有的 counters
+        openidstring = res.result.openid
+
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
 
   },
   touchHandler: function(e) {
@@ -151,13 +171,6 @@ Page({
     var that = this;
     if (e.id) {
       shareOpenId = e.id
-      // this.mydetaildata(e.id)
-      // this.jifeng(e.id)
-      // wx.showModal({
-      //   title: "上传服务器",
-      //   content: '来自' + e.id,
-      //   showCancel: false,
-      // })
     }
 
   },
@@ -165,8 +178,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
-
 
   },
 
@@ -224,6 +235,7 @@ Page({
     wx.cloud.init()
     console.log("onShow")
     var that = this;
+    that.Myopenid()
     that.bannerImage()
     that.MyData()
     that.animationFunc()
@@ -237,7 +249,7 @@ Page({
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-        console.log(getApp().globalData.openid)
+
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
@@ -254,9 +266,9 @@ Page({
       success: res => {
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
-          integral1: res.data[0].name + " 积分 " + res.data[0].MyNumber,
-          integral2: res.data[1].name + " 积分 " + res.data[1].MyNumber,
-          integral3: res.data[2].name + " 积分 " + res.data[2].MyNumber,
+          integral1: res.data[0].Name + " 积分 " + res.data[0].MyNumber,
+          integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
+          integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
 
           center1: res.data[0].MyCenter[1],
           center2: res.data[1].MyCenter[1],
@@ -588,33 +600,57 @@ Page({
     code: null
   },
   getUserInfo: function(e) {
-    var that = this;
-    if (whetaher != 1) {
-      console.log("未登录")
-      console.log('user的值是：' + app.globalData.openid)
-      that.loginTrueOrFalse()
+      const db = wx.cloud.database()
+      const _ = db.command
+      db.collection('personal').where({
+        _openid: openidstring
+      }).get({
+        success: res => {
+          if (res.data[0]!= null)
+         {
+            console.log('[数据库] [查询记录] ：', res.data)
+           var that = this;
+           if (whetaher != 1) {
+             that.loginTrueOrFalse()
 
-    } else {
-      wx.showToast({
-        title: '已经签到',
-        icon: 'succes',
-        duration: 1000,
-        mask: true
+           } else {
+             wx.showToast({
+               title: '已经签到',
+               icon: 'succes',
+               duration: 1000,
+               mask: true
+             })
+         }
+         }
+         else{
+            wx.showToast({
+              title: '请加入战队',
+              icon: 'succes',
+              duration: 1000,
+              mask: true
+            })
+
+         }
+         
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          console.error('[数据库] [查询记录] 失败：', err)
+        }
       })
-      console.log("已经登录")
-      console.log('user的值是：' + app.globalData.openid)
-    }
 
   },
   loginTrueOrFalse: function() {
     if (app.globalData.userInfo) {
-
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
       wx.navigateTo({
-        url: '../personal/personal'
+        url: '../personal/personal?id='+openidstring
       })
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -705,9 +741,37 @@ Page({
 
   },
   paihangbang: function() {
-    wx.navigateTo({
-      url: '../rankList/rankList'
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.navigateTo({
+            url: '../rankList/rankList'
+          })
+        }
+        else {
+          wx.showToast({
+            icon: 'none',
+            title: '尚未加入战队'
+          })
+        
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+    
+
   },
   backAction: function() {
     wx.navigateBack()
@@ -719,13 +783,54 @@ Page({
   },
   mydataAction: function() {
     wx.navigateTo({
-      url: '../my/myData'
+      url: '../my/myData?openidstring=' + openidstring
     })
   },
-  pensonalAction: function() {
-    wx.navigateTo({
-      url: '../personal/personal'
+  pensonalAction: function() 
+  {
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          console.log('[数据库] [查询记录] ：', res.data)
+          var that = this;
+          if (whetaher != 1) {
+            wx.navigateTo({
+              url: '../personal/personal'
+            })
+
+          } else {
+            wx.showToast({
+              title: '已经签到',
+              icon: 'succes',
+              duration: 1000,
+              mask: true
+            })
+          }
+        }
+        else {
+          wx.showToast({
+            title: '请加入战队',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+   
   },
   //  网络申请
   httPrequest: function(type) {

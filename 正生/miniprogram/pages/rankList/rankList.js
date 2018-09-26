@@ -3,6 +3,7 @@
 
 var app = getApp()
 var showzhandui = false
+var openidstring =""
 var WxSearch = require('../../wxSearch/wxSearch.js')
 var GetTableVIewList = function (that) {
   that.setData({
@@ -97,6 +98,7 @@ var GetList = function (that) {
     ]
   })
 }
+var openidstring =""
 Page({
 
   /**
@@ -114,6 +116,8 @@ Page({
     display1: 'none',
     display2: 'block',
     myCompanyName:"",
+    Myimage: "",
+    myCompanyNumber:0,
     myCompanyNumber:0,
 
     myCenterName: "",
@@ -224,22 +228,58 @@ Page({
     var that = this;
      GetList(that);
     // GetTableVIewList(that);
+    // that.MyPersionald()
+    that.MyData()
     that.MyListData('Branchrankings');
-    that.MyPersional()
+   
+  },
+   jiaruzhandui: function () {
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.showToast({
+            title: '不能重复加入战队',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+        }
+        else {
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
   }
   ,
-  MyPersional:function()
+  MyPersionald: function (openidstr)
   {
+    console.log("我的排行榜 === " + openidstr)
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
-    db.collection('personal').get({
+    db.collection('personal').where({
+      _openid: openidstr
+    }).get({
       success: res => {
         this.setData({
           myCompanyName: res.data[0].MyCompany[1],
           myCompanyNumber: res.data[0].MyCompanyNumber,
+          Myimage: res.data[0].image
 
         })
-      console.log(res.data)
+      console.log("我的排行榜数据 ===  "+res.data)
       },
       fail: err => {
         wx.showToast({
@@ -284,11 +324,15 @@ Page({
       that.MyListData('Branchrankings');
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].MyCompany[1],
             myCompanyNumber: res.data[0].MyCompanyNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -307,12 +351,16 @@ Page({
       that.MyListData('ServiceCenterrankings');
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
         success: res => {
           this.setData({
          
             myCompanyName: res.data[0].MyCenter[1],
             myCompanyNumber: res.data[0].MyCenterNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -329,11 +377,15 @@ Page({
     if (e.target.id == 3) {
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].MyWorkRoom[1],
             myCompanyNumber: res.data[0].MyWorkRoomNumber,
+            Myimage: res.data[0].image
           })
           console.log(res.data)
         },
@@ -362,11 +414,15 @@ Page({
     if (e.target.id == 4) {
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
-      db.collection('personal').get({
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
         success: res => {
           this.setData({
             myCompanyName: res.data[0].Name,
-            myCompanyNumber: res.data[0].MyNumber
+            myCompanyNumber: res.data[0].MyNumber,
+            Myimage: res.data[0].image
 
           })
           console.log(res.data)
@@ -432,6 +488,26 @@ Page({
     wx.navigateTo({
       url: '../my/myData'
     })
+  }
+  ,
+  MyData: function () {
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        // 查询当前用户所有的 counters
+        openidstring = res.result.openid
+        this.MyPersionald(openidstring)
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+
   }
   ,
   pensonalAction: function () {
