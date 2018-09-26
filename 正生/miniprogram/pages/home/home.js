@@ -15,6 +15,7 @@ var myCompanyId = ""
 var myCenterId = ""
 var myStudioId = ""
 var whetaher = 0
+var shareOpenId = ""
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
 
@@ -147,55 +148,16 @@ Page({
 
 
   onLoad: function(e) {
-    // var windowWidth = 320;
-    // try {
-    //   var res = wx.getSystemInfoSync();
-    //   windowWidth = res.windowWidth;
-    // } catch (e) {
-    //   console.error('getSystemInfoSync failed!');
-    // }
-    // areaChart = new wxCharts({
-    //   canvasId: 'areaCanvas',
-    //   type: 'area',
-
-    //   categories: ['杭州', '大连', '无锡'],
-    //   animation: true,
-    //   series: [{
-    //     name: '总积分',
-    //     data: [1114000, 111200, 12000, ],
-    //     format: function(val) {
-    //       return '' + val;
-    //     }
-    //   }],
-    //   yAxis: {
-    //     title: '',
-    //     format: function(val) {
-    //       return val;
-    //     },
-    //     min: 0,
-    //     fontColor: '#666',
-    //     gridColor: '#ec5d2a',
-    //     titleFontColor: '#ec5d2a'
-    //   },
-    //   xAxis: {
-    //     fontColor: '#ec5d2a',
-    //     gridColor: '#666'
-    //   },
-    //   extra: {
-    //     legendTextColor: '#ec5d2a'
-    //   },
-    //   width: windowWidth,
-    //   height: 200
-    // });
     var that = this;
     if (e.id) {
-      this.mydetaildata(e.id)
-      this.jifeng(e.id)
-      wx.showModal({
-        title: "上传服务器",
-        content: '来自' + e.id,
-        showCancel: false,
-      })
+      shareOpenId = e.id
+      // this.mydetaildata(e.id)
+      // this.jifeng(e.id)
+      // wx.showModal({
+      //   title: "上传服务器",
+      //   content: '来自' + e.id,
+      //   showCancel: false,
+      // })
     }
 
   },
@@ -484,7 +446,7 @@ Page({
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
-      path: '/pages/share/share?id=13624249960',
+      path: '/pages/home/home',
       imageUrl: '../imgs/background1.png',
       success: function(res) {
         // 转发成功
@@ -500,10 +462,9 @@ Page({
       }
     }
   },
-  mydetaildata:function(openid){
+  mydetaildata: function(openid) {
     const db = wx.cloud.database()
-    console.log("分享id == ", openid)
-    const _ = db.command 
+    const _ = db.command
     db.collection('personal').where({
       _openid: openid
     }).get({
@@ -514,7 +475,7 @@ Page({
         myCompanyId = res.data[0].MyCompany[0]
         myCenterId = res.data[0].MyCenter[0]
         myStudioId = res.data[0].MyWorkRoom[0]
-       
+
       },
       fail: err => {
         wx.showToast({
@@ -526,7 +487,6 @@ Page({
     })
   },
   jifeng: function(openid) {
-    console.log('[数据库] [查询记录] 积分 ：', openid)
     const db = wx.cloud.database()
     const _ = db.command
     wx.cloud.callFunction({
@@ -534,7 +494,7 @@ Page({
       data: {},
       success: res => {
         db.collection('personal').where({
-          _openid: openid
+            _openid: openid
           })
           .get({
             success: function(res) {
@@ -549,19 +509,14 @@ Page({
 
                 }
 
-              }).then
+              }).then 
               {
                 that.MyBranchrankings()
                 that.MyServiceCenterrankings()
                 that.MyStudioRankings()
-                wx.navigateTo({
-                  url: '../home/home'
-                })
               }
             }
           })
-
-
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)

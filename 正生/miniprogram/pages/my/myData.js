@@ -6,6 +6,10 @@ var showAdverst = true
 var showCamera = false
 var showzhandui = false
 var rate = 0;
+var arrayMydata = [];
+var arrayMyCenter = [];
+var arrayMyCompany = [];
+
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
 var openidstring = ""
@@ -222,8 +226,9 @@ Page({
       success: res => {
         this.setData({
           arrayTableData: res.data
+            
         })
-
+        arrayMydata = res.data;
         console.log('[数据库] 签到成功===  ', res.data)
 
       },
@@ -258,9 +263,7 @@ Page({
 
         })
         whetaher = res.data[0].whetaher
-        qiandaoYes = res.data[0].whetaher
-        console.log('[数据库] 签到成功===  ', res.data)
-        
+        qiandaoYes = res.data[0].whetaher 
       },
       fail: err => {
         wx.showToast({
@@ -278,17 +281,129 @@ Page({
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         // 查询当前用户所有的 counters
-        openidstring = res.result.openid
-        
+        openidstring = res.result.openid 
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
       }
     })
+  },
+  addTeam:function(e)
+  {
+    var workroom = []
 
+    if (arrayMydata.length > 1)
+    {
+      
+      workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
+      this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
+     
+    }
+    else
+    {
+      workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
+      this.searchCenter(arrayMydata[0].centerID, workroom)
+    }
+
+
+   
+  }
+  ,
+  searchCenter:function(centerid,workroom)
+  {
+    var myCenterArray = [];
+    var that = this
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection("ServiceCenterrankings").where({
+      _id: centerid
+
+    }).get({
+      success: res => {
+        myCenterArray = [res.data[0]._id,res.data[0].Name]
+        this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
+        if (res.data.length == 0) {
+          wx.showToast({
+            icon: 'none',
+            title: '查询数据为空，请检查查询条件'
+          })
+        }
+        console.log('[数据库] 签到成功===  ', res.data)
+ 
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
 
 
   },
+  myCompanyData:function(companyID,workroom,centerArray)
+  {
+    var that = this
+    const db = wx.cloud.database()
+    var myCompanyArray = [];
+   
+    // 查询当前用户所有的 counters
+    db.collection("Branchrankings").where({
+      _id: companyID
+
+    }).get({
+      success: res => {
+        myCompanyArray = [res.data[0]._id, res.data[0].Name]
+        console.log(workroom, centerArray, myCompanyArray)
+        this.addPensonal(workroom, centerArray, myCompanyArray)
+        if (res.data.length == 0) {
+          wx.showToast({
+            icon: 'none',
+            title: '查询数据为空，请检查查询条件'
+          })
+        }
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  }
+  ,
+  addPensonal: function (workroom, centerArray, myCompanyArray) {
+   const db = wx.cloud.database()
+    db.collection('personal').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        MyCompanyNumber:0,
+        MyNumber:0,
+        MyWorkRoom: workroom,
+        MyCompany: myCompanyArray,
+        MyCenter: centerArray,
+        MyWorkRoomNumber:0,
+        Name: app.globalData.userInfo.nickName,
+        _openid: openidstring,
+        allDay:0,
+        day:0,
+        image: app.globalData.userInfo.avatarUrl,
+        myStudio: [],
+        number:0,
+        time:"",
+        whetaher:0
+       },
+      success: function (res) {
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+        console.log(res)
+      },
+      fail: console.error
+    })
+
+  }
+  ,
   panghangbang: function (e) {
     console.log(e.target.id)
     var that = this;
@@ -719,13 +834,13 @@ Page({
         this.setData({
           arrayTableData: res.data
         })
+        arrayMydata = res.data
         if (res.data.length == 0) {
           wx.showToast({
             icon: 'none',
             title: '查询数据为空，请检查查询条件'
           })
         }
-        console.log('[数据库] 签到成功===  ', res.data)
 
       },
       fail: err => {
