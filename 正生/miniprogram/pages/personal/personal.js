@@ -481,7 +481,7 @@ var openidstring = ""
                      that.MyServiceCenterrankings()
                      that.MyStudioRankings()
                      wx.navigateTo({
-                       url: '../home/home'
+                       url: '/pages/home/home'
                      })
                    }
                  }
@@ -635,7 +635,7 @@ var openidstring = ""
            this.setData({
              myCompanyName: res.data[0].Name,
              myCompanyNumber: res.data[0].MyNumber,
-              Myimage: res.data[0].image
+             Myimage: res.data[0].image
 
            })
            console.log(res.data)
@@ -739,58 +739,146 @@ var openidstring = ""
 
    },
    bindChooiceProduct: function() {
-       var that = this;
-       wx.chooseImage({
-         count: 3, //最多可以选择的图片总数  
-         sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
-         success: function(res) {
-           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
-           var tempFilePaths = res.tempFilePaths;
-           //启动上传等待中...  
-           wx.showToast({
-             title: '正在上传...',
-             icon: 'loading',
-             mask: true,
-             duration: 10000
-           })
-           var uploadImgCount = 0;
-           for (var i = 0, h = tempFilePaths.length; i < h; i++) {
-             wx.uploadFile({
-               url: '',
-               filePath: tempFilePaths[i],
-               name: 'uploadfile_ant',
-               formData: {
-                 'imgIndex': i
-               },
-               header: {
-                 "Content-Type": "multipart/form-data"
-               },
-               success: function(res) {
-                 uploadImgCount++;
-                 var data = JSON.parse(res.data);
-                 //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }  
-                 //如果是最后一张,则隐藏等待中  
-                 if (uploadImgCount == tempFilePaths.length) {
-                   wx.hideToast();
-                 }
-               },
-               fail: function(res) {
-                 wx.hideToast();
-                 wx.showModal({
-                   title: '错误提示',
-                   content: '上传图片失败',
-                   showCancel: false,
-                   success: function(res) {}
-                 })
-               }
-             });
-           }
-         }
-       });
+     var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+     var code = ""
+     var codeLength = 4;
+     for (var i = 0; i < codeLength; i++) {
+
+       //设置随机数范围,这设置为0 ~ 36
+
+       var index = Math.floor(Math.random() * 36);
+
+       //字符串拼接 将每次随机的字符 进行拼接
+
+       code += random[index];
 
      }
+     
+     wx.chooseImage({
+       count: 1, // 最多可以选择的图片张数，默认9
+       sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
+       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
+       success: chooseResult => {
+         // 将图片上传至云存储空间
+         wx.cloud.uploadFile({
+           // 指定上传到的云路径
+           cloudPath: code+ '.png',
+           // 指定要上传的文件的小程序临时文件路径
+           filePath: chooseResult.tempFilePaths[0],
+           // 成功回调
+           success: res => {
+             console.log('上传成功', res.fileID)
+             var imageurl = res.fileID
+             const db = wx.cloud.database()
+             const _ = db.command
+             wx.showToast({
+               title: '图片上传中',
+               icon: 'loading',
+               duration: 10000
+             })
+             wx.cloud.callFunction({
+               name: 'login',
+               data: {},
+               success: res => {
+                 console.log('[云函数] [login] user openid: ', res.result.openid)
+                 db.collection('personal').where({
+                   _openid: res.result.openid
+                 })
+                   .get({
+                     success: function (res) {
+                       db.collection('personal').doc(res.data.id).update({
+                         // data 传入需要局部更新的数据
+                         data: {
+                           whetaher: 1,
+                           MyCenterNumber: _.inc(5),
+                           MyCompanyNumber: _.inc(5),
+                           MyWorkRoomNumber: _.inc(5),
+                           MyNumber: _.inc(5),
+                           imageArray: _.push(imageurl),
+                           number: _.inc(5),
+                           day: _.inc(1),
+                           allDay: _.inc(1)
 
+                         }
+
+                       }).then
+                       {
+                         that.MyBranchrankings()
+                         that.MyServiceCenterrankings()
+                         that.MyStudioRankings()
+                        
+                       }
+                     }
+                   })
+                 wx.navigateTo({
+                   url: '../home/home'
+                 })
+
+
+               },
+               fail: err => {
+                 console.error('[云函数] [login] 调用失败', err)
+               }
+             })
+           
+           },
+         })
+       },
+     })
+
+     },
+   imageslect: function () {
+     var that = this;
+     wx.chooseImage({
+       count: 3, //最多可以选择的图片总数  
+       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+       success: function (res) {
+         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
+         var tempFilePaths = res.tempFilePaths;
+         //启动上传等待中...  
+         wx.showToast({
+           title: '正在上传...',
+           icon: 'loading',
+           mask: true,
+           duration: 10000
+         })
+         var uploadImgCount = 0;
+         for (var i = 0, h = tempFilePaths.length; i < h; i++) {
+           wx.uploadFile({
+             url: '',
+             filePath: tempFilePaths[i],
+             name: 'uploadfile_ant',
+             formData: {
+               'imgIndex': i
+             },
+             header: {
+               "Content-Type": "multipart/form-data"
+             },
+             success: function (res) {
+               uploadImgCount++;
+               var data = JSON.parse(res.data);
+               //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }  
+               //如果是最后一张,则隐藏等待中  
+               if (uploadImgCount == tempFilePaths.length) {
+                 wx.hideToast();
+               }
+             },
+             fail: function (res) {
+               wx.hideToast();
+               wx.showModal({
+                 title: '错误提示',
+                 content: '上传图片失败',
+                 showCancel: false,
+                 success: function (res) { }
+               })
+             }
+           });
+         }
+       }
+     });
+
+  }
      ,
    showfunc1: function() {
      var that = this;

@@ -89,37 +89,38 @@ var GetTableVIewList2 = function (that) {
     ]
   })
 }
-var GetList = function (that) {
+// var GetList = function (that) {
 
-  that.setData({
-    arrayData: [
-      {
-      message: '分公司排行榜',
-      imgurl: "../imgs/img01_05.png",
-      id: 1
-    }, {
-      message: '服务中心排行榜',
-      imgurl: "../imgs/img01_07.png",
-      id: 2
-    }, {
-      message: '工作室排行榜',
-      imgurl: "../imgs/img01_09.png",
-      id: 3
-    }, {
-      message: '个人排行榜',
-      imgurl: "../imgs/img01_11.png",
-      id: 4
-    }
+//   that.setData({
+//     arrayData: [
+//       {
+//       message: '分公司排行榜',
+//       imgurl: "../imgs/img01_05.png",
+//       id: 1
+//     }, {
+//       message: '服务中心排行榜',
+//       imgurl: "../imgs/img01_07.png",
+//       id: 2
+//     }, {
+//       message: '工作室排行榜',
+//       imgurl: "../imgs/img01_09.png",
+//       id: 3
+//     }, {
+//       message: '个人排行榜',
+//       imgurl: "../imgs/img01_11.png",
+//       id: 4
+//     }
 
-    ]
+//     ]
 
-  })
-}
+//   })
+// }
 Page({
   data: {
     dayNumber:0,
     allNumber:0,
     allDay: 0,
+    arrayData:[],
     display1: 'none',
     display2: 'block',
     nvabarData: {
@@ -219,7 +220,7 @@ Page({
 
   onShow: function (e) {
     var that = this;
-    GetList(that);
+    // GetList(that);
     GetTableVIewList(that);
     that.MyData()
     that.MyListData('Branchrankings')
@@ -277,8 +278,9 @@ Page({
                 { "code": "分公司积分", "text": res.data[0].MyCompanyNumber},
 
               ],
+              arrayData: res.data[0].imageArray
             })
-            console.log('[数据库] [查询记录] ：', res.data)
+            console.log('[数据库] res.data[0].imageArray ：', res.data[0].imageArray)
             whetaher = res.data[0].whetaher
             qiandaoYes = res.data[0].whetaher
             myCompanyId = res.data[0].MyCompany[0]
