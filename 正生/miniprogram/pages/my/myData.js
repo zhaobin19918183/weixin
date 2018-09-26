@@ -149,7 +149,7 @@ Page({
     ],
 
     listData: [
-      { "code": "我的工作室", "text": 10 },
+      { "code": "我的工作室", "text": 0 },
       { "code": "我的积分", "text": 0},
       { "code": "工作室积分", "text": 0},
       { "code": "服务中心积分", "text": 0},
@@ -454,6 +454,10 @@ Page({
       success: function (res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res)
+        wx.navigateTo({
+          url: '../home/home'
+        })
+
       },
       fail: console.error
     })
