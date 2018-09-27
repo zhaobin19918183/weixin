@@ -17,6 +17,7 @@ var workroomName = ""
 var workroomNumber = 0
 var centerNumber = 0
 var companyNumber = 0
+var shareOpenId =""
 var timestamp =
   Date.parse(new Date());
 //返回当前时间毫秒数
@@ -211,6 +212,11 @@ Page({
 
   },
   onLoad: function(options) {
+    shareOpenId = options.shareOpenId
+   
+    console.log("shareOpenId == " + shareOpenId)
+    
+
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -441,6 +447,7 @@ Page({
 
     }).get({
       success: res => {
+
         myCompanyArray = [res.data[0]._id, res.data[0].Name]
         console.log("公司 == " + res.data[0].number)
         companyNumber = res.data[0].number
@@ -462,6 +469,11 @@ Page({
     })
   },
   addPensonal: function(workroom, centerArray, myCompanyArray) {
+    wx.showToast({
+      title: '加入中',
+      icon: 'loading',
+      duration: 10000
+    })
     var enddate = Y + "-" + M + "-" + D
     console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
     var numberdata = 0
@@ -486,21 +498,122 @@ Page({
           centerNumber,
           companyNumber
         ],
+        imageArray:[],
         number: 0,
         time: enddate,
         whetaher: 0
       },
       success: function(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log(res)
-        wx.navigateTo({
-          url: '../home/home'
+        wx.showToast({
+          title: '加入战队成功',
+          icon: 'success',
+          duration: 2000,
         })
+
+        if (shareOpenId.length  == 0)
+        {
+          wx.navigateTo({
+            url: '../home/home'
+          })
+
+        }
+        else
+        {
+        this.jifeng(shareOpenId)
+        }
+       
 
       },
       fail: console.error
     })
 
+  },
+  jifeng: function (openid) {
+    const db = wx.cloud.database()
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        db.collection('personal').where({
+          _openid: openid
+        })
+          .get({
+            success: function (res) {
+              db.collection('personal').doc(res.data.id).update({
+                // data 传入需要局部更新的数据
+                data: {
+                  MyCenterNumber: _.inc(5),
+                  MyCompanyNumber: _.inc(5),
+                  MyWorkRoomNumber: _.inc(5),
+                  MyNumber: _.inc(5),
+                  number: _.inc(5),
+
+                }
+
+              }).then
+              {
+                that.MyBranchrankings()
+                that.MyServiceCenterrankings()
+                that.MyStudioRankings()
+                wx.navigateTo({
+                  url: '../home/home'
+                })
+              }
+            }
+          })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+  },
+  MyBranchrankings: function () {
+    var that = this
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('Branchrankings').doc(myCompanyId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        // 表示将 done 字段置为 true
+        number: _.inc(5),
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
+  },
+  MyServiceCenterrankings: function () {
+    var that = this
+    console.log("myCenterId === " + myCenterId)
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('ServiceCenterrankings').doc(myCenterId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        number: _.inc(5),
+      },
+      success: function (res) {
+        console.log("MyServiceCenterrankings === " + res.data)
+      }
+    })
+
+  },
+  MyStudioRankings: function () {
+    var that = this
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('StudioRankings').doc(myStudioId).update({
+      // data 传入需要局部更新的数据
+      data: {
+        // 表示将 done 字段置为 true
+        number: _.inc(5),
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
   },
   panghangbang: function(e) {
     console.log(e.target.id)

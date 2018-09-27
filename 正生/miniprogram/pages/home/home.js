@@ -242,7 +242,6 @@ Page({
       shareOpenId = e.id
     }
 
-   
 
     if (app.globalData.userInfo) {
       console.log(1)
@@ -965,7 +964,7 @@ Page({
   },
   mydataAction: function() {
     wx.navigateTo({
-      url: '../my/myData?openidstring=' + openidstring
+      url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
     })
   },
   pensonalAction: function() {
