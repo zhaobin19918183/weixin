@@ -1,7 +1,7 @@
 //app.js
 App({
-  onLaunch: function () {
-    
+  onLaunch: function() {
+
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -12,8 +12,8 @@ App({
 
     this.globalData = {}
   },
-//渐入，渐出实现 
-  show: function (that, param, opacity) {
+  //渐入，渐出实现 
+  show: function(that, param, opacity) {
     var animation = wx.createAnimation({
       //持续时间800ms
       duration: 800,
@@ -30,7 +30,7 @@ App({
   },
 
   //滑动渐入渐出
-  slideupshow: function (that, param, px, opacity) {
+  slideupshow: function(that, param, px, opacity) {
     var animation = wx.createAnimation({
       duration: 800,
       timingFunction: 'ease',
@@ -45,7 +45,7 @@ App({
   },
 
   //向右滑动渐入渐出
-  sliderightshow: function (that, param, px, opacity) {
+  sliderightshow: function(that, param, px, opacity) {
     var animation = wx.createAnimation({
       duration: 800,
       timingFunction: 'ease',
@@ -57,9 +57,8 @@ App({
     json[param] = animation.export()
     //设置动画
     that.setData(json)
-  }
-  ,
-  onLaunch: function (options) {
+  },
+  onLaunch: function(options) {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -75,6 +74,7 @@ App({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
+          console.log("success")
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
@@ -88,6 +88,11 @@ App({
               }
             }
           })
+        } else {
+          console.log("error")
+
+
+
         }
       }
     })
@@ -110,7 +115,7 @@ App({
 
   },
   globalData: {
-    share: false,  // 分享默认为false
+    share: false, // 分享默认为false
     height: 0,
   }
 

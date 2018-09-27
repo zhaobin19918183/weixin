@@ -17,7 +17,24 @@ var workroomName = ""
 var workroomNumber = 0
 var centerNumber = 0
 var companyNumber = 0
-
+var timestamp =
+  Date.parse(new Date());
+//返回当前时间毫秒数
+timestamp = timestamp / 1000;
+//获取当前时间
+var n = timestamp *
+  1000;
+var date = new Date(n);
+//年
+var Y =
+  date.getFullYear();
+//月
+var M = (date.getMonth() +
+  1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+//日
+var D = date.getDate() <
+  10 ? '0' + date.getDate() :
+  date.getDate();
 
 var GetTableVIewList = function (that) {
 
@@ -180,7 +197,6 @@ Page({
 
   },
   onLoad: function (options) {
-    openidstring = options.id
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -258,6 +274,7 @@ Page({
         console.log('[云函]', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
+        console.log("=====" + openidstring)
         this.MyPersional(openidstring)
         db.collection('personal').where({
           _openid: res.result.openid
@@ -424,7 +441,8 @@ Page({
   }
   ,
   addPensonal: function (workroom, centerArray, myCompanyArray) {
-    console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber)
+    var enddate = Y + "-" + M + "-" + D
+    console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
    var numberdata = 0
    const db = wx.cloud.database()
     db.collection('personal').add({
@@ -448,7 +466,7 @@ Page({
           centerNumber,
           companyNumber],
         number:0,
-        time:"",
+        time: enddate,
         whetaher:0
        },
       success: function (res) {
@@ -880,15 +898,67 @@ Page({
   }
   ,
   mydataAction: function () {
-    wx.navigateTo({
-      url: '../my/myData'
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.navigateTo({
+            url: '../my/myData'
+          })
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '尚未加入战队'
+          })
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+
+   
   }
   ,
   pensonalAction: function () {
-    wx.navigateTo({
-      url: '../personal/personal'
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.navigateTo({
+            url: '../personal/personal'
+          })
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '尚未加入战队'
+          })
+
+        }
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+
+    
   }
   ,
 

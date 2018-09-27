@@ -78,7 +78,7 @@ Page({
       showCapsule: 1, //是否显示左上角图标
       title: '慧吃慧动100天', //导航栏 中间的标题
     },
-
+    modalFlag : false,
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
     show_centent: false,
@@ -144,7 +144,6 @@ Page({
 
   },
   Myopenid: function() {
-
     const db = wx.cloud.database()
     const _ = db.command
     wx.cloud.callFunction({
@@ -237,13 +236,54 @@ Page({
    */
 
 
-
   onLoad: function(e) {
     var that = this;
     if (e.id) {
       shareOpenId = e.id
     }
 
+   
+
+    if (app.globalData.userInfo) {
+      console.log(1)
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+        modalFlag: true
+      })
+    } else if (this.data.canIUse) {
+      console.log(2)
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      console.log(3)
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        withCredentials: true,
+        success: res => {
+          console.log(" encryptedData 是 " + res.encryptedData)
+          console.log("iv 是" + res.iv)
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true,
+            modalFlag: true
+          })
+
+        }
+      })
+
+    }
+
+
+   
+   
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -303,12 +343,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-
     wx.cloud.init()
-
     var that = this;
-    
     that.Myopenid()
     that.bannerImage()
     that.MyData()
@@ -666,6 +702,12 @@ Page({
 
 
   },
+  modalOk:function()
+  {
+  
+   
+  
+  },
   globalData: {
     userInfo: null,
     testid: 1,
@@ -674,6 +716,47 @@ Page({
     code: null
   },
   getUserInfo: function(e) {
+    this.setData({
+      modalFlag: true
+    })
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        withCredentials: true,
+        success: res => {
+          console.log(" encryptedData 是 " + res.encryptedData)
+          console.log("iv 是" + res.iv)
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+
+        }
+      })
+
+    }
+
+
+    
+
+  },
+  everyDay:function()
+  {
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
@@ -701,39 +784,7 @@ Page({
             duration: 1000,
             mask: true
           })
-          if (app.globalData.userInfo) {
-            this.setData({
-              userInfo: app.globalData.userInfo,
-              hasUserInfo: true
-            })
-          } else if (this.data.canIUse) {
-            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-            // 所以此处加入 callback 以防止这种情况
-            app.userInfoReadyCallback = res => {
-              this.setData({
-                userInfo: res.userInfo,
-                hasUserInfo: true
-              })
-            }
-          } else {
-            // 在没有 open-type=getUserInfo 版本的兼容处理
-            wx.getUserInfo({
-              withCredentials: true,
-              success: res => {
-                console.log(" encryptedData 是 " + res.encryptedData)
-                console.log("iv 是" + res.iv)
-                app.globalData.userInfo = res.userInfo
-                this.setData({
-                  userInfo: res.userInfo,
-                  hasUserInfo: true
-                })
 
-              }
-            })
-
-
-
-          }
 
         }
 
@@ -746,8 +797,8 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
-  },
+  }
+  ,
   loginTrueOrFalse: function() {
     if (app.globalData.userInfo) {
       this.setData({
@@ -824,10 +875,37 @@ Page({
 
   },
   topfourbuttonaction: function(e) {
-    console.log("顶部四个按钮点击排行榜" + e.target.id)
-    wx.navigateTo({
-      url: '../rankList/rankList?id=' + e.target.id
+   
+
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.navigateTo({
+            url: '../rankList/rankList?id=' + e.target.id
+          })
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '尚未加入战队'
+          })
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+
+    
   },
   show: function() {
 

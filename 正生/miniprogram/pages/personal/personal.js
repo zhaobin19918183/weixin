@@ -450,7 +450,7 @@ var D = date.getDate() <
    qiandao: function() {
      var that = this;
      that.MyData()
-     console.log('whetaher ===  ', whetaher)
+   
      if (whetaher == 1) {
          wx.showToast({
            title: '已经签到',
@@ -463,24 +463,29 @@ var D = date.getDate() <
          showCamera: false
        })
      }
-
      if (that.data.show1 == 2) {
-       
+       console.log('whetaher 2222222===  ')
        if (qiandaoYes == 0)
        {
+         console.log('whetaher 333===  ')
          const db = wx.cloud.database()
          const _ = db.command
          wx.cloud.callFunction({
            name: 'login',
            data: {},
            success: res => {
-             console.log('[云函数] [login] user openid: ', res.result.openid)
+             console.log('whetaher 444===  ')
+             console.log('[云函数] [login] user openid:222 ', res.result.openid)
+            //  var openidstri =  
              db.collection('personal').where({
                _openid: res.result.openid
              })
                .get({
                  success: function (res) {
-                   db.collection('personal').doc(res.data.id).update({
+                   console.log('whetaher 666===  ', res.data[0]._id)
+                  
+                   console.log("whetaher 777===  " + Y + "-" + M + "-" + D)
+                   db.collection('personal').doc(res.data[0]._id).update({
                      // data 传入需要局部更新的数据
                      data: {
                        whetaher: 1,
@@ -491,7 +496,7 @@ var D = date.getDate() <
                        number: _.inc(5),
                        day: _.inc(1),
                        allDay: _.inc(1),
-                       time:Y + "-" + M + "-" + D
+                       time: Y + "-" + M + "-" + D
 
                      }
 
@@ -518,10 +523,9 @@ var D = date.getDate() <
        }
       
      }
-     console.log('whetaher3 ===  ', whetaher)
+
        if (whetaher == 0) {
          that.data.show1 = 2
-         console.log('whetaher ===  4 ', whetaher)
          this.setData({
            showAdverst: false,
            showCamera: true
@@ -806,7 +810,8 @@ var D = date.getDate() <
                  })
                    .get({
                      success: function (res) {
-                       db.collection('personal').doc(res.data.id).update({
+                       var enddate = Y + "-" + M + "-" + D
+                       db.collection('personal').doc(res.data[0]._id).update({
                          // data 传入需要局部更新的数据
                          data: {
                            whetaher: 1,
@@ -817,7 +822,8 @@ var D = date.getDate() <
                            imageArray: _.push(imageurl),
                            number: _.inc(5),
                            day: _.inc(1),
-                           allDay: _.inc(1)
+                           allDay: _.inc(1),
+                           time: enddate
 
                          }
 
