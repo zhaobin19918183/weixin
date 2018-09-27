@@ -21,17 +21,15 @@
 </view>
 <view>
 </view>
-<view >
+<view  >
   <scroll-view scroll-y="true" class='tableview'>
-    <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
-      <!-- <label style='margin-top:6%;margin-left:8%;position: absolute'>100</label> -->
+    <view   wx:if ="{{showPersonal}}" style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
+
       <image class='imaget1' src='{{Myimage}}' style='position: absolute;margin-left:18%'></image>
       <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
         <label style='position: absolute;word-break:break-all;color:white'>{{myCompanyName}}</label>
       </view>
-      <!-- <label class='labelt2' style='position: absolute;margin-left:50%'>小四爷1</label> -->
       <label class='labelt2' style='position: absolute;margin-left:63%'>{{myCompanyNumber}}</label>
-      <!-- <label class='button1' style='position: absolute;margin-left:78%'>大连战队</label> -->
       <image src='' mode='widthFix' style='position: relative；display: block;width:100%;height:100%;background:#ec5d2a'></image>
     </view>
     <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.Name}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
@@ -55,5 +53,5 @@
 <label class='post1' style='justify-content: center;display:{{display1}};color:orange;' bindtap=''>排行榜</label>
 <label class='post2' style='justify-content: center;display:{{display1}};' bindtap='mydataAction'>我的</label>
 <label class='post3' style='justify-content: center;display:{{display1}};' bindtap='firstHome'>首页</label>
- <label class='post4' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
- <label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
+<label class='post4' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
+<label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>

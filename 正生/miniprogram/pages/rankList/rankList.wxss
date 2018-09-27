@@ -171,6 +171,7 @@ button::after {
 
 .tableview {
   margin-top: 2%;
+  
 }
 
 .label1 {

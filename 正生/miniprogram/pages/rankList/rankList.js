@@ -129,7 +129,9 @@ Page({
     myName:"",
     MyNUmber:0,
 
-    name:""
+    name:"",
+
+    showPersonal:false
     
   },
 
@@ -273,10 +275,12 @@ Page({
       _openid: openidstr
     }).get({
       success: res => {
-        this.setData({
+       
+         this.setData({
           myCompanyName: res.data[0].MyCompany[1],
           myCompanyNumber: res.data[0].MyCompanyNumber,
-          Myimage: res.data[0].image
+          Myimage: res.data[0].image,
+          showPersonal:true
 
         })
       console.log("我的排行榜数据 ===  "+res.data)

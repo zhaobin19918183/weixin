@@ -7,7 +7,7 @@
 
 
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view style='height:200px'>
+<view style='height:200px;margin-top:100rpx'>
   <swiper style='height:100%'    indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
     <swiper-item   wx:key="{{imgUrls}}" wx:for="{{imgUrls}}">
       <image src="{{item}}" />
