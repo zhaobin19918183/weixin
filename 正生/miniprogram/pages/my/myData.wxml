@@ -53,8 +53,8 @@
     </block>
 
   </view>
-  <text style='position: absolute;margin-left:10%;width:80%;text-align: center;margin-top:65%;'>打卡情况</text>
-  <scroll-view scroll-y="true" class='tableview' style='height:220px;position: absolute;margin-top:80%'>
+  <text style='position: absolute;margin-left:10%;width:80%;text-align: center;margin-top:60%;'>打卡情况</text>
+  <scroll-view scroll-y="true" class='tableview' style='height:220px;position: absolute;margin-top:70%'>
     <view wx:for="{{arrayData}}"  wx:key="{{itemName.message}}"   wx:for-index="idx" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;margin-top:20%'>
       <image src='{{arrayData[idx]}}' style='margin-left:15%;height:150px;width:70%;'> </image>
       <!-- <image src='{{arrayData[idx+1]}}' style='height:100px;width:40%;margin-left:10%;'></image> -->
@@ -65,7 +65,7 @@
 <!-- 底部四个 -->
 <view>
   <view style=" display:flex;text-align:center;margin-top:2%;">
-    <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:20%;'>
+    <view wx:for="{{arrayData1}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:20%;'>
       <button class='firstB' id='{{itemName.id}}' bindtap="panghangbang">
         <image class='firstimg' src="{{itemName.imgurl}}"></image>
       </button>

@@ -17,6 +17,29 @@ var myStudioId = ""
 var whetaher = 0
 var shareOpenId = ""
 var openidstring = ""
+var timestamp =
+  Date.parse(new Date());
+//返回当前时间毫秒数
+timestamp = timestamp / 1000;
+//获取当前时间
+var n = timestamp *
+  1000;
+var date = new Date(n);
+//年
+var Y =
+  date.getFullYear();
+//月
+var M = (date.getMonth() +
+  1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+//日
+var D = date.getDate() <
+  10 ? '0' + date.getDate() :
+  date.getDate();
+
+var dateString = ""
+
+
+
 // 获取数据的方法，具体怎么获取列表数据大家自行发挥
 var GetList = function(that) {
 
@@ -120,7 +143,7 @@ Page({
 
 
   },
-  Myopenid: function () {
+  Myopenid: function() {
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -128,9 +151,10 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
+        console.log('[云函数] [login] user openid:1111 ', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
+        this.mydetaildata(res.result.openid)
 
       },
       fail: err => {
@@ -139,6 +163,53 @@ Page({
     })
 
   },
+  num_data: function(time) {
+    console.log("签到 ")
+    console.log(time)
+    var startdate = time
+    var enddate = Y +"-" + M + "-" + D
+    var start_date = new Date(startdate.replace(/-/g, "/"));
+    var end_date = new Date(enddate.replace(/-/g, "/"));
+    var days = end_date.getTime() - start_date.getTime();
+    var day = parseInt(days / (1000 * 60 * 60 * 24));
+   
+    if (day > 0) {
+      
+      const db = wx.cloud.database()
+      const _ = db.command
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => {
+          console.log("当天签到 ")
+          db.collection('personal').where({
+              _openid: res.result.openid
+            })
+            .get({
+              success: function(res) {
+                db.collection('personal').doc(res.data.id).update({
+                  // data 传入需要局部更新的数据
+                  data: {
+                    whetaher: 0,
+
+                  }
+
+                })
+              }
+            })
+
+
+        },
+        fail: err => {
+          console.error('[云函数] [login] 调用失败', err)
+        }
+      })
+    } else {
+      console.log("同一天签到 ")
+
+    }
+  },
+
   touchHandler: function(e) {
     console.log(areaChart.getCurrentDataIndex(e));
     areaChart.showToolTip(e);
@@ -232,14 +303,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
+
     wx.cloud.init()
-    console.log("onShow")
+
     var that = this;
+    
     that.Myopenid()
     that.bannerImage()
     that.MyData()
     that.animationFunc()
     that.slideupshowFun()
+    
     GetList(that);
     // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
     // 调用云函数
@@ -264,29 +339,30 @@ Page({
     const _ = db.command
     db.collection('personal').orderBy('MyNumber', 'desc').limit(3).get({
       success: res => {
-        this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-          integral1: res.data[0].Name + " 积分 " + res.data[0].MyNumber,
-          integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
-          integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
+          this.setData({
+            queryResult: JSON.stringify(res.data, null, 2),
+            integral1: res.data[0].Name + " 积分 " + res.data[0].MyNumber,
+            integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
+            integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
 
-          center1: res.data[0].MyCenter[1],
-          center2: res.data[1].MyCenter[1],
-          center3: res.data[2].MyCenter[1],
+            center1: res.data[0].MyCenter[1],
+            center2: res.data[1].MyCenter[1],
+            center3: res.data[2].MyCenter[1],
 
-          studio1: res.data[0].MyWorkRoom[1],
-          studio2: res.data[1].MyWorkRoom[1],
-          studio3: res.data[2].MyWorkRoom[1],
+            studio1: res.data[0].MyWorkRoom[1],
+            studio2: res.data[1].MyWorkRoom[1],
+            studio3: res.data[2].MyWorkRoom[1],
 
-          company1: res.data[0].MyCompany[1],
-          company2: res.data[1].MyCompany[1],
-          company3: res.data[2].MyCompany[1],
+            company1: res.data[0].MyCompany[1],
+            company2: res.data[1].MyCompany[1],
+            company3: res.data[2].MyCompany[1],
 
-          company1Number: res.data[0].MyCompanyNumber,
-          company2Number: res.data[1].MyCompanyNumber,
-          company3Number: res.data[2].MyCompanyNumber,
+            company1Number: res.data[0].MyCompanyNumber,
+            company2Number: res.data[1].MyCompanyNumber,
+            company3Number: res.data[2].MyCompanyNumber,
 
-        })
+
+          })
         var windowWidth = 320;
         try {
           var res = wx.getSystemInfoSync();
@@ -474,19 +550,17 @@ Page({
       }
     }
   },
-  mydetaildata: function(openid) {
+  mydetaildata: function(openidstr) {
+    console.log("获取openid")
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
-      _openid: openid
+      _openid: openidstr
     }).get({
       success: res => {
-        console.log('[数据库] [查询记录] ：', res.data)
-        whetaher = res.data[0].whetaher
-        qiandaoYes = res.data[0].whetaher
-        myCompanyId = res.data[0].MyCompany[0]
-        myCenterId = res.data[0].MyCenter[0]
-        myStudioId = res.data[0].MyWorkRoom[0]
+        console.log("获取time",res.data[0].time)
+        dateString = res.data[0].time
+        this.num_data(dateString)
 
       },
       fail: err => {
@@ -521,8 +595,8 @@ Page({
 
                 }
 
-              }).then 
-              {
+              }).then
+               {
                 that.MyBranchrankings()
                 that.MyServiceCenterrankings()
                 that.MyStudioRankings()
@@ -600,80 +674,78 @@ Page({
     code: null
   },
   getUserInfo: function(e) {
-      const db = wx.cloud.database()
-      const _ = db.command
-      db.collection('personal').where({
-        _openid: openidstring
-      }).get({
-        success: res => {
-          if (res.data[0]!= null)
-         {
-            console.log('[数据库] [查询记录] ：', res.data)
-           var that = this;
-           if (whetaher != 1) {
-             that.loginTrueOrFalse()
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          console.log('[数据库] [查询记录] ：', res.data)
+          var that = this;
+          if (whetaher != 1) {
+            that.loginTrueOrFalse()
 
-           } else {
-             wx.showToast({
-               title: '已经签到',
-               icon: 'succes',
-               duration: 1000,
-               mask: true
-             })
-         }
-         }
-         else{
+          } else {
             wx.showToast({
-              title: '请加入战队',
+              title: '已经签到',
               icon: 'succes',
               duration: 1000,
               mask: true
             })
-            if (app.globalData.userInfo) {
+          }
+        } else {
+          wx.showToast({
+            title: '请加入战队',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+          if (app.globalData.userInfo) {
+            this.setData({
+              userInfo: app.globalData.userInfo,
+              hasUserInfo: true
+            })
+          } else if (this.data.canIUse) {
+            // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+            // 所以此处加入 callback 以防止这种情况
+            app.userInfoReadyCallback = res => {
               this.setData({
-                userInfo: app.globalData.userInfo,
+                userInfo: res.userInfo,
                 hasUserInfo: true
               })
-            } else if (this.data.canIUse) {
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              app.userInfoReadyCallback = res => {
+            }
+          } else {
+            // 在没有 open-type=getUserInfo 版本的兼容处理
+            wx.getUserInfo({
+              withCredentials: true,
+              success: res => {
+                console.log(" encryptedData 是 " + res.encryptedData)
+                console.log("iv 是" + res.iv)
+                app.globalData.userInfo = res.userInfo
                 this.setData({
                   userInfo: res.userInfo,
                   hasUserInfo: true
                 })
+
               }
-            } else {
-              // 在没有 open-type=getUserInfo 版本的兼容处理
-              wx.getUserInfo({
-                withCredentials: true,
-                success: res => {
-                  console.log(" encryptedData 是 " + res.encryptedData)
-                  console.log("iv 是" + res.iv)
-                  app.globalData.userInfo = res.userInfo
-                  this.setData({
-                    userInfo: res.userInfo,
-                    hasUserInfo: true
-                  })
-              
-                }
-              })
+            })
 
 
 
-            }
+          }
 
-         }
-         
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
         }
-      })
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
 
   },
   loginTrueOrFalse: function() {
@@ -683,7 +755,7 @@ Page({
         hasUserInfo: true
       })
       wx.navigateTo({
-        url: '../personal/personal?id='+openidstring
+        url: '../personal/personal?id=' + openidstring
       })
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -785,13 +857,12 @@ Page({
           wx.navigateTo({
             url: '../rankList/rankList'
           })
-        }
-        else {
+        } else {
           wx.showToast({
             icon: 'none',
             title: '尚未加入战队'
           })
-        
+
         }
 
       },
@@ -803,7 +874,7 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-    
+
 
   },
   backAction: function() {
@@ -819,8 +890,7 @@ Page({
       url: '../my/myData?openidstring=' + openidstring
     })
   },
-  pensonalAction: function() 
-  {
+  pensonalAction: function() {
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
@@ -843,8 +913,7 @@ Page({
               mask: true
             })
           }
-        }
-        else {
+        } else {
           wx.showToast({
             title: '请加入战队',
             icon: 'succes',
@@ -863,7 +932,7 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-   
+
   },
   //  网络申请
   httPrequest: function(type) {

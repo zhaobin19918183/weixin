@@ -11,6 +11,25 @@
 var myCenterId = ""
 var myStudioId = ""
 var openidstring = ""
+var timestamp =
+  Date.parse(new Date());
+//返回当前时间毫秒数
+timestamp = timestamp / 1000;
+//获取当前时间
+var n = timestamp *
+  1000;
+var date = new Date(n);
+//年
+var Y =
+  date.getFullYear();
+//月
+var M = (date.getMonth() +
+  1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+//日
+var D = date.getDate() <
+  10 ? '0' + date.getDate() :
+  date.getDate();
+
  var GetTableVIewList = function(that) {
   
    that.setData({
@@ -471,7 +490,8 @@ var openidstring = ""
                        MyNumber: _.inc(5),
                        number: _.inc(5),
                        day: _.inc(1),
-                       allDay: _.inc(1)
+                       allDay: _.inc(1),
+                       time:Y + "-" + M + "-" + D
 
                      }
 
@@ -513,7 +533,7 @@ var openidstring = ""
      this.data.name = name
      const db = wx.cloud.database()
      // 查询当前用户所有的 counters
-     console.log('[数据库] 签到成功===  ')
+     console.log('[数据库] 签到成功===  ',name,)
      db.collection(name).orderBy('number', 'desc').get({
        success: res => {
          this.setData({

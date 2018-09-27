@@ -89,32 +89,32 @@ var GetTableVIewList2 = function (that) {
     ]
   })
 }
-// var GetList = function (that) {
+var GetList = function (that) {
 
-//   that.setData({
-//     arrayData: [
-//       {
-//       message: '分公司排行榜',
-//       imgurl: "../imgs/img01_05.png",
-//       id: 1
-//     }, {
-//       message: '服务中心排行榜',
-//       imgurl: "../imgs/img01_07.png",
-//       id: 2
-//     }, {
-//       message: '工作室排行榜',
-//       imgurl: "../imgs/img01_09.png",
-//       id: 3
-//     }, {
-//       message: '个人排行榜',
-//       imgurl: "../imgs/img01_11.png",
-//       id: 4
-//     }
+  that.setData({
+    arrayData1: [
+      {
+      message: '分公司排行榜',
+      imgurl: "../imgs/img01_05.png",
+      id: 1
+    }, {
+      message: '服务中心排行榜',
+      imgurl: "../imgs/img01_07.png",
+      id: 2
+    }, {
+      message: '工作室排行榜',
+      imgurl: "../imgs/img01_09.png",
+      id: 3
+    }, {
+      message: '个人排行榜',
+      imgurl: "../imgs/img01_11.png",
+      id: 4
+    }
 
-//     ]
+    ]
 
-//   })
-// }
+  })
+}
 Page({
   data: {
     dayNumber:0,
@@ -220,7 +220,7 @@ Page({
 
   onShow: function (e) {
     var that = this;
-    // GetList(that);
+    GetList(that);
     GetTableVIewList(that);
     that.MyData()
     that.MyListData('Branchrankings')
@@ -228,15 +228,13 @@ Page({
   MyListData: function (name) {
     this.data.name = name
     const db = wx.cloud.database()
-    db.collection(name).orderBy('number', 'desc').where({
-      _openid: openidstring
-    }).get({
+    db.collection(name).orderBy('number', 'desc').get({
       success: res => {
         this.setData({
           arrayTableData: res.data
             
         })
-
+        console.log('[数据库] 签到成功===  ', res.data)
         arrayMydata = res.data;
       },
       fail: err => {
