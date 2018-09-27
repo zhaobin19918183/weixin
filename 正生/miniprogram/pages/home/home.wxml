@@ -19,26 +19,15 @@
       <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;background-image:url(../imgs/guanbi.png);'></image>
       <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
         <view class="scroll-y">
-        <view style='text-align:center;'>
-        <text tyle='font-size:40rpx; '>活动介绍</text>
+
+        <view style='margin-left:10%;margin-top:60px'>
+        <text tyle='font-size:40rpx; '>“慧吃慧动100天”活动说明：</text>
         </view>
-        <view style='margin-left:10%'>
-        <text tyle='font-size:40rpx; '>简介</text>
-        </view>
-          <view style='margin-left:10%;width:80%;'>
-          <text style='font-size:20rpx;text-align:left' space="ensp">    个人排行榜。打卡100天后，各个打榜前三名均有相对应的奖励如下
+          <view style='margin-left:10%;width:80%;margin-top:30px'>
+          <text style='font-size:20rpx;text-align:left;' space="ensp"> 慧吃慧动100天，是正生集团组织发起的一次全民参与的健康活动，在这里你可以选择你支持的工作室参与此次活动，与全国小伙伴一起开启百日慧吃慧动大战，每天坚持打卡会为个人、工作室、服务中心、分公司（大区）获得更多的积分，从而取得更高的排名。打卡100天后，各个排名靠前的分公司（大区）、服务中心、工作室和个人均有奖品。
           </text>
           </view>
-          <view style='margin-left:10%'>
-        <text tyle='font-size:40rpx; '>奖励</text>
-        </view>
-          <view style='margin-left:10%;width:80%;'>
-            <text style='font-size:20rpx;width:180px;' space="ensp">   欢迎加入由中国营养学会发起的“慧吃慧动——减重100天打卡”活动！在这里，你可以选你喜欢的战队参加，一起开始百团减重大战；你也可以脱离组织，与无数热爱自由的小伙伴们一起比拼pk。每天打卡后，你将计积分冲榜，有机会为贫穷山区学校儿童捐献免费午餐，更有神秘大咖接力助阵！\n</text>
-          </view>
-          <view style='margin-left:10%;width:80%;'>
-          <text style='font-size:20rpx;width:180px;' space="ensp">   “慧吃慧动——减重100天打卡”是由中国营养学会与“免费午餐基金”合作的爱心公益活动，共同呼吁更多的社会力量关注乡村儿童营养，所有参与“慧吃慧动——减重100天”活动的个人，都可通过自身打卡行动，为乡村儿童捐献免费午餐。顺丰优选作为首家响应捐助的单位，和中国营养学会共同认为捐乡村学校，携手推动儿童营养健康。欢迎你，加入我们，每日打卡，小善大爱。迎加入由中国营养学会发起的“慧吃慧动——减重100天打卡”活动！在这里，你可以选你喜欢的战队参加，一起开始百团减重大战；你也可以脱离组织，与无数热爱自由的小伙伴们一起比拼pk。每天打卡后，你将累计积分冲榜，有机会为贫穷山区学校儿童捐献免费午餐，更有神秘大咖接力助阵，为你打call，量身定制最科学、有效的健康减肥方案\n
-         </text>
-          </view>
+         
         </view>
       </scroll-view>
       <image src='../imgs/background1.png'   style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>

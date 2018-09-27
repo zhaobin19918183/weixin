@@ -571,7 +571,7 @@ Page({
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
       path: '/pages/home/home',
-      imageUrl: '../imgs/background1.png',
+      imageUrl: '../imgs/share.png',
       success: function(res) {
         // 转发成功
         console.log("转发成功")

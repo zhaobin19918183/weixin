@@ -36,97 +36,96 @@ var D = date.getDate() <
   10 ? '0' + date.getDate() :
   date.getDate();
 
-var GetTableVIewList = function (that) {
+var GetTableVIewList = function(that) {
 
   that.setData({
     arrayTableData: [{
-      message: '分公司排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 16000,
-      id: 1
-    }, {
-      message: '服务中心排行榜',
-      imgurl: "../imgs/img01_07.png",
-      numberData: 16000,
-      id: 2
-    }, {
-      message: '工作室排行榜',
-      imgurl: "../imgs/img01_09.png",
-      numberData: 16000,
-      id: 3
-    }, {
-      message: '个人排行榜',
-      imgurl: "../imgs/img01_11.png",
-      numberData: 16000,
-      id: 4
-    }
+        message: '分公司排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 16000,
+        id: 1
+      }, {
+        message: '服务中心排行榜',
+        imgurl: "../imgs/img01_07.png",
+        numberData: 16000,
+        id: 2
+      }, {
+        message: '工作室排行榜',
+        imgurl: "../imgs/img01_09.png",
+        numberData: 16000,
+        id: 3
+      }, {
+        message: '个人排行榜',
+        imgurl: "../imgs/img01_11.png",
+        numberData: 16000,
+        id: 4
+      }
 
     ]
   })
 }
-var GetTableVIewList2 = function (that) {
+var GetTableVIewList2 = function(that) {
 
   that.setData({
 
     arrayTableData: [{
-      message: '服务在中心1排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 1
-    },
-    {
-      message: '服务在中心2排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 2
-    }, {
-      message: '服务在中心3排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 3
-    }, {
-      message: '服务在中心4排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 4
-    },
-    {
-      message: '服务在中心5排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 4
-    },
-    {
-      message: '服务在中心6排行榜',
-      imgurl: "../imgs/img01_05.png",
-      numberData: 17000,
-      id: 4
-    }
-
-    ]
-  })
-}
-var GetList = function (that) {
-
-  that.setData({
-    arrayData1: [
+        message: '服务在中心1排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 1
+      },
       {
-      message: '分公司排行榜',
-      imgurl: "../imgs/img01_05.png",
-      id: 1
-    }, {
-      message: '服务中心排行榜',
-      imgurl: "../imgs/img01_07.png",
-      id: 2
-    }, {
-      message: '工作室排行榜',
-      imgurl: "../imgs/img01_09.png",
-      id: 3
-    }, {
-      message: '个人排行榜',
-      imgurl: "../imgs/img01_11.png",
-      id: 4
-    }
+        message: '服务在中心2排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 2
+      }, {
+        message: '服务在中心3排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 3
+      }, {
+        message: '服务在中心4排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 4
+      },
+      {
+        message: '服务在中心5排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 4
+      },
+      {
+        message: '服务在中心6排行榜',
+        imgurl: "../imgs/img01_05.png",
+        numberData: 17000,
+        id: 4
+      }
+
+    ]
+  })
+}
+var GetList = function(that) {
+
+  that.setData({
+    arrayData1: [{
+        message: '分公司排行榜',
+        imgurl: "../imgs/img01_05.png",
+        id: 1
+      }, {
+        message: '服务中心排行榜',
+        imgurl: "../imgs/img01_07.png",
+        id: 2
+      }, {
+        message: '工作室排行榜',
+        imgurl: "../imgs/img01_09.png",
+        id: 3
+      }, {
+        message: '个人排行榜',
+        imgurl: "../imgs/img01_11.png",
+        id: 4
+      }
 
     ]
 
@@ -134,10 +133,10 @@ var GetList = function (that) {
 }
 Page({
   data: {
-    dayNumber:0,
-    allNumber:0,
+    dayNumber: 0,
+    allNumber: 0,
     allDay: 0,
-    arrayData:[],
+    arrayData: [],
     display1: 'none',
     display2: 'block',
     nvabarData: {
@@ -153,26 +152,40 @@ Page({
     },
     doubleColumnTitle: "总积分",
     doubleColumnUnit: [{
-      color: "#13CE66",
-      title: "展现量"
-    },
-    {
-      color: "#FFA848",
-      title: "点击率"
-    },
-    {
-      color: "#FFA848",
-      title: "点击率"
-    }
+        color: "#13CE66",
+        title: "展现量"
+      },
+      {
+        color: "#FFA848",
+        title: "点击率"
+      },
+      {
+        color: "#FFA848",
+        title: "点击率"
+      }
     ],
 
-    listData: [
-      { "code": "我的工作室", "text": 0 },
-      { "code": "我的积分", "text": 0},
-      { "code": "工作室积分", "text": 0},
-      { "code": "服务中心积分", "text": 0},
-      { "code": "分公司积分", "text": 0 },
-  
+    listData: [{
+        "code": "我的工作室",
+        "text": 0
+      },
+      {
+        "code": "我的积分",
+        "text": 0
+      },
+      {
+        "code": "工作室积分",
+        "text": 0
+      },
+      {
+        "code": "服务中心积分",
+        "text": 0
+      },
+      {
+        "code": "分公司积分",
+        "text": 0
+      },
+
     ],
     userInfo: {},
     hasUserInfo: false,
@@ -190,14 +203,14 @@ Page({
     myName: "",
     MyNUmber: 0,
     name: "",
-    showPersonal:false
+    showPersonal: false
 
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap: function() {
 
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -235,21 +248,21 @@ Page({
     }
   },
 
-  onShow: function (e) {
+  onShow: function(e) {
     var that = this;
     GetList(that);
     GetTableVIewList(that);
     that.MyData()
     that.MyListData('Branchrankings')
   },
-  MyListData: function (name) {
+  MyListData: function(name) {
     this.data.name = name
     const db = wx.cloud.database()
     db.collection(name).orderBy('number', 'desc').get({
       success: res => {
         this.setData({
           arrayTableData: res.data
-            
+
         })
         console.log('[数据库] 签到成功===  ', res.data)
         arrayMydata = res.data;
@@ -263,7 +276,7 @@ Page({
     })
 
   },
-  MyData: function () {
+  MyData: function() {
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -281,17 +294,31 @@ Page({
           _openid: res.result.openid
         }).get({
           success: res => {
-       
+
             this.setData({
               dayNumber: res.data[0].day,
               allNumber: res.data[0].MyNumber,
               allDay: res.data[0].allDay,
-              listData: [
-                 { "code": "我的工作室", "text": res.data[0].MyWorkRoom[1]},
-                { "code": "我的积分", "text": res.data[0].MyNumber },
-                { "code": "工作室积分", "text": res.data[0].MyWorkRoomNumber },
-                { "code": "服务中心积分", "text": res.data[0].MyCenterNumber},
-                { "code": "分公司积分", "text": res.data[0].MyCompanyNumber},
+              listData: [{
+                  "code": "我的工作室",
+                  "text": res.data[0].MyWorkRoom[1]
+                },
+                {
+                  "code": "我的积分",
+                  "text": res.data[0].MyNumber
+                },
+                {
+                  "code": "工作室积分",
+                  "text": res.data[0].MyWorkRoomNumber
+                },
+                {
+                  "code": "服务中心积分",
+                  "text": res.data[0].MyCenterNumber
+                },
+                {
+                  "code": "分公司积分",
+                  "text": res.data[0].MyCompanyNumber
+                },
 
               ],
               arrayData: res.data[0].imageArray
@@ -320,8 +347,7 @@ Page({
 
   },
 
-  addTeam:function(e)
-  {
+  addTeam: function(e) {
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
@@ -336,22 +362,20 @@ Page({
             duration: 1000,
             mask: true
           })
-        }
-        else {
+        } else {
 
           var workroom = []
-        
+
           if (arrayMydata.length > 1) {
-           
+
             workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
             this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
             workroomName = arrayMydata[e.target.id].Name
             workroomNumber = arrayMydata[e.target.id].number
-            
+
             console.log("工作室 == " + arrayMydata[e.target.id].number)
 
-          }
-          else {
+          } else {
             workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
             this.searchCenter(arrayMydata[0].centerID, workroom)
             workroomName = arrayMydata[0].Name
@@ -370,10 +394,8 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-  }
-  ,
-  searchCenter:function(centerid,workroom)
-  {
+  },
+  searchCenter: function(centerid, workroom) {
     var myCenterArray = [];
     var that = this
     const db = wx.cloud.database()
@@ -383,10 +405,10 @@ Page({
 
     }).get({
       success: res => {
-        myCenterArray = [res.data[0]._id,res.data[0].Name]
-        console.log("中心 == " +res.data[0].number)
+        myCenterArray = [res.data[0]._id, res.data[0].Name]
+        console.log("中心 == " + res.data[0].number)
         centerNumber = res.data[0].number
-        
+
         this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
         if (res.data.length == 0) {
           wx.showToast({
@@ -395,7 +417,7 @@ Page({
           })
         }
         console.log('[数据库] 签到成功===  ', res.data)
- 
+
       },
       fail: err => {
         wx.showToast({
@@ -408,12 +430,11 @@ Page({
 
 
   },
-  myCompanyData:function(companyID,workroom,centerArray)
-  {
+  myCompanyData: function(companyID, workroom, centerArray) {
     var that = this
     const db = wx.cloud.database()
     var myCompanyArray = [];
-   
+
     // 查询当前用户所有的 counters
     db.collection("Branchrankings").where({
       _id: companyID
@@ -421,7 +442,7 @@ Page({
     }).get({
       success: res => {
         myCompanyArray = [res.data[0]._id, res.data[0].Name]
-        console.log("公司 == " +res.data[0].number)
+        console.log("公司 == " + res.data[0].number)
         companyNumber = res.data[0].number
         this.addPensonal(workroom, centerArray, myCompanyArray)
         if (res.data.length == 0) {
@@ -439,38 +460,37 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-  }
-  ,
-  addPensonal: function (workroom, centerArray, myCompanyArray) {
+  },
+  addPensonal: function(workroom, centerArray, myCompanyArray) {
     var enddate = Y + "-" + M + "-" + D
     console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
-   var numberdata = 0
-   const db = wx.cloud.database()
+    var numberdata = 0
+    const db = wx.cloud.database()
     db.collection('personal').add({
       // data 字段表示需新增的 JSON 数据
       data: {
         MyCompanyNumber: companyNumber,
-        MyNumber:0,
+        MyNumber: 0,
         MyCenterNumber: centerNumber,
         MyWorkRoom: workroom,
         MyCompany: myCompanyArray,
         MyCenter: centerArray,
         MyWorkRoomNumber: workroomNumber,
         Name: app.globalData.userInfo.nickName,
-        allDay:0,
-        day:0,
+        allDay: 0,
+        day: 0,
         image: app.globalData.userInfo.avatarUrl,
-        myStudio: 
-          [workroomName,
+        myStudio: [workroomName,
           numberdata,
           workroomNumber,
           centerNumber,
-          companyNumber],
-        number:0,
+          companyNumber
+        ],
+        number: 0,
         time: enddate,
-        whetaher:0
-       },
-      success: function (res) {
+        whetaher: 0
+      },
+      success: function(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res)
         wx.navigateTo({
@@ -481,9 +501,8 @@ Page({
       fail: console.error
     })
 
-  }
-  ,
-  panghangbang: function (e) {
+  },
+  panghangbang: function(e) {
     console.log(e.target.id)
     var that = this;
     if (e.target.id == 1) {
@@ -566,8 +585,7 @@ Page({
 
       })
 
-    }
-    else {
+    } else {
       this.setData({
         showzhandui: false,
 
@@ -600,7 +618,7 @@ Page({
     }
 
   },
-  MyPersional: function (openidstr) {
+  MyPersional: function(openidstr) {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('personal').where({
@@ -611,7 +629,7 @@ Page({
           myCompanyName: res.data[0].MyCompany[1],
           myCompanyNumber: res.data[0].MyCompanyNumber,
           Myimage: res.data[0].image,
-          showPersonal:true
+          showPersonal: true
 
         })
         console.log(res.data)
@@ -625,13 +643,13 @@ Page({
       }
     })
   },
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
       path: '/pages/home/home?id=' + openidstring,
       imageUrl: '../imgs/share.png',
-      success: function (res) {
+      success: function(res) {
         // 转发成功
         console.log("转发成功")
         wx.showToast({
@@ -640,12 +658,12 @@ Page({
           duration: 2000,
         })
       },
-      fail: function (res) { // 转发失败
+      fail: function(res) { // 转发失败
         console.log("转发失败")
       }
     }
   },
-  show: function () {
+  show: function() {
 
 
     this.setData({
@@ -655,15 +673,15 @@ Page({
   },
   //消失
 
-  hide: function () {
+  hide: function() {
 
     this.setData({
       flag: true
     })
 
   },
-  
-  zhuzhuangtu: function () {
+
+  zhuzhuangtu: function() {
     var imageWidth = wx.getSystemInfoSync().windowWidth
     rate = imageWidth / 750;
     var updateData = {};
@@ -728,66 +746,65 @@ Page({
     let doubleColumnSeries = {
       cloumnData: {
         data: [{
-          axis: [{
-            x: "搜索类",
-            y: "100",
-            columnStartColor: "#3DB2FF",
-            columnEndColor: "#0077FF"
+            axis: [{
+                x: "搜索类",
+                y: "100",
+                columnStartColor: "#3DB2FF",
+                columnEndColor: "#0077FF"
+              },
+              {
+                x: "搜索类",
+                y: "80",
+                columnStartColor: "#2BE99F",
+                columnEndColor: "#13CE66"
+              },
+              {
+                x: "搜索类",
+                y: "180",
+                columnStartColor: "#2BE99F",
+                columnEndColor: "#13CE66"
+              }
+            ],
+            x: '搜索类',
+            y: 100,
+            title: "搜索类|展现量10000|点击量:1000|点击率:10%"
           },
           {
-            x: "搜索类",
-            y: "80",
-            columnStartColor: "#2BE99F",
-            columnEndColor: "#13CE66"
-          }
-            ,
-          {
-            x: "搜索类",
-            y: "180",
-            columnStartColor: "#2BE99F",
-            columnEndColor: "#13CE66"
-          }
-          ],
-          x: '搜索类',
-          y: 100,
-          title: "搜索类|展现量10000|点击量:1000|点击率:10%"
-        },
-        {
-          axis: [{
-            x: "资讯类",
-            y: "930",
-            columnStartColor: "#3DB2FF",
-            columnEndColor: "#0077FF"
+            axis: [{
+                x: "资讯类",
+                y: "930",
+                columnStartColor: "#3DB2FF",
+                columnEndColor: "#0077FF"
+              },
+              {
+                x: "资讯类",
+                y: "730",
+                columnStartColor: "#2BE99F",
+                columnEndColor: "#13CE66"
+              }
+            ],
+            x: '资讯类',
+            y: 930,
+            title: "资讯类|展现量:10000|点击量:1000|点击率:10%"
           },
           {
-            x: "资讯类",
-            y: "730",
-            columnStartColor: "#2BE99F",
-            columnEndColor: "#13CE66"
-          }
-          ],
-          x: '资讯类',
-          y: 930,
-          title: "资讯类|展现量:10000|点击量:1000|点击率:10%"
-        },
-        {
-          axis: [{
-            x: "社交类",
-            y: "430",
-            columnStartColor: "#3DB2FF",
-            columnEndColor: "#0077FF"
+            axis: [{
+                x: "社交类",
+                y: "430",
+                columnStartColor: "#3DB2FF",
+                columnEndColor: "#0077FF"
+              },
+              {
+                x: "社交类",
+                y: "530",
+                columnStartColor: "#2BE99F",
+                columnEndColor: "#13CE66"
+              }
+            ],
+            x: '社交类',
+            y: 430,
+            title: "社交类|展现量:10000|点击量:1000|点击率:10%"
           },
-          {
-            x: "社交类",
-            y: "530",
-            columnStartColor: "#2BE99F",
-            columnEndColor: "#13CE66"
-          }
-          ],
-          x: '社交类',
-          y: 430,
-          title: "社交类|展现量:10000|点击量:1000|点击率:10%"
-        },
 
         ],
         columnStartColor: "#2BE99F",
@@ -795,20 +812,20 @@ Page({
       }
     };
     let doubleColumnXAxisData = [{
-      x: '搜索类',
-      y: 0,
-      title: "搜索类"
-    },
-    {
-      x: '资讯类',
-      y: 0,
-      title: "资讯类"
-    },
-    {
-      x: '社交类',
-      y: 0,
-      title: "社交类"
-    },
+        x: '搜索类',
+        y: 0,
+        title: "搜索类"
+      },
+      {
+        x: '资讯类',
+        y: 0,
+        title: "资讯类"
+      },
+      {
+        x: '社交类',
+        y: 0,
+        title: "社交类"
+      },
     ];
     let doubleColumnYAxisData = [];
     doubleColumnYMax = 1000;
@@ -835,7 +852,7 @@ Page({
    * @param  {[type]} yMax 当前最大值
    * @return {[type]}      [description]
    */
-  getYMax: function (yMax) {
+  getYMax: function(yMax) {
     let maxInt = Math.floor(yMax);
     let maxLength = maxInt.toString().length;
     let interval = 0;
@@ -859,7 +876,7 @@ Page({
    * @param  {[type]} yMax y轴最大值
    * @return {[type]}      [description]
    */
-  getYAxiss: function (yMax) {
+  getYAxiss: function(yMax) {
     let yAxisData = [];
 
     let avg = yMax / 3;
@@ -888,18 +905,16 @@ Page({
     point3.title = Math.floor(avg) * 3;
     yAxisData.push(point3);
     return yAxisData;
-  }
-  ,
-  backAction: function () {
+  },
+  backAction: function() {
     wx.navigateBack()
   },
-  firstHome: function () {
+  firstHome: function() {
     wx.navigateTo({
       url: '../home/home'
     })
-  }
-  ,
-  mydataAction: function () {
+  },
+  mydataAction: function() {
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -929,10 +944,9 @@ Page({
       }
     })
 
-   
-  }
-  ,
-  pensonalAction: function () {
+
+  },
+  pensonalAction: function() {
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
@@ -960,16 +974,15 @@ Page({
       }
     })
 
-    
-  }
-  ,
 
-  paihangbang: function () {
+  },
+
+  paihangbang: function() {
     wx.navigateTo({
       url: '../rankList/rankList'
     })
   },
-  wxSearchFn: function (e) {
+  wxSearchFn: function(e) {
     var that = this
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
@@ -1001,7 +1014,7 @@ Page({
 
 
   },
-  wxSearchInput: function (e) {
+  wxSearchInput: function(e) {
     var that = this
     WxSearch.wxSearchInput(e, that);
     console.log("搜索框" + that.data.wxSearchData.value)
@@ -1011,32 +1024,31 @@ Page({
     }
 
   },
-  wxSerchFocus: function (e) {
+  wxSerchFocus: function(e) {
     var that = this
     WxSearch.wxSearchFocus(e, that);
   },
-  wxSearchBlur: function (e) {
+  wxSearchBlur: function(e) {
     var that = this
     WxSearch.wxSearchBlur(e, that);
   },
-  wxSearchKeyTap: function (e) {
+  wxSearchKeyTap: function(e) {
     var that = this
     WxSearch.wxSearchKeyTap(e, that);
   },
-  wxSearchDeleteKey: function (e) {
+  wxSearchDeleteKey: function(e) {
     var that = this
     WxSearch.wxSearchDeleteKey(e, that);
   },
-  wxSearchDeleteAll: function (e) {
+  wxSearchDeleteAll: function(e) {
     var that = this;
     WxSearch.wxSearchDeleteAll(that);
   },
-  wxSearchTap: function (e) {
+  wxSearchTap: function(e) {
     var that = this
     WxSearch.wxSearchHiddenPancel(that);
-  }
-  ,
-  showfunc1: function () {
+  },
+  showfunc1: function() {
     var that = this;
     this.setData({
       display1: "block",
@@ -1044,7 +1056,7 @@ Page({
     })
 
   },
-  backFunc: function () {
+  backFunc: function() {
     this.setData({
       display1: "none",
       display2: "block",
