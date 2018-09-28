@@ -263,19 +263,9 @@ Page({
     } else {
       console.log(3)
       // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        withCredentials: true,
-        success: res => {
-          console.log(" encryptedData 是 " + res.encryptedData)
-          console.log("iv 是" + res.iv)
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true,
-            modalFlag: true
-          })
+      this.setData({
 
-        }
+        modalFlag: false
       })
 
     }
