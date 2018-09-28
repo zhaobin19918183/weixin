@@ -149,6 +149,7 @@ Page({
   wxSearchFn: function (e) {
     var that = this
     const db = wx.cloud.database()
+    console.log(that.data.wxSearchData.value)
     // 查询当前用户所有的 counters
     db.collection(this.data.name).where({
       Name: that.data.wxSearchData.value

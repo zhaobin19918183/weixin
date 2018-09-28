@@ -11,7 +11,6 @@
       <image src="{{item}}" />
     </swiper-item>
   </swiper>
-
    <!-- 活动规则 -->
     <view class="bg" bindtap='hideview' style='display:{{display}};'>
       <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;background-image:url(../imgs/guanbi.png);'></image>
@@ -70,17 +69,17 @@
       <label style='font-size:30rpx;height:20px;width:120px'>个人排行榜</label>
     </view>
 
-    <view class="init" animation="{{slide1}}" style='margin-left:25%;margin-top:10%;width:30%;position: absolute;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='margin-left:25%;margin-top:10%;width:25%;position: absolute;opacity:0'>
       <text class="init" style='margin-top:30%;font-size:20rpx;'>{{integral1}}</text>
       <progress class="init" stroke-width='2' percent="100" active='true'  active-color="purple" background-color="transparent"/>
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:25%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
       <label style='font-size:20rpx;'>{{integral2}}</label>
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:30%;position: absolute; margin-left:70%;margin-top:43%;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:25%;position: absolute; margin-left:70%;margin-top:43%;opacity:0'>
       <text style='margin-top:30%;font-size:20rpx;'>{{integral3}}</text>
       <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent"  />
     </view>
@@ -142,5 +141,5 @@
  <label class='buttom' style='margin-top:70px;display:{{display1}};' bindtap='mydataAction'>我的</label>
  <label class='buttom' style='margin-top:105px;color:orange;display:{{display1}};' bindtap=''>首页</label>
  <label class='buttom' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
- <label class='buttom' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
+ <label class='daohang' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
 
