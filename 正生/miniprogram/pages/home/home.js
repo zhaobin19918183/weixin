@@ -241,10 +241,8 @@ Page({
     if (e.id) {
       shareOpenId = e.id
     }
-
-
     if (app.globalData.userInfo) {
-      console.log(1)
+      console.log(app.globalData.userInfo)
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
@@ -555,26 +553,26 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function(res) {
-    return {
-      title: '慧吃慧动100天',
-      // 分享时在路径后拼接参数，可拼接多个参数。 
-      path: '/pages/home/home',
-      imageUrl: '../imgs/share.png',
-      success: function(res) {
-        // 转发成功
-        console.log("转发成功")
-        wx.showToast({
-          title: '转发成功',
-          icon: 'success',
-          duration: 2000,
-        })
-      },
-      fail: function(res) { // 转发失败
-        console.log("转发失败")
-      }
-    }
-  },
+  // onShareAppMessage: function(res) {
+  //   return {
+  //     title: '慧吃慧动100天',
+  //     // 分享时在路径后拼接参数，可拼接多个参数。 
+  //     path: '/pages/home/home',
+  //     imageUrl: '../imgs/share.png',
+  //     success: function(res) {
+  //       // 转发成功
+  //       console.log("转发成功")
+  //       wx.showToast({
+  //         title: '转发成功',
+  //         icon: 'success',
+  //         duration: 2000,
+  //       })
+  //     },
+  //     fail: function(res) { // 转发失败
+  //       console.log("转发失败")
+  //     }
+  //   }
+  // },
   mydetaildata: function(openidstr) {
     console.log("获取openid")
     const db = wx.cloud.database()

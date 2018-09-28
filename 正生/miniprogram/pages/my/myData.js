@@ -516,10 +516,11 @@ Page({
           wx.navigateTo({
             url: '../home/home'
           })
-
+          console.log("不是分享")
         }
         else
         {
+          console.log("是分享") 
         this.jifeng(shareOpenId)
         }
        
@@ -529,7 +530,7 @@ Page({
     })
 
   },
-  jifeng: function (openid) {
+  jifeng: function (shareid) {
     const db = wx.cloud.database()
     const _ = db.command
     wx.cloud.callFunction({
@@ -537,11 +538,11 @@ Page({
       data: {},
       success: res => {
         db.collection('personal').where({
-          _openid: openid
+          _openid: shareid
         })
           .get({
             success: function (res) {
-              db.collection('personal').doc(res.data.id).update({
+              db.collection('personal').doc(shareid).update({
                 // data 传入需要局部更新的数据
                 data: {
                   MyCenterNumber: _.inc(5),
@@ -554,6 +555,7 @@ Page({
 
               }).then
               {
+                console.log("分享增加积分")
                 that.MyBranchrankings()
                 that.MyServiceCenterrankings()
                 that.MyStudioRankings()

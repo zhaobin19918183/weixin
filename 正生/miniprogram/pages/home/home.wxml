@@ -1,7 +1,7 @@
 <!-- !--pages/home/home.wxml--> 
 <modal  hidden="{{modalFlag}}" no-cancel bindconfirm="modalOk" confirmText="" >
       <image style='width:100%;'   src="../imgs/share.png" bindtap=""></image>
-     <button  style='font-size:40rpx'  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权获取您的微信昵称和头像</button>
+     <button  style='font-size:30rpx'  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权获取您的微信昵称和头像(如果已经授权,点击关闭)</button>
       
 </modal>
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
