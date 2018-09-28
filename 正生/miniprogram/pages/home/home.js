@@ -240,7 +240,9 @@ Page({
     var that = this;
     if (e.id) {
       shareOpenId = e.id
+      
     }
+   
     if (app.globalData.userInfo) {
       console.log(app.globalData.userInfo)
       this.setData({
@@ -951,6 +953,7 @@ Page({
     })
   },
   mydataAction: function() {
+    console.log("shareOpenId == "+shareOpenId)
     wx.navigateTo({
       url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
     })

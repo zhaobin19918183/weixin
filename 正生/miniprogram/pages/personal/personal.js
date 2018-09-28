@@ -483,9 +483,7 @@ var D = date.getDate() <
              })
                .get({
                  success: function (res) {
-                   console.log('whetaher 666===  ', res.data[0]._id)
-                  
-                   console.log("whetaher 777===  " + Y + "-" + M + "-" + D)
+                    
                    db.collection('personal').doc(res.data[0]._id).update({
                      // data 传入需要局部更新的数据
                      data: {
@@ -503,6 +501,11 @@ var D = date.getDate() <
 
                    }).then
                    {
+                     wx.showToast({
+                       title: '签到成功',
+                       icon: 'success',
+                       duration: 2000,
+                     })
                      that.MyBranchrankings()
                      that.MyServiceCenterrankings()
                      that.MyStudioRankings()

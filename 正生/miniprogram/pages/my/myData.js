@@ -294,7 +294,6 @@ Page({
         console.log('[云函]', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
-        console.log("=====" + openidstring)
         this.MyPersional(openidstring)
         db.collection('personal').where({
           _openid: res.result.openid
@@ -505,12 +504,12 @@ Page({
       },
       success: function(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+       
         wx.showToast({
           title: '加入战队成功',
           icon: 'success',
           duration: 2000,
         })
-
         if (shareOpenId.length  == 0)
         {
           wx.navigateTo({
@@ -766,7 +765,7 @@ Page({
       imageUrl: '../imgs/share.png',
       success: function(res) {
         // 转发成功
-        console.log("转发成功")
+        console.log("转发成功" + openidstring)
         wx.showToast({
           title: '转发成功',
           icon: 'success',
