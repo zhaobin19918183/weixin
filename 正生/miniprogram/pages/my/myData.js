@@ -214,7 +214,7 @@ Page({
   onLoad: function(options) {
     shareOpenId = options.shareOpenId
    
-    console.log("shareOpenId == " + shareOpenId)
+    console.log("shareOpenId == " + shareOpenId.length)
     
 
     var that = this
@@ -520,7 +520,7 @@ Page({
         else
         {
           console.log("是分享") 
-        this.jifeng(shareOpenId)
+          this.jifeng(shareOpenId)
         }
        
 
@@ -532,43 +532,27 @@ Page({
   jifeng: function (shareid) {
     const db = wx.cloud.database()
     const _ = db.command
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        db.collection('personal').where({
-          _openid: shareid
-        })
-          .get({
-            success: function (res) {
-              db.collection('personal').doc(shareid).update({
-                // data 传入需要局部更新的数据
-                data: {
-                  MyCenterNumber: _.inc(5),
-                  MyCompanyNumber: _.inc(5),
-                  MyWorkRoomNumber: _.inc(5),
-                  MyNumber: _.inc(5),
-                  number: _.inc(5),
+    db.collection('personal').doc(shareid).update({
+      // data 传入需要局部更新的数据
+      data: {
+        MyCenterNumber: _.inc(5),
+        MyCompanyNumber: _.inc(5),
+        MyWorkRoomNumber: _.inc(5),
+        MyNumber: _.inc(5),
+        number: _.inc(5),
 
-                }
-
-              }).then
-              {
-                console.log("分享增加积分")
-                that.MyBranchrankings()
-                that.MyServiceCenterrankings()
-                that.MyStudioRankings()
-                wx.navigateTo({
-                  url: '../home/home'
-                })
-              }
-            }
-          })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
       }
-    })
+
+    }).then
+    {
+      console.log("分享增加积分")
+      that.MyBranchrankings()
+      that.MyServiceCenterrankings()
+      that.MyStudioRankings()
+      wx.navigateTo({
+        url: '../home/home'
+      })
+    }
   },
   MyBranchrankings: function () {
     var that = this
