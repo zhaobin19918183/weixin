@@ -5,7 +5,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from TestModel.models import Test,Contact,Tag
+from TestModel.models import Test,Contact,WeiXinImage
 # Register your models here.
 
 class ContactAdmin(admin.ModelAdmin):
@@ -20,7 +20,8 @@ class ContactAdmin(admin.ModelAdmin):
         }]
 
     )
-
-
+class WeiXinImageAdmin(admin.ModelAdmin):
+      list_display = ('name', 'openid')  # list
+admin.site.register(WeiXinImage, WeiXinImageAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register([Test])

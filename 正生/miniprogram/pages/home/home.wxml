@@ -1,11 +1,9 @@
 <!-- !--pages/home/home.wxml--> 
 <modal  hidden="{{modalFlag}}" no-cancel bindconfirm="modalOk" confirmText="" >
-      <image style='width:100%'  src="../imgs/share.png" bindtap=""></image>
+      <image style='width:100%;'   src="../imgs/share.png" bindtap=""></image>
      <button  style='font-size:40rpx'  open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权获取您的微信昵称和头像</button>
       
 </modal>
-
-
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view style='height:200px;margin-top:100rpx'>
   <swiper style='height:100%'    indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>

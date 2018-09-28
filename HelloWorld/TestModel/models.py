@@ -26,4 +26,12 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
-class  wexin(models.Model):
+class WeiXinImage(models.Model):
+
+    name = models.CharField(max_length=50)
+    openid = models.CharField(max_length=100)
+    iamgeUrl = models.CharField(max_length=500)
+
+    def __unicode__(self):
+        return self.name
+
