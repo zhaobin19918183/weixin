@@ -379,7 +379,7 @@ var D = date.getDate() <
 
    },
    onShareAppMessage: function(res) {
-     this.shareAction(openidstring)
+     this.jifeng(openidstring)
      return {
        title: '慧吃慧动100天',
        // 分享时在路径后拼接参数，可拼接多个参数。 
@@ -403,28 +403,9 @@ var D = date.getDate() <
    },
    shareAction: function (openidstr) {
      this.jifeng(openidstr)
-   
-     const db = wx.cloud.database()
-     db.collection('personal').where({
-       _openid: openidstr
-     }).get({
-       success: function (res) {
-         db.collection('personal').doc(res.data[0]._id).update({
-           // data 传入需要局部更新的数据
-           data: {
-             share: 1,
-           }
-
-         }).then
-         {
-
-         }
-       }
-     })
-
-   },
+    },
    jifeng: function (shareid) {
-     console.log("是分享========" + shareid)
+     
      const db = wx.cloud.database()
      const _ = db.command
      wx.cloud.callFunction({
@@ -444,6 +425,7 @@ var D = date.getDate() <
                    // 表示指示数据库将字段自增 10
                    number: _.inc(5),
                    MyNumber: _.inc(5),
+                   share:_.inc(1)
                  },
                  success: function (res) {
                    console.log(res.data)
@@ -758,7 +740,7 @@ var D = date.getDate() <
 
          })
          console.log(res.data[0].share )
-         if (res.data[0].share == 1) {
+         if (res.data[0].share == 3) {
 
            this.setData({
              buttonshow: true,

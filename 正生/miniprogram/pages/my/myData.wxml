@@ -6,7 +6,10 @@
   <image class="userinfo-avatar" style='position: absolute' src="{{userInfo.avatarUrl}}"></image>
   <text class="userinfo-nickname" style='position: absolute'>{{userInfo.nickName}}</text>
   <image class='qiandao1' src="../imgs/persional/qiandao1.png"></image>
-  <button hidden='{{buttonshow}}'  style='background:orange;position: absolute;text-align:center;font-size:25rpx;color:black;width:80px;height:30px;margin-left:55%;margin-top:37px' open-type="share">告诉好友</button>
+  <button hidden='{{buttonshow}}'  style='background:orange;position: absolute;text-align:center;font-size:25rpx;color:black;width:80px;height:30px;margin-left:55%;margin-top:37px' open-type="share">每日分享</button>
+<button wx:if='{{buttonshow}}'  style='background:orange;position: absolute;text-align:center;font-size:25rpx;color:black;width:80px;height:30px;margin-left:55%;margin-top:37px'>分享完成</button>
+
+  
   <view class='layout_horizontal2'>
 
     <image class='dk03' src="../imgs/persional/dk03.png"></image>
