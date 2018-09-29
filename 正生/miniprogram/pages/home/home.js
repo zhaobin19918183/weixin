@@ -78,7 +78,7 @@ Page({
       showCapsule: 1, //是否显示左上角图标
       title: '慧吃慧动100天', //导航栏 中间的标题
     },
-    modalFlag : false,
+    modalFlag : true,
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
     show_centent: false,
@@ -190,7 +190,8 @@ Page({
                   // data 传入需要局部更新的数据
                   data: {
                     whetaher: 0,
-
+                    share:0
+                
                   }
 
                 })
@@ -246,13 +247,22 @@ Page({
     wx.getSetting({
       success: (res) => {
         console.log("授权 ==== " + res.authSetting["scope.userInfo"])
-    if (res.authSetting["scope.userInfo"] == true)
-        {
+        if (res.authSetting["scope.userInfo"] == true)
+         {
          this.setData({
           modalFlag: true
             })
           }
+          else
+          {
+          this.setData({
+             modalFlag: false
+            })
+          }
+
+
       }
+      
     })
 
   },

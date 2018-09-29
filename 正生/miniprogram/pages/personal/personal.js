@@ -160,7 +160,8 @@ var D = date.getDate() <
      myName: "",
      MyNUmber: 0,
      name: "",
-     showPersonal :false
+     showPersonal :false,
+     buttonshow: true
 
    },
    //事件处理函数
@@ -378,6 +379,7 @@ var D = date.getDate() <
 
    },
    onShareAppMessage: function(res) {
+     this.shareAction(openidstring)
      return {
        title: '慧吃慧动100天',
        // 分享时在路径后拼接参数，可拼接多个参数。 
@@ -399,6 +401,66 @@ var D = date.getDate() <
        }
      }
    },
+   shareAction: function (openidstr) {
+     this.jifeng(openidstr)
+   
+     const db = wx.cloud.database()
+     db.collection('personal').where({
+       _openid: openidstr
+     }).get({
+       success: function (res) {
+         db.collection('personal').doc(res.data[0]._id).update({
+           // data 传入需要局部更新的数据
+           data: {
+             share: 1,
+           }
+
+         }).then
+         {
+
+         }
+       }
+     })
+
+   },
+   jifeng: function (shareid) {
+     console.log("是分享========" + shareid)
+     const db = wx.cloud.database()
+     const _ = db.command
+     wx.cloud.callFunction({
+       name: 'login',
+       data: {},
+       success: res => {
+         //  var openidstri =  
+         db.collection('personal').where({
+           _openid: shareid
+         })
+           .get({
+             success: function (res) {
+               console.log(res.data[0]._id)
+
+               db.collection('personal').doc(res.data[0]._id).update({
+                 data: {
+                   // 表示指示数据库将字段自增 10
+                   number: _.inc(5),
+                   MyNumber: _.inc(5),
+                 },
+                 success: function (res) {
+                   console.log(res.data)
+                 }
+               })
+             }
+           })
+
+
+       },
+       fail: err => {
+         console.error('[云函数] [login] 调用失败', err)
+       }
+     })
+
+   },
+
    show: function() {
 
 
@@ -695,7 +757,18 @@ var D = date.getDate() <
            showPersonal:true
 
          })
-         console.log(res.data)
+         console.log(res.data[0].share )
+         if (res.data[0].share == 1) {
+
+           this.setData({
+             buttonshow: true,
+           })
+         }
+         else {
+           this.setData({
+             buttonshow: false
+           })
+         }
        },
        fail: err => {
          wx.showToast({

@@ -8,7 +8,7 @@ var rate = 0;
 var arrayMydata = [];
 var arrayMyCenter = [];
 var arrayMyCompany = [];
-
+var mytimeString =""
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
 var openidstring = ""
@@ -17,7 +17,7 @@ var workroomName = ""
 var workroomNumber = 0
 var centerNumber = 0
 var companyNumber = 0
-var shareOpenId =""
+var shareOpenIdString =""
 var timestamp =
   Date.parse(new Date());
 //返回当前时间毫秒数
@@ -204,19 +204,17 @@ Page({
     myName: "",
     MyNUmber: 0,
     name: "",
-    showPersonal: false
+    showPersonal: false,
+    buttonshow:true
 
   },
   //事件处理函数
   bindViewTap: function() {
 
   },
-  onLoad: function(options) {
-    shareOpenId = options.shareOpenId
-   
-    console.log("shareOpenId == " + shareOpenId.length)
-    
-
+  onLoad: function(options)
+   {
+    shareOpenIdString = options.shareOpenId  
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -252,6 +250,9 @@ Page({
         }
       })
     }
+   
+    
+
   },
 
   onShow: function(e) {
@@ -294,7 +295,7 @@ Page({
         console.log('[云函]', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
-        this.MyPersional(openidstring)
+        this.MyPersional(res.result.openid)
         db.collection('personal').where({
           _openid: res.result.openid
         }).get({
@@ -468,6 +469,7 @@ Page({
     })
   },
   addPensonal: function(workroom, centerArray, myCompanyArray) {
+  
     wx.showToast({
       title: '加入中',
       icon: 'loading',
@@ -500,59 +502,31 @@ Page({
         imageArray:[],
         number: 0,
         time: enddate,
-        whetaher: 0
+        whetaher: 0,
+        share:0
       },
       success: function(res) {
-        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-       
-        wx.showToast({
-          title: '加入战队成功',
-          icon: 'success',
-          duration: 2000,
-        })
-        if (shareOpenId.length  == 0)
-        {
+
+       if (shareOpenIdString.length == 0) {
           wx.navigateTo({
             url: '../home/home'
           })
-          console.log("不是分享")
-        }
-        else
-        {
-          console.log("是分享") 
-          this.jifeng(shareOpenId)
-        }
+          wx.showToast({
+            title: '加入战队成功',
+            icon: 'success',
+            duration: 2000,
+          })
+       }
+        // else {
+        //   console.log("是分享")
+          
+        // }
        
 
       },
       fail: console.error
     })
 
-  },
-  jifeng: function (shareid) {
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').doc(shareid).update({
-      // data 传入需要局部更新的数据
-      data: {
-        MyCenterNumber: _.inc(5),
-        MyCompanyNumber: _.inc(5),
-        MyWorkRoomNumber: _.inc(5),
-        MyNumber: _.inc(5),
-        number: _.inc(5),
-
-      }
-
-    }).then
-    {
-      console.log("分享增加积分")
-      that.MyBranchrankings()
-      that.MyServiceCenterrankings()
-      that.MyStudioRankings()
-      wx.navigateTo({
-        url: '../home/home'
-      })
-    }
   },
   MyBranchrankings: function () {
     var that = this
@@ -717,6 +691,7 @@ Page({
 
   },
   MyPersional: function(openidstr) {
+    console.log("是否分享11111" + openidstr)
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('personal').where({
@@ -730,7 +705,22 @@ Page({
           showPersonal: true
 
         })
-        console.log(res.data)
+        mytimeString = res.data[0].time
+        console.log("是否分享" + res.data[0].share)
+        
+        if (res.data[0].share == 1) {
+         
+          this.setData({
+            buttonshow: true,
+          })
+        }
+        else {
+          this.setData({
+            buttonshow: false
+          })
+        }
+       
+    
       },
       fail: err => {
         wx.showToast({
@@ -741,7 +731,9 @@ Page({
       }
     })
   },
+
   onShareAppMessage: function(res) {
+    this.shareAction(openidstring)
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
@@ -749,17 +741,76 @@ Page({
       imageUrl: '../imgs/share.png',
       success: function(res) {
         // 转发成功
-        console.log("转发成功" + openidstring)
         wx.showToast({
           title: '转发成功',
           icon: 'success',
           duration: 2000,
         })
+    
       },
       fail: function(res) { // 转发失败
         console.log("转发失败")
       }
     }
+  },
+  shareAction: function (openidstr) {
+    this.jifeng(openidstr)
+    const db = wx.cloud.database()
+    db.collection('personal').where({
+      _openid: openidstr
+    }).get({
+        success: function (res) {
+          db.collection('personal').doc(res.data[0]._id).update({
+            // data 传入需要局部更新的数据
+            data: {
+              share: 1,
+            }
+
+          }).then
+          {
+
+          }
+        }
+      })
+
+  }
+  ,
+  jifeng: function (shareid) {
+    console.log("是分享========" + shareid)
+    const db = wx.cloud.database()
+    const _ = db.command
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        //  var openidstri =  
+        db.collection('personal').where({
+          _openid: shareid
+        })
+          .get({
+            success: function (res) {
+              console.log(res.data[0]._id)
+
+              db.collection('personal').doc(res.data[0]._id).update({
+                data: {
+                  // 表示指示数据库将字段自增 10
+                  number: _.inc(5),
+                  MyNumber: _.inc(5),
+                },
+                success: function (res) {
+                  console.log(res.data)
+                }
+              })
+            }
+          })
+
+
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+
   },
   show: function() {
 
