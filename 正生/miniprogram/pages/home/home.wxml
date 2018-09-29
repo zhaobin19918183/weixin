@@ -16,11 +16,66 @@
       <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
         <view class="scroll-y">
 
-        <view style='margin-left:10%;margin-top:60px'>
-        <text tyle='font-size:40rpx; '>“慧吃慧动100天”活动说明：</text>
+        <view style='margin-left:10%;margin-top:40px'>
+        <text tyle='font-size:40rpx; '>活动介绍：</text>
+        </view>
+         <view style='margin-left:10%;margin-top:20px'>
+        <text tyle='font-size:40rpx; '>一、简介</text>
         </view>
           <view style='margin-left:10%;width:80%;margin-top:30px'>
-          <text style='font-size:20rpx;text-align:left;' space="ensp"> 慧吃慧动100天，是正生集团组织发起的一次全民参与的健康活动，在这里你可以选择你支持的工作室参与此次活动，与全国小伙伴一起开启百日慧吃慧动大战，每天坚持打卡会为个人、工作室、服务中心、分公司（大区）获得更多的积分，从而取得更高的排名。打卡100天后，各个排名靠前的分公司（大区）、服务中心、工作室和个人均有奖品。
+          <text style='font-size:20rpx;text-align:left;' space="ensp"> 欢迎加入“慧吃慧动100天”活动，此次活动是由正生集团组织发起的一次全民参与的健康活动，在这里你可以选择你支持的工作室参与此次活动，与全国小伙伴一起开启百日慧吃慧动大战，每天坚持打卡后，你将累计积分冲击冠军榜，更会为您所在的工作室、服务中心、分公司（大区）获得更多的积分，从而取得更高的排名。更有神秘大咖接力助阵，为您打Call，量身定制最科学、最有效的健康减肥方案。打卡100天后，各个排行榜排名前三的个人、工作室、服务中心、分公司（大区）均有大礼赠送。
+          </text>
+           <view style='margin-top:5px'>
+        <text tyle='font-size:40rpx; '>二、奖励</text>
+        </view>
+          <text style='font-size:20rpx;text-align:left;' space="ensp"> 
+名次    个人排名   奖品 
+第一名   Xxx   
+第二名   Xxx   
+第三名   Xxx   
+ 
+名次    工作室     奖品 
+第一名  Xxx   
+第二名  Xxx   
+第三名  Xxx   
+ 
+名次    服务中心   奖品 
+第一名  Xxx   
+第二名  Xxx   
+第三名  Xxx   
+ 
+名次    分公司（大区） 奖品 
+第一名  Xxx   
+第二名  Xxx   
+第三名  Xxx  
+          </text>
+           <view>
+        <text tyle='font-size:40rpx; '>三、规则</text>
+        </view>
+            <text style='font-size:20rpx;text-align:left;' space="ensp"> 三、规则
+1、打卡须知：
+1.1、参加打卡的人员以个人意愿选择自己想加入的工作室。
+1.2、个人加入工作室后，将不可转换工作室。
+1.3、打卡模式分为一键打卡和传图打卡，两种打开模式相对应的积分不同。
+1.4、加入百日大战后，每日排名第一的工作室将霸占当日打卡封面。
+2、打卡方法：
+2.1、进入【博士讲健康】公众号，点击下方【慧吃慧动】，直接进入小程序首页进行签到。
+2.2、登录微信首页，下滑界面微信小程序搜索【慧吃慧动】，即可进行签到。
+打卡成功能，可以查看当天排行榜。分享我的邀请卡增加积分累计，好友通过扫描二维码即可参与活动。
+3、打卡时间：
+全天24小时均可以打卡，每人每天打卡1次，全额奖励当天积分。
+4、打卡积分规则：
+4.1、打卡模式决定获得积分多少，选择一键打卡奖励5积分，选择传照片打卡奖励20积分。
+4.2、举例子
+天数 打卡方式 累计积分 
+第一天 传照打卡 20x1=20分 
+第二天 一键打卡 5x2=30分 
+第三天 传照打卡 20x3=90分 
+......     
+ 
+4.3、中断打卡当天奖励积分重新从5/20分开始计算，总积分累计；
+4.4、每天可分享1次，获取额外积分20份；
+4.5、工作室积分=所有组员的个人积分累加；服务中心积分=所有工作室积分累加；分公司（大区）积分：所有服务中心积分累加。
           </text>
           </view>
          
