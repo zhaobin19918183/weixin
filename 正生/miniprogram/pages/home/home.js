@@ -171,11 +171,40 @@ Page({
     var end_date = new Date(enddate.replace(/-/g, "/"));
     var days = end_date.getTime() - start_date.getTime();
     var day = parseInt(days / (1000 * 60 * 60 * 24));
-   
+    const db = wx.cloud.database()
+    const _ = db.command
+   if (day > 1)
+   {
+     console.log("签到中断")
+
+     wx.cloud.callFunction({
+       name: 'login',
+       data: {},
+       success: res => {
+      
+         db.collection('personal').where({
+           _openid: res.result.openid
+         })
+           .get({
+             success: function (res) {
+               db.collection('personal').doc(res.data.id).update({
+                 // data 传入需要局部更新的数据
+                 data: {
+                   allDay: 0,
+                 }
+
+               })
+             }
+           })
+       },
+       fail: err => {
+         console.error('[云函数] [login] 调用失败', err)
+       }
+     })
+   }
+
     if (day > 0) {
       
-      const db = wx.cloud.database()
-      const _ = db.command
       wx.cloud.callFunction({
         name: 'login',
         data: {},

@@ -509,25 +509,37 @@ var D = date.getDate() <
        })
      }
      if (that.data.show1 == 2) {
-       console.log('whetaher 2222222===  ')
        if (qiandaoYes == 0)
        {
-         console.log('whetaher 333===  ')
          const db = wx.cloud.database()
          const _ = db.command
          wx.cloud.callFunction({
            name: 'login',
            data: {},
            success: res => {
-             console.log('whetaher 444===  ')
-             console.log('[云函数] [login] user openid:222 ', res.result.openid)
-            //  var openidstri =  
              db.collection('personal').where({
                _openid: res.result.openid
              })
                .get({
                  success: function (res) {
-                    
+                   var allday = res.data[0].allDay
+                   var continuous = res.data[0].continuousSing
+                   var five = (allday / 5).toFixed(0)
+                   var dayContinuous = 0
+                   var con = 0
+                   if (five > continuous)
+                  {
+                     dayContinuous = five
+                     con = 1
+                  }
+                  else
+                  {
+                     dayContinuous = 0
+                  }
+                   
+                   var updateNumber = 5 + dayContinuous * 5
+
+
                    db.collection('personal').doc(res.data[0]._id).update({
                      // data 传入需要局部更新的数据
                      data: {
@@ -535,12 +547,12 @@ var D = date.getDate() <
                        MyCenterNumber: _.inc(5),
                        MyCompanyNumber: _.inc(5),
                        MyWorkRoomNumber: _.inc(5),
-                       MyNumber: _.inc(5),
-                       number: _.inc(5),
+                       MyNumber: _.inc(updateNumber),
+                       number: _.inc(updateNumber),
                        day: _.inc(1),
                        allDay: _.inc(1),
-                       time: Y + "-" + M + "-" + D
-
+                       time: Y + "-" + M + "-" + D,
+                       continuousSing: _.inc(con),
                      }
 
                    }).then
@@ -581,6 +593,7 @@ var D = date.getDate() <
        }
 
    },
+
     MyListData: function (name) {
      this.data.name = name
      const db = wx.cloud.database()
