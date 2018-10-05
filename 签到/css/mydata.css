@@ -1,0 +1,53 @@
+.image1{ 
+        margin-top: 50px; 
+        width:200px; 
+        height:200px; 
+        border-radius:200px; 
+    }
+
+.image2{
+        margin-top: 50px; 
+        width:200px; 
+        height:200px; 
+        border-radius:20px; 
+    }
+.div1{
+    float: left;
+    height: 100px;
+    width: 100px;
+}
+.div2 {
+    float: right;
+    height: 100px;
+    width: 100px;
+}
+.wrap{
+    display: flex;
+    justify-content: flex-start;
+}
+
+        .test ul{
+            list-style-type: none;
+ 
+        }
+ 
+        .test ul li{
+ 
+            float:left;
+ 
+            /*以下设置仅为方便查看效果*/
+            width:50px;
+            height:20px;
+            border:1px solid black;
+            text-align: center;
+        }
+ 
+        .test ul li ul{
+            display: none;
+        }
+ 
+        .test li:hover ul{
+            display:block;
+        }
+ 
+

@@ -139,10 +139,23 @@ Page({
 
     myName: "",
     MyNUmber: 0,
-    name: ""
+    name: "",
+    goSingIn: "我要参与",
+    disable:false
 
 
   },
+  goSingIn:function()
+  {
+    wx.navigateTo({
+      url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
+    })
+    this.setData({
+      goSingIn: "排行榜",
+      disable: true
+    })
+  }
+  ,
   Myopenid: function() {
     const db = wx.cloud.database()
     const _ = db.command
@@ -354,6 +367,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
+
+    var goSingIn = wx.getStorageSync('goSingIn')
+    var disable = wx.getStorageSync('disable')
+    
+    if(disable != true)
+    {
+      this.setData({
+        goSingIn: "我要参与",
+        disable: false
+      })
+    }
+    else
+    {
+      this.setData({
+        goSingIn: goSingIn,
+        disable: disable
+      })
+    }
+
     wx.cloud.init()
     var that = this;
     that.Myopenid()
@@ -727,6 +760,14 @@ Page({
     code: null
   },
   getUserInfo: function(e) {
+    wx.setStorage({
+      key: "goSingIn",
+      data: "我要参与"
+    })
+    wx.setStorage({
+      key: "disable",
+      data: false
+    })
     this.setData({
       modalFlag: true
     })
@@ -790,8 +831,8 @@ Page({
           }
         } else {
           wx.showToast({
-            title: '请加入战队',
-            icon: 'succes',
+            title: '点击我要参与，加入战队',
+            icon: 'none',
             duration: 1000,
             mask: true
           })
@@ -901,7 +942,7 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            title: '尚未加入战队'
+            title: '点击我要参与，加入战队'
           })
 
         }
@@ -949,7 +990,7 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            title: '尚未加入战队'
+            title: '点击我要参与，加入战队'
           })
 
         }
@@ -1005,7 +1046,7 @@ Page({
           }
         } else {
           wx.showToast({
-            title: '请加入战队',
+            title: '点击我要参与，加入战队',
             icon: 'succes',
             duration: 1000,
             mask: true

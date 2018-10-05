@@ -8,7 +8,8 @@
 	</head>
 
 	<body>
-		<div class="top flex flex-align-end flex-pack-center flex-warp">
+		<div id="number" style="background-color: #38a088;color: white"></div>
+		<div class="top flex flex-align-end flex-pack-center flex-warp" style="background-color: #38a088">
 			<div class="out-1 flex flex-align-center flex-pack-center" id="signIn">
 				<div class="out-2 flex flex-align-center flex-pack-center">
 					<div class="signBtn">
@@ -18,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="tips">今天已签到，获得1个红包</div>
+		<div class="tips" id="tip"></div>
 		<div class="Calendar">
 			<div id="toyear" class="flex flex-pack-center">
 				<div id="idCalendarPre">&lt;</div>
@@ -43,13 +44,28 @@
 			</table>
 		</div>
 		<script type="text/javascript" src="../js/rili.js"></script>
+		<script>
+</script>
 		<script language="JavaScript">
 			var isSign = false;
 			var myday = new Array(); //已签到的数组
-			myday[0] = "1528646400"
-			myday[1] = "1528387200"
-			myday[2] = "1525708800"
-
+			// myday[0] = "1528646400"
+			// myday[1] = "1528387200"
+			// myday[2] = "1525708800"
+			
+            var b2 = localStorage.getItem("day");
+            var integral = localStorage.getItem("integral");
+            if (integral == null) 
+            {
+            	integral = 0
+            }
+            document.getElementById('number').innerHTML="我的积分 ："+integral;
+            console.log(integral)
+            if (b2 != null) 
+            {
+            console.log(  JSON.parse(b2)) 
+             myday = JSON.parse(b2)
+            }
 			var cale = new Calendar("idCalendar", {
 				qdDay: myday,
 				onToday: function(o) {
@@ -57,6 +73,8 @@
 				},
 				onSignIn: function (){
 					$$("sign-txt").innerHTML = '已签到';
+					 document.getElementById('number').innerHTML="我的积分 ："+integral;
+					document.getElementById('tip').innerHTML='今天已签到，获得15积分';
 				},
 				onFinish: function() {
 					$$("sign-count").innerHTML = myday.length //已签到次数
@@ -77,10 +95,14 @@
 					var res = cale.SignIn();
 					if(res == '1') {
 						$$("sign-txt").innerHTML = '已签到';
+						document.getElementById('number').innerHTML="我的积分 ："+integral;
+						document.getElementById('tip').innerHTML='今天已签到，获得15积分';
 						$$("sign-count").innerHTML = parseInt($$("sign-count").innerHTML) + 1;
 						isSign = true;
 					} else if (res == '2'){
 						$$("sign-txt").innerHTML = '已签到';
+						document.getElementById('number').innerHTML="我的积分 ："+integral;
+						document.getElementById('tip').innerHTML='今天已签到，获得15积分';
 						alert('今天已经签到了')
 					}
 				} else {

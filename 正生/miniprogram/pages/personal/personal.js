@@ -417,9 +417,8 @@ var D = date.getDate() <
            _openid: shareid
          })
            .get({
-             success: function (res) {
-               console.log(res.data[0]._id)
-
+             success: function (res)
+              {
                db.collection('personal').doc(res.data[0]._id).update({
                  data: {
                    // 表示指示数据库将字段自增 10
@@ -523,36 +522,20 @@ var D = date.getDate() <
                .get({
                  success: function (res) {
                    var allday = res.data[0].allDay
-                   var continuous = res.data[0].continuousSing
-                   var five = (allday / 5).toFixed(0)
-                   var dayContinuous = 0
-                   var con = 0
-                   if (five > continuous)
-                  {
-                     dayContinuous = five
-                     con = 1
-                  }
-                  else
-                  {
-                     dayContinuous = 0
-                  }
-                   
-                   var updateNumber = 5 + dayContinuous * 5
-
-
+                   var updateNumber = 5 + allday *5
                    db.collection('personal').doc(res.data[0]._id).update({
                      // data 传入需要局部更新的数据
                      data: {
                        whetaher: 1,
-                       MyCenterNumber: _.inc(5),
-                       MyCompanyNumber: _.inc(5),
-                       MyWorkRoomNumber: _.inc(5),
+                       MyCenterNumber: _.inc(updateNumber),
+                       MyCompanyNumber: _.inc(updateNumber),
+                       MyWorkRoomNumber: _.inc(updateNumber),
                        MyNumber: _.inc(updateNumber),
                        number: _.inc(updateNumber),
                        day: _.inc(1),
                        allDay: _.inc(1),
                        time: Y + "-" + M + "-" + D,
-                       continuousSing: _.inc(con),
+                       continuousSing: 0,
                      }
 
                    }).then
@@ -884,16 +867,18 @@ var D = date.getDate() <
                    .get({
                      success: function (res) {
                        var enddate = Y + "-" + M + "-" + D
+                       var allday = res.data[0].allDay
+                       var updateNumber = 20 + allday * 20
                        db.collection('personal').doc(res.data[0]._id).update({
                          // data 传入需要局部更新的数据
                          data: {
                            whetaher: 1,
-                           MyCenterNumber: _.inc(5),
-                           MyCompanyNumber: _.inc(5),
-                           MyWorkRoomNumber: _.inc(5),
-                           MyNumber: _.inc(5),
+                           MyCenterNumber: _.inc(updateNumber),
+                           MyCompanyNumber: _.inc(updateNumber),
+                           MyWorkRoomNumber: _.inc(updateNumber),
+                           MyNumber: _.inc(updateNumber),
                            imageArray: _.push(imageurl),
-                           number: _.inc(5),
+                           number: _.inc(updateNumber),
                            day: _.inc(1),
                            allDay: _.inc(1),
                            time: enddate

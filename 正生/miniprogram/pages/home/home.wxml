@@ -12,7 +12,7 @@
   </swiper>
    <!-- 活动规则 -->
     <view class="bg" bindtap='hideview' style='display:{{display}};'>
-      <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;background-image:url(../imgs/guanbi.png);'></image>
+      <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;' src='../imgs/guanbi.png'></image>
       <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
         <view class="scroll-y">
 
@@ -52,7 +52,7 @@
            <view>
         <text tyle='font-size:40rpx; '>三、规则</text>
         </view>
-            <text style='font-size:20rpx;text-align:left;' space="ensp"> 三、规则
+            <text style='font-size:20rpx;text-align:left;' space="ensp">
 1、打卡须知：
 1.1、参加打卡的人员以个人意愿选择自己想加入的工作室。
 1.2、个人加入工作室后，将不可转换工作室。
@@ -65,7 +65,7 @@
 3、打卡时间：
 全天24小时均可以打卡，每人每天打卡1次，全额奖励当天积分。
 4、打卡积分规则：
-4.1、打卡模式决定获得积分多少，选择一键打卡奖励5积分，选择传照片打卡奖励20积分。
+4.1、打卡模式决定获得积分多少，选择一键打卡奖励5积分，选择传照片打卡奖励5积分。
 4.2、举例子
 天数 打卡方式 累计积分 
 第一天 传照打卡 20x1=20分 
@@ -99,7 +99,7 @@
       <image style='width:80px;height:70px;position: absolute' src="{{imgeUrlAni}}" animation="{{animationData}}"></image>
       <view class='layout_vertical' style='width:60%;position: absolute;margin-left:10%;margin-top:-20px'>
         <button class='qiandao' style='font-size:40rpx'  bindtap='everyDay'>每日签到</button>
-        <button class='' open-type='getPhoneNumber'  bindgetphonenumber='getPhoneNumber' >Daily check-in</button>
+        <button class='' >Daily check-in</button>
       </view>
       <button class='butTopThree' bindtap='showview' style='position: absolute'>
       <image style='width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image>
@@ -110,14 +110,14 @@
           <text style='font-size:25rpx;margin-top:-50%'>则</text>
         </view>
       </button>
-      <image src='../imgs/you.png' style='margin-left:25%;width:13%;height:4%;margin-top:25%;position: absolute'></image>
-      <button style='font-size:25rpx;position: absolute;margin-left:38%;width:25%;height:4%;margin-top:25%;'>我要参与</button>
-      <image src='../imgs/zuo.png' style='margin-left:62%;width:13%;height:4%;position: absolute;margin-top:25%;'></image>
+      <image src='../imgs/you.png' style='margin-left:20%;width:13%;height:4%;margin-top:30%;position: absolute'></image>
+      <button  disabled='{{disable}}'  style='font-size:35rpx;position: absolute;margin-left:33%;width:30%;height:5%;margin-top:28%;' bindtap='goSingIn'>{{goSingIn}}</button>
+      <image src='../imgs/zuo.png' style='margin-left:62%;width:13%;height:4%;position: absolute;margin-top:30%;'></image>
     </view>
     <image src='../imgs/img2.png' style='position: relative；display: block;width:100%;;height:100%'></image>
   </view>
   <!-- 个人排行榜 -->
-  <view style="margin-top:2%;height:240px;box-shadow:0px 0px 3px 3px gray;">
+  <view style="margin-top:10%;height:240px;box-shadow:0px 0px 3px 3px gray;">
     <view class='layout_horizontal ' style='position: absolute'>
       <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
       <label style='font-size:30rpx;height:20px;width:120px'>个人排行榜</label>

@@ -125,7 +125,13 @@ Calendar.prototype = {
 		}
 		var day = now.getDate();
 		var arr = new Array();
+        var integral = localStorage.getItem("integral");
+        if (integral == null) 
+        {
+        	integral = 0
+        }
 		var tb = document.getElementById('idCalendar');
+
 		for(var i = 0; i < tb.rows.length; i++) {
 			for(var j = 0; j < tb.rows[i].cells.length; j++) {
 				if(day == tb.rows[i].cells[j].innerText && Year == this.Year && Month == this.Month) {
@@ -133,7 +139,11 @@ Calendar.prototype = {
 						return 2;
 					}
 					tb.rows[i].cells[j].className = "onToday"
+                    integral = integral + 15
 					this.qdDay.push(Date.parse(new Date()) / 1000)
+					var b1 = JSON.stringify(myday);
+					localStorage.setItem("day", b1);
+					localStorage.setItem("integral", integral);
 					return 1;
 					
 				}

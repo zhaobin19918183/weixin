@@ -354,6 +354,14 @@ Page({
   },
 
   addTeam: function(e) {
+    wx.setStorage({
+      key: "goSingIn",
+      data: "排行榜"
+    })
+    wx.setStorage({
+      key: "disable",
+      data: true
+    })
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({
