@@ -297,9 +297,26 @@ Page({
           }
           else
           {
+
           this.setData({
              modalFlag: false
             })
+
+          wx.removeStorage({
+            key: 'goSingIn',
+            success: function (res) {
+              console.log(res.data)
+            }
+          })
+          wx.removeStorage({
+            key: 'disable',
+            success: function (res) {
+              console.log(res.data)
+            }
+          })
+
+
+
           }
 
 
@@ -402,7 +419,7 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
+        console.log('[云函数] 登录: ', res.result.openid)
         app.globalData.openid = res.result.openid
 
       },
