@@ -125,11 +125,16 @@ Calendar.prototype = {
 		}
 		var day = now.getDate();
 		var arr = new Array();
-        var integral = localStorage.getItem("integral");
-        if (integral == null) 
+		var integral  = 0
+       var  inte = localStorage.getItem("integral")
+        if (inte == null) 
         {
         	integral = 0
+        }else
+        {
+            integral   = localStorage.getItem("integral");
         }
+        console.log(integral)
 		var tb = document.getElementById('idCalendar');
 
 		for(var i = 0; i < tb.rows.length; i++) {
@@ -140,6 +145,7 @@ Calendar.prototype = {
 					}
 					tb.rows[i].cells[j].className = "onToday"
                     integral = integral + 15
+                    console.log(integral)
 					this.qdDay.push(Date.parse(new Date()) / 1000)
 					var b1 = JSON.stringify(myday);
 					localStorage.setItem("day", b1);

@@ -16,24 +16,18 @@
 </div>
 
 <div  class="wrap" style="margin-top: 10px">
-	<div  style="margin-left: 18%;color: white;" ><font size="20" color="white">小四爷</font></div>
-    <div  style="margin-left:35%;color: white;" ><font size="20" color="white">15000</font></div>
+	<div  id="name" style="margin-left: 20%;color: white;font-size: 50px" ><font size="20" color="white"></font></div>
+    <div  id="number" style="margin-left:40%;color: white;font-size: 50px;text-align: center;" ></div>
 </div>
 
-<div class="test">
-	<ul>
-        	<li>A</li>
-            	<li>B</li>
-            	<li>C
-                 	<ul>
-                    		<li>C1</li>
-                    		<li>C2</li>
-                    		<li>C3</li>
-                	</ul>
-           	</li>
- 	</ul>
-</div>
+<script type="text/javascript">
+    
 
+   var  inputValue1 = localStorage.getItem("inputValue1")
+   var  integral = localStorage.getItem("integral")
+   document.getElementById('name').innerHTML=inputValue1; 
+   document.getElementById('number').innerHTML=integral;
+</script>
 
 
 
