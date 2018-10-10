@@ -4,6 +4,30 @@
 var app = getApp()
 var showzhandui = false
 var openidstring =""
+var arrayMydata = [];
+var workroomName = ""
+var workroomNumber = 0
+var centerNumber = 0
+var companyNumber = 0
+var timestamp =
+  Date.parse(new Date());
+//返回当前时间毫秒数
+timestamp = timestamp / 1000;
+//获取当前时间
+var n = timestamp *
+  1000;
+var date = new Date(n);
+//年
+var Y =
+  date.getFullYear();
+//月
+var M = (date.getMonth() +
+  1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+//日
+var D = date.getDate() <
+  10 ? '0' + date.getDate() :
+  date.getDate();
+
 var WxSearch = require('../../wxSearch/wxSearch.js')
 var GetTableVIewList = function (that) {
   that.setData({
@@ -98,7 +122,8 @@ var GetList = function (that) {
     ]
   })
 }
-var openidstring =""
+
+
 Page({
 
   /**
@@ -140,33 +165,95 @@ Page({
    */
   onLoad: function (options) {
     var data = options.id;
-    console.log('onLoad===' + data)
+    openidstring = options.shareOpenId
+    console.log("mmmp == " + openidstring, data)
     var that = this
+    this.phb1(data)
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
-  wxSearchFn: function (e) {
+  addTeam: function (e) {
+    wx.setStorage({
+      key: "goSingIn",
+      data: "每日签到"
+    })
+    wx.setStorage({
+      key: "disable",
+      data: true
+    })
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('personal').where({
+      _openid: openidstring
+    }).get({
+      success: res => {
+        if (res.data[0] != null) {
+          wx.showToast({
+            title: '不能重复加入战队',
+            icon: 'succes',
+            duration: 1000,
+            mask: true
+          })
+        } else {
+
+          var workroom = []
+         
+          if (arrayMydata.length > 1) {
+            
+            workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
+            console.log("工作室 =1 ", workroom)
+            this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
+            workroomName = arrayMydata[e.target.id].Name
+            workroomNumber = arrayMydata[e.target.id].number
+
+           
+
+          } else {
+            console.log("工作室 ==2 ")
+            workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
+            this.searchCenter(arrayMydata[0].centerID, workroom)
+            workroomName = arrayMydata[0].Name
+            workroomNumber = arrayMydata[0].number
+            
+          }
+
+        }
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  },
+
+  searchCenter: function (centerid, workroom) {
+    console.log("searchCenter ==== " + centerid,workroom)
+    var myCenterArray = [];
     var that = this
     const db = wx.cloud.database()
-    console.log(that.data.wxSearchData.value)
     // 查询当前用户所有的 counters
-    db.collection(this.data.name).where({
-      Name: that.data.wxSearchData.value
+    db.collection("ServiceCenterrankings").where({
+      _id: centerid
 
     }).get({
       success: res => {
-        this.setData({
-          arrayTableData: res.data
-        })
-        if (res.data.length == 0 )
-        {
+        myCenterArray = [res.data[0]._id, res.data[0].Name]
+        console.log("中心1 == " + res.data[0].number)
+        centerNumber = res.data[0].number
+       
+        this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
+        if (res.data.length == 0) {
           wx.showToast({
             icon: 'none',
             title: '查询数据为空，请检查查询条件'
           })
         }
-        console.log('[数据库] 签到成功===  ', res.data)
+ 
 
       },
       fail: err => {
@@ -179,6 +266,257 @@ Page({
     })
 
 
+  },
+  myCompanyData: function (companyID, workroom, centerArray) {
+    var that = this
+    const db = wx.cloud.database()
+    var myCompanyArray = [];
+    console.log("myCompanyData == " + companyID, workroom, centerArray)
+    // 查询当前用户所有的 counters
+    db.collection("Branchrankings").where({
+      _id: companyID
+
+    }).get({
+      success: res => {
+
+        myCompanyArray = [res.data[0]._id, res.data[0].Name]
+        console.log("公司 == " + res.data[0].number)
+        companyNumber = res.data[0].number
+        this.addPensonal(workroom, centerArray, myCompanyArray)
+        if (res.data.length == 0) {
+          wx.showToast({
+            icon: 'none',
+            title: '查询数据为空，请检查查询条件'
+          })
+        }
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  },
+  addPensonal: function (workroom, centerArray, myCompanyArray) {
+    
+    wx.showToast({
+      title: '加入中',
+      icon: 'loading',
+      duration: 10000
+    })
+    var enddate = Y + "-" + M + "-" + D
+    console.log("res === ", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
+    var numberdata = 0
+    const db = wx.cloud.database()
+    db.collection('personal').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        MyCompanyNumber: companyNumber,
+        MyNumber: 0,
+        MyCenterNumber: centerNumber,
+        MyWorkRoom: workroom,
+        MyCompany: myCompanyArray,
+        MyCenter: centerArray,
+        MyWorkRoomNumber: workroomNumber,
+        Name: app.globalData.userInfo.nickName,
+        allDay: 0,
+        day: 0,
+        image: app.globalData.userInfo.avatarUrl,
+        myStudio: [workroomName,
+          numberdata,
+          workroomNumber,
+          centerNumber,
+          companyNumber
+        ],
+        imageArray: [],
+        number: 0,
+        time: enddate,
+        whetaher: 0,
+        share: 0
+      },
+      success: function (res) {
+        console.log("成功")
+  
+          wx.navigateTo({
+            url: '../home/home'
+          })
+          wx.showToast({
+            title: '加入战队成功',
+            icon: 'success',
+            duration: 2000,
+          })
+      },
+      fail: console.error
+    })
+
+  },
+  phb1: function (data) {
+    console.log(data)
+    var that = this;
+    if (data == 1) {
+      that.MyListData('Branchrankings');
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
+          success: res => {
+            this.setData({
+              myCompanyName: res.data[0].MyCompany[1],
+              myCompanyNumber: res.data[0].MyCompanyNumber,
+              Myimage: res.data[0].image
+
+            })
+            console.log(res.data)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+    }
+    if (data == 2) {
+
+      that.MyListData('ServiceCenterrankings');
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
+          success: res => {
+            this.setData({
+
+              myCompanyName: res.data[0].MyCenter[1],
+              myCompanyNumber: res.data[0].MyCenterNumber,
+              Myimage: res.data[0].image
+
+            })
+            console.log(res.data)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+    }
+    if (data == 3) {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      console.log(openidstring)
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
+          success: res => {
+            console.log("wocaonima" + res.data)
+            this.setData({
+              myCompanyName: res.data[0].MyWorkRoom[1],
+              myCompanyNumber: res.data[0].MyWorkRoomNumber,
+              Myimage: res.data[0].image
+            })
+
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+
+          }
+        })
+      that.MyListData('StudioRankings');
+      this.setData({
+        showzhandui: true,
+
+      })
+
+    }
+    else {
+      this.setData({
+        showzhandui: false,
+
+      })
+    }
+    if (data == 4) {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
+          success: res => {
+            this.setData({
+              myCompanyName: res.data[0].Name,
+              myCompanyNumber: res.data[0].MyNumber,
+              Myimage: res.data[0].image
+
+            })
+            console.log(res.data)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+      that.MyListData('personal');
+    }
+
+  },
+
+  phb: function (data) {
+    if (data == 3) {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      console.log(openidstring, data)
+      db.collection('personal').where({
+        _openid: openidstring
+      })
+        .get({
+          success: res => {
+            console.log(res.data)
+            this.setData({
+              myCompanyName: res.data[0].MyWorkRoom[1],
+              myCompanyNumber: res.data[0].MyWorkRoomNumber,
+              Myimage: res.data[0].image
+            })
+          
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+        
+      this.MyListData('StudioRankings');
+      
+      this.setData({
+        showzhandui: true,
+
+      })
+
+    }
+    else {
+      this.setData({
+        showzhandui: false,
+
+      })
+    }
   },
   wxSearchInput: function (e) {
     var that = this
@@ -230,10 +568,8 @@ Page({
   onShow: function (e) {
     var that = this;
      GetList(that);
-    // GetTableVIewList(that);
-    // that.MyPersionald()
-    that.MyData()
-    that.MyListData('Branchrankings');
+     that.MyData()
+    // that.MyListData('Branchrankings');
    
   },
    jiaruzhandui: function () {
@@ -301,13 +637,13 @@ Page({
     const db = wx.cloud.database()
     this.data.name = name
     // 查询当前用户所有的 counters
-    console.log('[数据库] 签到成功===  ')
+   
     db.collection(name).orderBy('number', 'desc').get({
       success: res => {
         this.setData({
           arrayTableData: res.data
         })
-        
+        arrayMydata = res.data
         console.log('[数据库] 签到成功===  ', res.data)
 
       },
@@ -382,24 +718,26 @@ Page({
     if (e.target.id == 3) {
       const db = wx.cloud.database()
       // 查询当前用户所有的 counters
+      console.log(openidstring)
       db.collection('personal').where({
         _openid: openidstring
       })
         .get({
         success: res => {
+          console.log("wocaonima"+res.data)
           this.setData({
             myCompanyName: res.data[0].MyWorkRoom[1],
             myCompanyNumber: res.data[0].MyWorkRoomNumber,
             Myimage: res.data[0].image
           })
-          console.log(res.data)
+          
         },
         fail: err => {
           wx.showToast({
             icon: 'none',
             title: '查询记录失败'
           })
-          console.error('[数据库] [查询记录] 失败：', err)
+          
         }
       })
       that.MyListData('StudioRankings');

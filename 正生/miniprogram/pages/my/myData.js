@@ -271,8 +271,9 @@ Page({
           arrayTableData: res.data
 
         })
-        console.log('[数据库] 签到成功===  ', res.data)
+        
         arrayMydata = res.data;
+        console.log('[数据库] 签到成功===  ', arrayMydata, name)
       },
       fail: err => {
         wx.showToast({
@@ -356,7 +357,7 @@ Page({
   addTeam: function(e) {
     wx.setStorage({
       key: "goSingIn",
-      data: "排行榜"
+      data: "每日签到"
     })
     wx.setStorage({
       key: "disable",
@@ -379,7 +380,7 @@ Page({
         } else {
 
           var workroom = []
-
+         
           if (arrayMydata.length > 1) {
 
             workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
@@ -405,7 +406,7 @@ Page({
           icon: 'none',
           title: '查询记录失败'
         })
-        console.error('[数据库] [查询记录] 失败：', err)
+    
       }
     })
   },
@@ -430,7 +431,6 @@ Page({
             title: '查询数据为空，请检查查询条件'
           })
         }
-        console.log('[数据库] 签到成功===  ', res.data)
 
       },
       fail: err => {
@@ -457,7 +457,6 @@ Page({
       success: res => {
 
         myCompanyArray = [res.data[0]._id, res.data[0].Name]
-        console.log("公司 == " + res.data[0].number)
         companyNumber = res.data[0].number
         this.addPensonal(workroom, centerArray, myCompanyArray)
         if (res.data.length == 0) {
@@ -477,14 +476,13 @@ Page({
     })
   },
   addPensonal: function(workroom, centerArray, myCompanyArray) {
-  
     wx.showToast({
       title: '加入中',
       icon: 'loading',
       duration: 10000
     })
     var enddate = Y + "-" + M + "-" + D
-    console.log("res", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
+   
     var numberdata = 0
     const db = wx.cloud.database()
     db.collection('personal').add({
@@ -515,7 +513,6 @@ Page({
       },
       success: function(res) {
 
-       if (shareOpenIdString.length == 0) {
           wx.navigateTo({
             url: '../home/home'
           })
@@ -524,13 +521,7 @@ Page({
             icon: 'success',
             duration: 2000,
           })
-       }
-        // else {
-        //   console.log("是分享")
-          
-        // }
-       
-
+      
       },
       fail: console.error
     })
@@ -553,7 +544,6 @@ Page({
   },
   MyServiceCenterrankings: function () {
     var that = this
-    console.log("myCenterId === " + myCenterId)
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('ServiceCenterrankings').doc(myCenterId).update({

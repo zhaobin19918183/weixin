@@ -145,14 +145,29 @@ Page({
 
 
   },
-  goSingIn:function()
+  goSingIn:function(e)
   {
-    wx.navigateTo({
-      url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
-    })
+    
+   
+    var disable = wx.getStorageSync('disable')
+    if(disable == false)
+    {
+      console.log("shareOpenId === " + openidstring)
+      wx.navigateTo({
+        url: '../rankList/rankList?id=' + e.target.id + '&shareOpenId=' + openidstring
+      })
+     
+    }
+    else
+    {
+      wx.navigateTo({
+        url: '../personal/personal'
+      })
+
+    }
+
     this.setData({
-      goSingIn: "排行榜",
-      disable: true
+      goSingIn: "每日签到",
     })
   }
   ,
@@ -388,7 +403,7 @@ Page({
 
     var goSingIn = wx.getStorageSync('goSingIn')
     var disable = wx.getStorageSync('disable')
-    
+    console.log("disable ==== "+disable)
     if(disable != true)
     {
       this.setData({
@@ -400,7 +415,6 @@ Page({
     {
       this.setData({
         goSingIn: goSingIn,
-        disable: disable
       })
     }
 
@@ -409,10 +423,13 @@ Page({
     that.Myopenid()
     that.bannerImage()
     that.MyData()
-    that.animationFunc()
+    that.Mycenter()
+    that.Mystudio()
+    that.Mycompany()
+    // that.animationFunc()
     that.slideupshowFun()
     
-    GetList(that);
+    // GetList(that);
     // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
     // 调用云函数
     wx.cloud.callFunction({
@@ -430,6 +447,213 @@ Page({
 
 
   },
+  Mycenter:function()
+  {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    const _ = db.command
+    db.collection('ServiceCenterrankings').orderBy('number', 'desc').limit(3).get({
+      success: res => {
+        console.log("Mycenter === "+res.data[0].number)
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          center1: res.data[0].Name,
+          center2: res.data[1].Name,
+          center3: res.data[2].Name,
+        })
+        var windowWidth = 320;
+        try {
+          var res = wx.getSystemInfoSync();
+          windowWidth = res.windowWidth;
+        } catch (e) {
+          console.error('getSystemInfoSync failed!');
+        }
+        areaChart = new wxCharts({
+          canvasId: 'areaCanvas',
+          type: 'area',
+
+          categories: [this.data.company1, this.data.company2, this.data.company3],
+          animation: true,
+          series: [{
+            name: '总积分',
+            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
+            format: function (val) {
+              return '' + val;
+            }
+          }],
+          yAxis: {
+            title: '',
+            format: function (val) {
+              return val;
+            },
+            min: 0,
+            fontColor: '#666',
+            gridColor: '#ec5d2a',
+            titleFontColor: '#ec5d2a'
+          },
+          xAxis: {
+            fontColor: '#ec5d2a',
+            gridColor: '#666'
+          },
+          extra: {
+            legendTextColor: '#ec5d2a'
+          },
+          width: windowWidth,
+          height: 200
+        });
+        console.log('res.data ===  ', res.data)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  }
+
+  ,
+  Mystudio: function () {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    const _ = db.command
+    db.collection('StudioRankings').orderBy('number', 'desc').limit(3).get({
+      success: res => {
+        console.log("StudioRankings === " + res.data)
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          
+          studio1: res.data[0].Name,
+          studio2: res.data[1].Name,
+          studio3: res.data[2].Name,
+        })
+        var windowWidth = 320;
+        try {
+          var res = wx.getSystemInfoSync();
+          windowWidth = res.windowWidth;
+        } catch (e) {
+          console.error('getSystemInfoSync failed!');
+        }
+        areaChart = new wxCharts({
+          canvasId: 'areaCanvas',
+          type: 'area',
+
+          categories: [this.data.company1, this.data.company2, this.data.company3],
+          animation: true,
+          series: [{
+            name: '总积分',
+            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
+            format: function (val) {
+              return '' + val;
+            }
+          }],
+          yAxis: {
+            title: '',
+            format: function (val) {
+              return val;
+            },
+            min: 0,
+            fontColor: '#666',
+            gridColor: '#ec5d2a',
+            titleFontColor: '#ec5d2a'
+          },
+          xAxis: {
+            fontColor: '#ec5d2a',
+            gridColor: '#666'
+          },
+          extra: {
+            legendTextColor: '#ec5d2a'
+          },
+          width: windowWidth,
+          height: 200
+        });
+        console.log('res.data ===  ', res.data)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  }
+
+  ,
+  Mycompany: function () {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    const _ = db.command
+    db.collection('Branchrankings').orderBy('number', 'desc').limit(3).get({
+      success: res => {
+        console.log("Branchrankings === " + res.data)
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+
+          company1: res.data[0].Name,
+          company2: res.data[1].Name,
+          company3: res.data[2].Name,
+
+          company1Number: res.data[0].number,
+          company2Number: res.data[1].number,
+          company3Number: res.data[2].number,
+
+
+        })
+        var windowWidth = 320;
+        try {
+          var res = wx.getSystemInfoSync();
+          windowWidth = res.windowWidth;
+        } catch (e) {
+          console.error('getSystemInfoSync failed!');
+        }
+        areaChart = new wxCharts({
+          canvasId: 'areaCanvas',
+          type: 'area',
+
+          categories: [this.data.company1, this.data.company2, this.data.company3],
+          animation: true,
+          series: [{
+            name: '总积分',
+            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
+            format: function (val) {
+              return '' + val;
+            }
+          }],
+          yAxis: {
+            title: '',
+            format: function (val) {
+              return val;
+            },
+            min: 0,
+            fontColor: '#666',
+            gridColor: '#ec5d2a',
+            titleFontColor: '#ec5d2a'
+          },
+          xAxis: {
+            fontColor: '#ec5d2a',
+            gridColor: '#666'
+          },
+          extra: {
+            legendTextColor: '#ec5d2a'
+          },
+          width: windowWidth,
+          height: 200
+        });
+        console.log('res.data ===  ', res.data)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+  }
+
+  ,
   MyData: function() {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
@@ -442,21 +666,21 @@ Page({
             integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
             integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
 
-            center1: res.data[0].MyCenter[1],
-            center2: res.data[1].MyCenter[1],
-            center3: res.data[2].MyCenter[1],
+            // center1: res.data[0].MyCenter[1],
+            // center2: res.data[1].MyCenter[1],
+            // center3: res.data[2].MyCenter[1],
 
-            studio1: res.data[0].MyWorkRoom[1],
-            studio2: res.data[1].MyWorkRoom[1],
-            studio3: res.data[2].MyWorkRoom[1],
+            // studio1: res.data[0].MyWorkRoom[1],
+            // studio2: res.data[1].MyWorkRoom[1],
+            // studio3: res.data[2].MyWorkRoom[1],
 
-            company1: res.data[0].MyCompany[1],
-            company2: res.data[1].MyCompany[1],
-            company3: res.data[2].MyCompany[1],
+            // company1: res.data[0].MyCompany[1],
+            // company2: res.data[1].MyCompany[1],
+            // company3: res.data[2].MyCompany[1],
 
-            company1Number: res.data[0].MyCompanyNumber,
-            company2Number: res.data[1].MyCompanyNumber,
-            company3Number: res.data[2].MyCompanyNumber,
+            // company1Number: res.data[0].MyCompanyNumber,
+            // company2Number: res.data[1].MyCompanyNumber,
+            // company3Number: res.data[2].MyCompanyNumber,
 
 
           })
@@ -510,10 +734,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
-
-
-
 
   },
   bannerImage: function() {
@@ -945,16 +1165,18 @@ Page({
   },
   topfourbuttonaction: function(e) {
    
-
+    console.log(e.currentTarget.id, openidstring)
     const db = wx.cloud.database()
     const _ = db.command
+  
     db.collection('personal').where({
       _openid: openidstring
     }).get({
       success: res => {
         if (res.data[0] != null) {
           wx.navigateTo({
-            url: '../rankList/rankList?id=' + e.target.id
+      
+            url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
           })
         } else {
           wx.showToast({

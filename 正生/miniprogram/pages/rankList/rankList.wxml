@@ -41,7 +41,7 @@
           <label style='position: absolute;word-break:break-all;'>{{itemName.Name}}</label>
         </view>
         <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.number}}</label>
-        <label class='button1' wx:if ="{{showzhandui}}" style='position: absolute;margin-left:78%'>加入战队</label>
+        <label class='button1'  wx:if ="{{showzhandui}}" id='{{idx}}'  style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
         <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
 
       </view>
