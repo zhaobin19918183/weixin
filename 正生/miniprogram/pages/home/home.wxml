@@ -14,72 +14,9 @@
     <view class="bg" bindtap='hideview' style='display:{{display}};'>
       <image style='font-size:25rpx;margin-left:75%;width:64px;height:64px;position: absolute;' src='../imgs/guanbi.png'></image>
       <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
-        <view class="scroll-y">
+        
 
-        <view style='margin-left:10%;margin-top:40px'>
-        <text tyle='font-size:40rpx; '>活动介绍：</text>
-        </view>
-         <view style='margin-left:10%;margin-top:20px'>
-        <text tyle='font-size:40rpx; '>一、简介</text>
-        </view>
-          <view style='margin-left:10%;width:80%;margin-top:30px'>
-          <text style='font-size:20rpx;text-align:left;' space="ensp"> 欢迎加入“慧吃慧动100天”活动，此次活动是由正生集团组织发起的一次全民参与的健康活动，在这里你可以选择你支持的工作室参与此次活动，与全国小伙伴一起开启百日慧吃慧动大战，每天坚持打卡后，你将累计积分冲击冠军榜，更会为您所在的工作室、服务中心、分公司（大区）获得更多的积分，从而取得更高的排名。更有神秘大咖接力助阵，为您打Call，量身定制最科学、最有效的健康减肥方案。打卡100天后，各个排行榜排名前三的个人、工作室、服务中心、分公司（大区）均有大礼赠送。
-          </text>
-           <view style='margin-top:5px'>
-        <text tyle='font-size:40rpx; '>二、奖励</text>
-        </view>
-          <text style='font-size:20rpx;text-align:left;' space="ensp"> 
-名次    个人排名   奖品 
-第一名   Xxx   
-第二名   Xxx   
-第三名   Xxx   
- 
-名次    工作室     奖品 
-第一名  Xxx   
-第二名  Xxx   
-第三名  Xxx   
- 
-名次    服务中心   奖品 
-第一名  Xxx   
-第二名  Xxx   
-第三名  Xxx   
- 
-名次    分公司（大区） 奖品 
-第一名  Xxx   
-第二名  Xxx   
-第三名  Xxx  
-          </text>
-           <view>
-        <text tyle='font-size:40rpx; '>三、规则</text>
-        </view>
-            <text style='font-size:20rpx;text-align:left;' space="ensp">
-1、打卡须知：
-1.1、参加打卡的人员以个人意愿选择自己想加入的工作室。
-1.2、个人加入工作室后，将不可转换工作室。
-1.3、打卡模式分为一键打卡和传图打卡，两种打卡模式相对应的积分不同。
-1.4、加入百日大战后，每日排名第一的分公司（大区），服务中心，工作室将霸占当日打卡封面。
-2、打卡方法：
-2.1、进入【博士讲健康】公众号，点击下方【慧吃慧动】，直接进入小程序首页进行签到。
-2.2、登录微信首页，下滑界面微信小程序搜索【慧吃慧动】，即可进行签到。
-打卡成功能，可以查看当天排行榜。分享我的邀请卡增加积分累计，好友通过扫描二维码即可参与活动。
-3、打卡时间：
-全天24小时均可以打卡，每人每天打卡1次，全额奖励当天积分。
-4、打卡积分规则：
-4.1、打卡模式决定获得积分多少，选择一键打卡奖励5积分，选择传照片打卡奖励20积分。
-4.2、举例子
-天数 打卡方式 当日积分 累计积分 
-第一天 传照打卡 20x1=20 20分 
-第二天 一键打卡 5x2=10 30分 
-第三天 传照打卡 20x3=60 90分
-......     
- 
-4.3、中断打卡当天奖励积分重新从5/20分开始计算，总积分累计；
-4.4、每天可分享3次，每次获取额外5积分；
-4.5、工作室积分=此工作室下参与活动所有组员的签到打卡积分总和；服务中心积分=此中心下所有报名参与活动的工作室积分总和；分公司（大区）：此大区下所有报名参与活动的中心积分总和。（注：分享获取的积分，只累计增加个人积分，不增加工作室、服务中心、分公司（大区）总积分）。
-          </text>
-          </view>
-         
-        </view>
+       
       </scroll-view>
       <image src='../imgs/background1.png'   style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>
     </view>
@@ -101,20 +38,15 @@
         <button class='qiandao' style='font-size:40rpx'  bindtap='everyDay'>每日签到</button>
         <button class='' >Daily check-in</button>
       </view> -->
-      <button class='butTopThree' bindtap='showview' style='position: absolute'>
-      <!-- <image style='width:50%;height:100%;position: absolute;margin-left:-30%' src="{{imgeUrlAni2}}" animation="{{animationData}}"></image> -->
-        <view class='layout_vertical' style='margin-left:80%'>
-          <text style='font-size:25rpx'>活</text>
-          <text style='font-size:25rpx;margin-top:-50%'>动</text>
-          <text style='font-size:25rpx;margin-top:-50%'>规</text>
-          <text style='font-size:25rpx;margin-top:-50%'>则</text>
-        </view>
-      </button>
-      <image src='../imgs/you.png' style='margin-left:20%;width:13%;height:4%;margin-top:30%;position: absolute'></image>
-      <button   style='font-size:35rpx;position: absolute;margin-left:33%;width:30%;height:5%;margin-top:28%;' id='3'    bindtap='goSingIn'>{{goSingIn}}</button>
-      <image src='../imgs/zuo.png' style='margin-left:62%;width:13%;height:4%;position: absolute;margin-top:30%;'></image>
+
+
+<image  bindtap='showview' src='../imgs/b1.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:1%' ></image>
+<image  bindtap='goSingIn' src='../imgs/b2.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:72%'  ></image>
+
+     
+   
     </view>
-    <image src='../imgs/img2.png' style='position: relative；display: block;width:100%;height:100%'></image>
+    <image src='../imgs/vcfhgfhg.png' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>
   <!-- 个人排行榜 -->
   <view style="margin-top:2%;height:280px;box-shadow:0px 0px 0px 0px gray;">
@@ -122,24 +54,23 @@
       <image  src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
       <label  id='4' bindtap="topfourbuttonaction" style='font-size:30rpx;height:20px;width:120px'>个人排行榜</label>
     </view>
-
-    <view class="init" animation="{{slide1}}" style='margin-left:25%;margin-top:10%;width:25%;position: absolute;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='margin-left:31%;margin-top:10%;width:40%;position: absolute;opacity:0'>
       <text class="init" style='margin-top:30%;font-size:25rpx;'>{{integral1}}</text>
       <progress class="init" stroke-width='2' percent="100" active='true'  active-color="purple" background-color="transparent"/>
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:25%;position: absolute;margin-left:50%;margin-top:30%;;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:40%;position: absolute;margin-left:51%;margin-top:28%;;opacity:0'>
       <label style='font-size:25rpx;'>{{integral2}}</label>
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:25%;position: absolute; margin-left:70%;margin-top:40%;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:40%;position: absolute; margin-left:71%;margin-top:220px;opacity:0'>
       <text style='margin-top:30%;font-size:25rpx;'>{{integral3}}</text>
       <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent"  />
     </view>
-    <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:15%;margin-top:85%;position: absolute' src='../imgs/a1.png'></image>
-    <image animation="{{slide_up2}}" style='width:70px;height:200px;margin-left:40%;margin-top:85%;position: absolute' src='../imgs/a2.png'></image>
-    <image animation="{{slide_up3}}" style='width:70px;height:200px;margin-left:63%;margin-top:85%;position: absolute' src='../imgs/a3.png'></image>
+    <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:15%;margin-top:83%;position: absolute' src='../imgs/a1.png'></image>
+    <image animation="{{slide_up2}}" style='width:70px;height:200px;margin-left:40%;margin-top:83%;position: absolute' src='../imgs/a2.png'></image>
+    <image animation="{{slide_up3}}" style='width:70px;height:200px;margin-left:63%;margin-top:83%;position: absolute' src='../imgs/a3.png'></image>
 
 
     <image src='../imgs/img3.png' style='position: relative；display: block;width:100%;;height:100%'></image>

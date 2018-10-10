@@ -295,3 +295,11 @@ border: none;
   justify-content: center;
   
 }
+.imageButton
+{
+  padding: 0;
+  border: none;
+  
+  /* plain=true  */
+/* padding设为：0，border设为：none */
+}
