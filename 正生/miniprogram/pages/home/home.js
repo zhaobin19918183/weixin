@@ -98,6 +98,7 @@ Page({
     loginBool: 0,
     // banner
     imgUrls: [],
+    imageA:"cloud://zhengsheng-c962f3.5346-zhengsheng-c962f3/banner/WechatIMG36.png",
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 1500, //自动切换时间间隔,3s
@@ -148,13 +149,13 @@ Page({
   goSingIn:function(e)
   {
     
-   
+   console.log(e)
     var disable = wx.getStorageSync('disable')
     if(disable == false)
     {
       console.log("shareOpenId === " + openidstring)
       wx.navigateTo({
-        url: '../rankList/rankList?id=' + e.target.id + '&shareOpenId=' + openidstring
+        url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
       })
      
     }
@@ -742,11 +743,14 @@ Page({
     // 查询当前用户所有的 counters
     db.collection('bannerImage').get({
       success: res => {
+        console.log("+++" + res.data[0].imgUrls)
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
-          imgUrls: res.data[0].imgUrls
+          imgUrls: res.data[0].imgUrls,
+     
         })
-        console.log('[数据库] [查询记录] 成功: ', res.data[0].imgUrls)
+
+        
       },
       fail: err => {
         wx.showToast({
