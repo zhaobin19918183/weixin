@@ -23,6 +23,7 @@
   font-size: 30rpx;
   color: b;
   font-weight: 600;
+  
 }
 
 .nav-capsule {

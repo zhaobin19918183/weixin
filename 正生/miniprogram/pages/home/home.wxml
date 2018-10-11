@@ -62,7 +62,7 @@
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:40%;position: absolute; margin-left:65%;margin-top:220px;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:35%;position: absolute; margin-left:65%;margin-top:220px;opacity:0'>
       <text style='margin-top:30%;font-size:25rpx;'>{{integral3}}</text>
       <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent" />
     </view>
@@ -74,7 +74,7 @@
     <image src='../imgs/img3.png' style='position: relative；display: block;width:100%;;height:100%'></image>
   </view>
   <!-- 工作室排行榜 -->
-  <view class='gongzuoshi' style="box-shadow:0px 0px 3px 3px gray;margin-top:2%">
+  <view class='gongzuoshi' style="box-shadow:0px 0px 3px 3px gray ;margin-top:2%">
     <view class='layout_horizontal ' style='position: absolute'>
       <image src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
       <label id='3' bindtap="topfourbuttonaction" style='font-size:30rpx;height:20px;width:150px'>工作室排行榜</label>
@@ -83,12 +83,12 @@
     <image style='margin-left:45%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
     <image style='margin-top:18%;margin-left:70%;width:35px;height:50px;position: absolute' src="{{imgeUrlAni1}}" animation="{{animationData}}"></image>
     <image class="init" animation="{{slide1}}" style='opacity:0;height:160px;text-align:center;position: absolute;margin-left:10%;margin-right:10%;width:80%;margin-top:7%' src='../imgs/jt.png'></image>
-    <view class='layout_horizontal' style='position: absolute;margin-top:200px;margin-left:10px;'>
-      <label style='font-size:25rpx;width:40%;height:20px;margin-left:13%;'>{{studio1}}</label>
-      <label style='font-size:25rpx;width:120px;height:20px;'>{{studio2}}</label>
-      <label style='font-size:25rpx;width:180px;height:20px;'>{{studio3}}</label>
+    <view class='layout_horizontal' style='position: absolute;margin-top:200px;margin-left:20px;'>
+      <label style='font-size:25rpx;width:100px;height:20px;margin-left:5px;text-align:center'>{{studio1}}</label>
+      <label style='font-size:25rpx;width:100px;height:20px;text-align:center;margin-left:5px'>{{studio2}}</label>
+      <label style='font-size:25rpx;width:100px;height:20px;text-align:center;margin-left:5px'>{{studio3}}</label>
     </view>
-    <image src='../imgs/img4.png' style='position: relative；display: block;width:100%;;height:100%'></image>
+    <image src='../imgs/img4.png' style='position: relative；display:block;;height:100%'></image>
   </view>
   <!-- 服务中心排行榜 -->
   <view class='' style="margin-top:2%;height:300px;">

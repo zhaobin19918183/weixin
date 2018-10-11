@@ -98,7 +98,7 @@ Page({
     loginBool: 0,
     // banner
     imgUrls: [],
-    imageA:"cloud://zhengsheng-c962f3.5346-zhengsheng-c962f3/banner/WechatIMG36.png",
+    imageA:"",
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 1500, //自动切换时间间隔,3s
@@ -429,7 +429,7 @@ Page({
     that.Mycompany()
     that.animationFunc()
     that.slideupshowFun()
-    
+    that.ruleImage()
     // GetList(that);
     // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
     // 调用云函数
@@ -448,6 +448,32 @@ Page({
 
 
   },
+  ruleImage:function()
+  {
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('ruleImage').get({
+      success: res => {
+        console.log("+++ruleImage+++" + res.data[0].ruleImage)
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          imageA: res.data[0].ruleImage
+         
+        })
+
+
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
+  }
+  ,
   Mycenter:function()
   {
     const db = wx.cloud.database()
@@ -743,7 +769,6 @@ Page({
     // 查询当前用户所有的 counters
     db.collection('bannerImage').get({
       success: res => {
-        console.log("+++" + res.data[0].imgUrls)
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
           imgUrls: res.data[0].imgUrls,

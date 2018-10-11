@@ -73,7 +73,7 @@
       <view style='width:80%:height:50px;margin-top:2%;margin-left:10%'>
         <view class="wxSearch-section">
           <view class="wxSearch-pancel">
-            <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="请输入要搜索的内容" />
+            <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="{{searchString}}" />
             <!-- background-image:url(../imgs/persional/ss.png); -->
             <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true" style="">搜索</button>
           </view>

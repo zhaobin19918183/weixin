@@ -11,6 +11,7 @@
 var myCenterId = ""
 var myStudioId = ""
 var openidstring = ""
+
 var timestamp =
   Date.parse(new Date());
 //返回当前时间毫秒数
@@ -161,7 +162,8 @@ var D = date.getDate() <
      MyNUmber: 0,
      name: "",
      showPersonal :false,
-     buttonshow: true
+     buttonshow: true,
+     searchString: "请输入分公司全称进行搜索"
 
    },
    //事件处理函数
@@ -617,7 +619,8 @@ var D = date.getDate() <
            this.setData({
              myCompanyName: res.data[0].MyCompany[1],
              myCompanyNumber: res.data[0].MyCompanyNumber,
-             Myimage: res.data[0].image
+             Myimage: res.data[0].image,
+             searchString:"请输入分公司全称搜索"
 
            })
            console.log(res.data)
@@ -644,7 +647,8 @@ var D = date.getDate() <
 
              myCompanyName: res.data[0].MyCenter[1],
              myCompanyNumber: res.data[0].MyCenterNumber,
-             Myimage: res.data[0].image
+             Myimage: res.data[0].image,
+             searchString: "请输入服务中心全称搜索"
 
            })
            console.log(res.data)
@@ -668,7 +672,8 @@ var D = date.getDate() <
            this.setData({
              myCompanyName: res.data[0].MyWorkRoom[1],
              myCompanyNumber: res.data[0].MyWorkRoomNumber,
-             Myimage: res.data[0].image
+             Myimage: res.data[0].image,
+             searchString: "请输入工作室全称搜索"
            })
            console.log(res.data)
          },
@@ -703,7 +708,8 @@ var D = date.getDate() <
            this.setData({
              myCompanyName: res.data[0].Name,
              myCompanyNumber: res.data[0].MyNumber,
-             Myimage: res.data[0].image
+             Myimage: res.data[0].image,
+             searchString: "请输入微信昵称全称搜索"
 
            })
            console.log(res.data)
