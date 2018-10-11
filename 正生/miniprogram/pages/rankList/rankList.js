@@ -156,7 +156,8 @@ Page({
 
     name:"",
 
-    showPersonal:false
+    showPersonal:false,
+    searchString:"请输入分公司全称进行搜索"
     
   },
 
@@ -168,7 +169,15 @@ Page({
     openidstring = options.shareOpenId
     console.log("mmmp == " + openidstring, data)
     var that = this
-    this.phb1(data)
+    if(data!=null)
+    {
+      this.phb1(data)
+    }
+    else
+    {
+      this.phb1(1)
+    }
+     
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
@@ -202,7 +211,7 @@ Page({
           if (arrayMydata.length > 1) {
             
             workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
-            console.log("工作室 =1 ", workroom)
+           
             this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
             workroomName = arrayMydata[e.target.id].Name
             workroomNumber = arrayMydata[e.target.id].number
@@ -210,7 +219,7 @@ Page({
            
 
           } else {
-            console.log("工作室 ==2 ")
+           
             workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
             this.searchCenter(arrayMydata[0].centerID, workroom)
             workroomName = arrayMydata[0].Name
@@ -673,7 +682,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].MyCompany[1],
             myCompanyNumber: res.data[0].MyCompanyNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString:"请输入分公司全称搜索"
 
           })
           console.log(res.data)
@@ -701,7 +711,8 @@ Page({
          
             myCompanyName: res.data[0].MyCenter[1],
             myCompanyNumber: res.data[0].MyCenterNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入服务中心全称搜索"
 
           })
           console.log(res.data)
@@ -728,7 +739,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].MyWorkRoom[1],
             myCompanyNumber: res.data[0].MyWorkRoomNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入工作室全称搜索"
           })
           
         },
@@ -765,7 +777,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].Name,
             myCompanyNumber: res.data[0].MyNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入微信个人昵称搜索"
 
           })
           console.log(res.data)

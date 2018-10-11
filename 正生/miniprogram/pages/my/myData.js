@@ -205,7 +205,8 @@ Page({
     MyNUmber: 0,
     name: "",
     showPersonal: false,
-    buttonshow:true
+    buttonshow:true,
+    searchString: "请输入分公司全称进行搜索"
 
   },
   //事件处理函数
@@ -586,7 +587,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].MyCompany[1],
             myCompanyNumber: res.data[0].MyCompanyNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入分公司全称进行搜索"
 
           })
           console.log(res.data)
@@ -613,7 +615,8 @@ Page({
 
             myCompanyName: res.data[0].MyCenter[1],
             myCompanyNumber: res.data[0].MyCenterNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入分服务中心进行搜索"
 
           })
           console.log(res.data)
@@ -637,7 +640,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].MyWorkRoom[1],
             myCompanyNumber: res.data[0].MyWorkRoomNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入工作室进行搜索"
           })
           console.log(res.data)
         },
@@ -671,7 +675,8 @@ Page({
           this.setData({
             myCompanyName: res.data[0].Name,
             myCompanyNumber: res.data[0].MyNumber,
-            Myimage: res.data[0].image
+            Myimage: res.data[0].image,
+            searchString: "请输入微信昵称进行搜索"
 
           })
           console.log(res.data)

@@ -371,9 +371,9 @@ Page({
       k = k + 1;
       if (m) {
         this.setData({
-          imgeUrlAni: "../imgs/gif1/" + n + ".jpg",
+          // imgeUrlAni: "../imgs/gif1/" + n + ".jpg",
           imgeUrlAni1: "../imgs/gif2/" + k + ".png",
-          imgeUrlAni2: "../imgs/gif3/" + b + ".png",
+          // imgeUrlAni2: "../imgs/gif3/" + b + ".png",
 
         })
 
@@ -427,7 +427,7 @@ Page({
     that.Mycenter()
     that.Mystudio()
     that.Mycompany()
-    // that.animationFunc()
+    that.animationFunc()
     that.slideupshowFun()
     
     // GetList(that);
@@ -1185,7 +1185,9 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            title: '点击我要参与，加入战队'
+            title: '点击我要参与，加入战队',
+            duration: 1000,
+            mask: true
           })
 
         }
@@ -1233,7 +1235,9 @@ Page({
         } else {
           wx.showToast({
             icon: 'none',
-            title: '点击我要参与，加入战队'
+            title: '点击我要参与，加入战队',
+            duration: 1000,
+            mask: true
           })
 
         }
@@ -1290,7 +1294,7 @@ Page({
         } else {
           wx.showToast({
             title: '点击我要参与，加入战队',
-            icon: 'succes',
+            icon: 'none',
             duration: 1000,
             mask: true
           })
