@@ -15,7 +15,7 @@
     <image style='font-size:25rpx;margin-left:90%;width:30px;height:30px;position: absolute;' src='../imgs/guanbi.png'></image>
     <scroll-view scroll-y="true" style="height: 90%;position: absolute;border-radius: 20px;margin-top:4%;">
 
-    <image src='{{imageA}}' mode='widthFix' style='width: 90%;display: block;border-radius: 20px;margin-left:17px;margin-top:35px;'></image>
+      <image src='{{imageA}}' mode='widthFix' style='width: 90%;display: block;border-radius: 20px;margin-left:17px;margin-top:35px;'></image>
 
     </scroll-view>
     <image src='../imgs/background1.png' style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>
@@ -41,7 +41,7 @@
 
 
       <image bindtap='showview' id='3' src='../imgs/b3.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:1%'></image>
-      <image bindtap='goSingIn'  id='3'  src='../imgs/b4.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:72%'></image>
+      <image bindtap='goSingIn' id='3' src='../imgs/b4.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:72%'></image>
 
     </view>
     <image src='../imgs/vcfhgfhg.png' style='position: relative；display: block;width:100%;height:100%'></image>
