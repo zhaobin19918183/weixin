@@ -510,6 +510,11 @@ var D = date.getDate() <
        })
      }
      if (that.data.show1 == 2) {
+       wx.showToast({
+         title: '签到中.......',
+         icon: 'loading',
+         duration: 5000,
+       })
        if (qiandaoYes == 0)
        {
          const db = wx.cloud.database()
@@ -560,6 +565,14 @@ var D = date.getDate() <
              
            },
            fail: err => {
+             wx.showToast({
+               title: '服务器开小差了。。。',
+               icon: 'error',
+               duration: 2000,
+             })
+             wx.navigateTo({
+               url: '/pages/home/home'
+             })
              console.error('[云函数] [login] 调用失败', err)
            }
          })

@@ -183,6 +183,11 @@ Page({
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
   addTeam: function (e) {
+    wx.showToast({
+      title: '加入中.......',
+      icon: 'loading',
+      duration: 5000,
+    })
     wx.setStorage({
       key: "goSingIn",
       data: "每日签到"
@@ -359,7 +364,18 @@ Page({
       },
       fail: console.error
     })
-
+    setTimeout(function () {
+      wx.showToast({
+        title: '服务器开小差了......',
+        icon: 'error',
+        duration: 5000,
+      })
+      wx.navigateTo({
+        url: '../home/home'
+      })
+    }, 10000)
+    
+   
   },
   phb1: function (data) {
     console.log(data)
