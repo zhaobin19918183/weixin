@@ -153,7 +153,7 @@ Page({
     var disable = wx.getStorageSync('disable')
     if(disable == false)
     {
-      console.log("shareOpenId === " + openidstring)
+      
       wx.navigateTo({
         url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
       })
@@ -173,6 +173,23 @@ Page({
   }
   ,
   Myopenid: function() {
+
+    // //调用 app.js里的 post()方法
+    // app.getAction('http://127.0.0.1:8000/TestModel/ajax_get_data/').then((res) => {
+    //   console.log("正确返回结果 === "+res);//
+    //   wx.hideLoading();
+    // }).catch((errMsg) => {
+    //   console.log("错误提示信息 === " +errMsg);//错误提示信息
+    //   wx.hideLoading();
+    // });
+    app.postAction('http://127.0.0.1:8000/TestModel/weixinOpenid/', {code:" o8AIv5e98JLhxTAIcEhIAbT0rDlA"}).then((res) => {
+      console.log("正确返回结果 === " + res);//
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 === " + errMsg);//错误提示信息
+      wx.hideLoading();
+    });
+
     const db = wx.cloud.database()
     const _ = db.command
     wx.cloud.callFunction({
@@ -192,7 +209,6 @@ Page({
 
   },
   num_data: function(time) {
-    console.log("签到 ")
     console.log(time)
     var startdate = time
     var enddate = Y +"-" + M + "-" + D
@@ -204,8 +220,6 @@ Page({
     const _ = db.command
    if (day > 1)
    {
-     console.log("签到中断")
-
      wx.cloud.callFunction({
        name: 'login',
        data: {},
@@ -400,7 +414,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
 
     var goSingIn = wx.getStorageSync('goSingIn')
     var disable = wx.getStorageSync('disable')
@@ -1138,8 +1151,7 @@ Page({
     } else {
       wx.login({
         success: function(res) {
-          console.log('获取id===' + res.code)
-
+         
           app.globalData.code = res.code
         }
       })

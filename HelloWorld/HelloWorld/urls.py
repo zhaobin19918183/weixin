@@ -17,6 +17,10 @@ from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib import admin
 from . import view,testdb,search
+from django.conf.urls import url
+from django.contrib import admin
+from settings import MEDIA_ROOT
+from django.views.static import serve
 # urlpatterns = [
 #     url(r'^admin/', admin.site.urls),
 # ]
@@ -27,6 +31,7 @@ urlpatterns = [
     url(r'^search$', search.search),
     url(r'^admin/', admin.site.urls),
     url(r'^TestModel/', include('TestModel.urls')),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
 #     ajax_get_data
 ]
