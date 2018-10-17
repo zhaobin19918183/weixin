@@ -53,6 +53,9 @@ class Department(models.Model):
     def __str__(self):
         return "Department<d_id=%s,d_name=%s>"%(self.d_id,
                                                 self.d_name)
+    class Meta:
+        # 末尾不加s
+        verbose_name_plural = '学校列表'
 
 # 学生表
 class Student(models.Model):

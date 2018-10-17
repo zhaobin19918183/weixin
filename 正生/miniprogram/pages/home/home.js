@@ -175,14 +175,14 @@ Page({
   Myopenid: function() {
 
     // //调用 app.js里的 post()方法
-    // app.getAction('http://127.0.0.1:8000/TestModel/ajax_get_data/').then((res) => {
+    // app.getAction('http://192.168.8.82:8082/zeacen/wechatapplet/hello').then((res) => {
     //   console.log("正确返回结果 === "+res);//
     //   wx.hideLoading();
     // }).catch((errMsg) => {
     //   console.log("错误提示信息 === " +errMsg);//错误提示信息
     //   wx.hideLoading();
     // });
-    app.postAction('http://127.0.0.1:8000/TestModel/weixinOpenid/', {code:" o8AIv5e98JLhxTAIcEhIAbT0rDlA"}).then((res) => {
+    app.postAction('http://127.0.0.1:8000/TestModel/update/', {name:"大连理工大学",id:1}).then((res) => {
       console.log("正确返回结果 === " + res);//
       wx.hideLoading();
     }).catch((errMsg) => {
