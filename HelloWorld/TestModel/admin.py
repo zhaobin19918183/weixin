@@ -5,7 +5,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from TestModel.models import Test,Contact,WeiXinImage ,companyList,center,Department,Student,Course,Stu_detail,personal
+from TestModel.models import Test,Contact,WeiXinImage ,companyList,center,Department,Student,Course,Stu_detail,personal,imageList
 # Register your models here.
 
 class ContactAdmin(admin.ModelAdmin):
@@ -72,6 +72,19 @@ class personalAdmin(admin.ModelAdmin):
 
     list_display = ['Name', 'openid', 'upload_img']
     readonly_fields = ['upload_img']
+class imageAdmin(admin.ModelAdmin):
+    def upload_img(self, obj):
+        try:
+            img = mark_safe('<img src="%s" width="200px" height="200px" />' % (obj.image.url,))
+        except Exception as e:
+            img = ''
+        return img
+    upload_img.allow_tags = True
+    search_fields = ['imageName']  # 指定要搜索的字段，将会出现一个搜索框让管理员搜索关键词
+    list_display = ['imageName', 'upload_img']
+    readonly_fields = ['upload_img']
+
+
 
 admin.site.register(WeiXinImage, WeiXinImageAdmin)
 admin.site.register(Contact, ContactAdmin)
@@ -83,3 +96,4 @@ admin.site.register(Student)
 admin.site.register(Course)
 admin.site.register(Stu_detail)
 admin.site.register(personal,personalAdmin)
+admin.site.register(imageList,imageAdmin)

@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'weixinOpenid/$', views.weixinOpenid),
     url(r'personal/$', views.personal),
     url(r'update/$', views.update),
+    url(r'uploadImage/$', views.uploadImage),
+
 
 
 ]

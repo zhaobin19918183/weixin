@@ -130,6 +130,16 @@ class personal(models.Model):
         # 末尾不加s
         verbose_name_plural = '个人信息表'
 
+class imageList(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    imageName = models.CharField(max_length=200)
+    image = models.ImageField(u'打卡照片', upload_to='media/photos/image')
+    def __unicode__(self):
+        return self.imageName
+    class Meta:
+        # 末尾不加s
+        verbose_name_plural = '照片列表'
+
 
 
 
