@@ -4,12 +4,12 @@
   <button style='font-size:30rpx' open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权获取您的微信昵称和头像(如果已经授权,点击关闭)</button>
 </modal>
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
-<view style='height:200px;margin-top:100rpx'>
-  <swiper style='height:100%' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
+<view style='height:667px;margin-top:100rpx'>
+  <!-- <swiper style='height:100%' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
     <swiper-item wx:key="{{imgUrls}}" wx:for="{{imgUrls}}">
       <image src="{{item}}" />
     </swiper-item>
-  </swiper>
+  </swiper> -->
   <!-- 活动规则 -->
   <view class="bg" bindtap='hideview' style='display:{{display}};'>
     <image style='font-size:25rpx;margin-left:90%;width:30px;height:30px;position: absolute;' src='../imgs/guanbi.png'></image>
@@ -21,7 +21,7 @@
     <image src='../imgs/background1.png' style='position: relative；display: block;width:100%;;height:100%;border-radius: 20px;'></image>
   </view>
   <!-- 顶部四个按钮 -->
-  <view style="height:235%;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
+  <view style="height:100%;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
     <!-- <view style=" display:flex;text-align:center"> -->
     <!-- <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:19%;'>
         <button class='firstB' id='{{itemName.id}}' bindtap="topfourbuttonaction">
@@ -40,9 +40,12 @@
       </view> -->
 
 
-      <image bindtap='showview' id='3' src='../imgs/b3.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:1%'></image>
-      <image bindtap='goSingIn' id='3' src='../imgs/b4.png' style='width:100px;height:60px;position: absolute;margin-top:95%;margin-left:72%'></image>
-
+      <button bindtap='showview' id='3'  style='width:100px;height:40px;position: absolute;margin-top:5%;margin-left:70%'>活动须知</button>
+        <image   src='../imgs/jifen.png' style='width:200px;height:65px;position: absolute;margin-top:80%;'></image>
+        <text style='position: absolute;margin-top:85%;margin-left:20%'>1000000000</text>
+        <image  src='../imgs/tianshu.png' style='width:120px;height:65px;position: absolute;margin-top:100%;'></image>
+        <text style='position: absolute;margin-top:105%;margin-left:20%'>100</text>
+      <image bindtap='goSingIn' id='3' src='../imgs/canyu.png' style='width:200px;height:65px;position: absolute;margin-top:130%;'></image>
     </view>
     <image src='../imgs/vcfhgfhg.png' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>
