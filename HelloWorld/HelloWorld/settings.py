@@ -29,8 +29,8 @@ SECRET_KEY = '1s1k=b8)cz@d+pm+xdiy$kn9u&)465na($&l2iz31i*s1s$qfb'
 DEBUG = True
 
 
-
-ALLOWED_HOSTS = ['39.105.131.94',"0.0.0.0","127.0.0.1","192.168.8.71"]
+ALLOWED_HOSTS = ["39.105.131.94:80",'127.0.0.1','0.0.0.0'," 172.17.21.240"]
+# ALLOWED_HOSTS = ['39.105.131.94',"0.0.0.0","127.0.0.1","192.168.8.71"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,6 +82,11 @@ WSGI_APPLICATION = 'HelloWorld.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+# 'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+
     'default': {
          'ENGINE': 'django.db.backends.mysql',
         'NAME':'zhengsheng',#这里是你的数据库中的数据库名

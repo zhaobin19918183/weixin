@@ -177,8 +177,8 @@ Page({
     // wx.login({
     //   success: res => {
     //     console.log('获取id===' + res.code)
-    //     app.getAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak/', { "code": res.code }).then((res) => {
-    //       console.log("正确返回结果 === " + res);//
+    //     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak/', { "code": res.code }).then((res) =>    {
+    //       console.log("正确返回结果 === " + res.data);//
     //       wx.hideLoading();
     //     }).catch((errMsg) => {
     //       console.log("错误提示信息 === " + errMsg);//错误提示信息
@@ -187,15 +187,7 @@ Page({
     //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
     //   }
     // })
-    // //调用 app.js里的 post()方法
    
-    // app.postAction('http://127.0.0.1:8000/TestModel/update/', { code:"071LcAAb2GBSFO0cdWxb2J4xAb2LcAAj"}).then((res) => {
-    //   console.log("正确返回结果 === " + res);//
-    //   wx.hideLoading();
-    // }).catch((errMsg) => {
-    //   console.log("错误提示信息 === " + errMsg);//错误提示信息
-    //   wx.hideLoading();
-    // });
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -216,7 +208,6 @@ Page({
 
   },
   num_data: function(time) {
-    console.log(time)
     var startdate = time
     var enddate = Y +"-" + M + "-" + D
     var start_date = new Date(startdate.replace(/-/g, "/"));
