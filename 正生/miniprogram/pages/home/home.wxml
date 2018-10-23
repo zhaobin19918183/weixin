@@ -40,12 +40,12 @@
       </view> -->
 
 
-      <button bindtap='showview' id='3'  style='width:100px;height:40px;position: absolute;margin-top:5%;margin-left:70%'>活动须知</button>
-        <image   src='../imgs/jifen.png' style='width:163px;height:53px;position: absolute;margin-top:90%;'></image>
-        <text style='position: absolute;margin-top:94%;margin-left:23%;font-size:30rpx'>1000000</text>
-        <image  src='../imgs/tianshu.png' style='width:100px;height:54px;position: absolute;margin-top:110%;'></image>
-        <text style='position: absolute;margin-top:114%;margin-left:17%;font-size:30rpx'>100</text>
-        <image bindtap='goSingIn' id='3' src='../imgs/canyu.png' style='width:200px;height:54px;position: absolute;margin-top:130%;'></image>
+      <button bindtap='showview' id='3'  style='width:100px;height:40px;background:#e1cdb1;position: absolute;margin-top:20px;margin-left:76%;'>活动须知</button>
+        <image   src='../imgs/jifen.png' style='width:163px;height:53px;position: absolute;margin-top:110%;'></image>
+        <text style='position: absolute;margin-top:114%;margin-left:18%;font-size:30rpx'>10000000</text>
+        <image  src='../imgs/tianshu.png' style='width:100px;height:54px;position: absolute;margin-top:126%;'></image>
+        <text style='position: absolute;margin-top:130%;margin-left:16%;font-size:30rpx'>100</text>
+        <image bindtap='goSingIn' id='3' src='../imgs/canyu.png' style='width:200px;height:54px;position: absolute;margin-top:143%;'></image>
     </view>
     <image src='../imgs/vcfhgfhg.png' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>

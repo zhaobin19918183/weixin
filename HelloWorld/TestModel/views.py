@@ -71,6 +71,16 @@ def uploadImage(request):
         "status": 1,
         "data":imageurl
     }), content_type="application/json")
+#     查
+def  imageListData(request):
+    imageListdata =  imageList.objects.order_by("name")
+    print (imageListdata)
+    return HttpResponse('listed!')
+# 删
+def delete_area(request):
+     area = imageList.objects.get(id=1)
+     area.delete()
+     return HttpResponse('deleted!')
 # @csrf_exempt
 # def OpenidUtils(object):
 #     def __init__(self, jscode):
