@@ -35,39 +35,8 @@ var M = (date.getMonth() +
 var D = date.getDate() <
   10 ? '0' + date.getDate() :
   date.getDate();
-
 var dateString = ""
-
-
-
-// 获取数据的方法，具体怎么获取列表数据大家自行发挥
-var GetList = function(that) {
-
-  that.setData({
-    arrayData: [{
-        message: '分公司排行榜',
-        imgurl: "../imgs/img01_05.png",
-        id: 1
-      }, {
-        message: '服务中心排行榜',
-        imgurl: "../imgs/img01_07.png",
-        id: 2
-      }, {
-        message: '工作室排行榜',
-        imgurl: "../imgs/img01_09.png",
-        id: 3
-      }, {
-        message: '个人排行榜',
-        imgurl: "../imgs/img01_11.png",
-        id: 4
-      }
-
-    ]
-  })
-}
-
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -78,7 +47,7 @@ Page({
       showCapsule: 1, //是否显示左上角图标
       title: '慧吃慧动100天', //导航栏 中间的标题
     },
-    modalFlag : true,
+    modalFlag: true,
     // 此页面 页面内容距最顶部的距离
     height: app.globalData.height * 2 + 40,
     show_centent: false,
@@ -98,7 +67,7 @@ Page({
     loginBool: 0,
     // banner
     imgUrls: [],
-    imageA:"",
+    imageA: "",
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 1500, //自动切换时间间隔,3s
@@ -142,43 +111,45 @@ Page({
     MyNUmber: 0,
     name: "",
     goSingIn: "我要参与",
-    disable:false
+    disable: false,
+    btuBottom: "0%"
 
 
   },
-  goSingIn:function(e)
-  {
-    
-   console.log(e)
+  goSingIn: function(e) {
+    console.log(e)
     var disable = wx.getStorageSync('disable')
-    if(disable == false)
-    {
-      
+    if (disable == false) {
+
       wx.navigateTo({
         url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
       })
-     
-    }
-    else
-    {
+    } else {
       wx.navigateTo({
         url: '../personal/personal'
       })
-
     }
-
     this.setData({
       goSingIn: "每日签到",
     })
-  }
-  ,
+  },
   Myopenid: function() {
 
+    // var enddate = Y + "-" + M + "-" + D
     // wx.login({
     //   success: res => {
     //     console.log('获取id===' + res.code)
     //     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak/', { "code": res.code }).then((res) =>    {
     //       console.log("正确返回结果 === " + res.data);//
+    //       app.globalData.openid = res.data
+    //       app.postAction('首页接口', { "openId": res.data, "time": enddate }).then((res) => {
+    //         wx.hideLoading();
+    //       }).catch((errMsg) => {
+    //         console.log("错误提示信息 === " + errMsg);//错误提示信息
+    //         wx.hideLoading();
+    //       });
+
+
     //       wx.hideLoading();
     //     }).catch((errMsg) => {
     //       console.log("错误提示信息 === " + errMsg);//错误提示信息
@@ -187,7 +158,7 @@ Page({
     //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
     //   }
     // })
-   
+
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -209,43 +180,45 @@ Page({
   },
   num_data: function(time) {
     var startdate = time
-    var enddate = Y +"-" + M + "-" + D
+    var enddate = Y + "-" + M + "-" + D
     var start_date = new Date(startdate.replace(/-/g, "/"));
     var end_date = new Date(enddate.replace(/-/g, "/"));
     var days = end_date.getTime() - start_date.getTime();
     var day = parseInt(days / (1000 * 60 * 60 * 24));
     const db = wx.cloud.database()
     const _ = db.command
-   if (day > 1)
-   {
-     wx.cloud.callFunction({
-       name: 'login',
-       data: {},
-       success: res => {
-      
-         db.collection('personal').where({
-           _openid: res.result.openid
-         })
-           .get({
-             success: function (res) {
-               db.collection('personal').doc(res.data.id).update({
-                 // data 传入需要局部更新的数据
-                 data: {
-                   allDay: 0,
-                 }
 
-               })
-             }
-           })
-       },
-       fail: err => {
-         console.error('[云函数] [login] 调用失败', err)
-       }
-     })
-   }
+    if (day > 1) {
+
+
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => {
+
+          db.collection('personal').where({
+              _openid: res.result.openid
+            })
+            .get({
+              success: function(res) {
+                db.collection('personal').doc(res.data.id).update({
+                  // data 传入需要局部更新的数据
+                  data: {
+                    allDay: 0,
+                  }
+
+                })
+              }
+            })
+        },
+        fail: err => {
+          console.error('[云函数] [login] 调用失败', err)
+        }
+      })
+    }
 
     if (day > 0) {
-      
+
       wx.cloud.callFunction({
         name: 'login',
         data: {},
@@ -260,8 +233,8 @@ Page({
                   // data 传入需要局部更新的数据
                   data: {
                     whetaher: 0,
-                    share:0
-                
+                    share: 0
+
                   }
 
                 })
@@ -311,52 +284,46 @@ Page({
     var that = this;
     if (e.id) {
       shareOpenId = e.id
-      
     }
+
+
 
     wx.getSetting({
       success: (res) => {
         console.log("授权 ==== " + res.authSetting["scope.userInfo"])
-        if (res.authSetting["scope.userInfo"] == true)
-         {
-         this.setData({
-          modalFlag: true
-            })
-          }
-          else
-          {
+        if (res.authSetting["scope.userInfo"] == true) {
+          this.setData({
+            modalFlag: true
+          })
+        } else {
 
           this.setData({
-             modalFlag: false
-            })
+            modalFlag: false
+          })
 
           wx.removeStorage({
             key: 'goSingIn',
-            success: function (res) {
+            success: function(res) {
               console.log(res.data)
             }
           })
           wx.removeStorage({
             key: 'disable',
-            success: function (res) {
+            success: function(res) {
               console.log(res.data)
             }
           })
 
-
-
-          }
-
-
+        }
       }
-      
+
     })
 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  
+
   onReady: function() {
 
   },
@@ -412,19 +379,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var that = this
+    wx.getSystemInfo({
+      success: function(res) {
+        //model中包含着设备信息
+        console.log(res.model)
+        var model = res.model
+        if (model.search('iPhone X') != -1) {
+          that.setData({
+            btuBottom: "90%"
+          })
+        } else {
+          that.setData({
+            btuBottom: "80%",
+          })
+        }
+        if (model.search('iPad') != -1) {
+          console.log("iPad Pro 10.5-inch ===ffff= ")
+        }
+      }
+    })
     var goSingIn = wx.getStorageSync('goSingIn')
     var disable = wx.getStorageSync('disable')
-    console.log("disable ==== "+disable)
-    if(disable != true)
-    {
+    console.log("disable ==== " + disable)
+    if (disable != true) {
       this.setData({
         goSingIn: "我要参与",
         disable: false
       })
-    }
-    else
-    {
+    } else {
       this.setData({
         goSingIn: goSingIn,
       })
@@ -433,7 +416,6 @@ Page({
     wx.cloud.init()
     var that = this;
     that.Myopenid()
-    that.bannerImage()
     that.MyData()
     that.Mycenter()
     that.Mystudio()
@@ -441,7 +423,6 @@ Page({
     that.animationFunc()
     that.slideupshowFun()
     that.ruleImage()
-    // GetList(that);
     // 逻辑判断用户是否登录，服务器返回排行榜前三名数据
     // 调用云函数
     wx.cloud.callFunction({
@@ -459,8 +440,7 @@ Page({
 
 
   },
-  ruleImage:function()
-  {
+  ruleImage: function() {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('ruleImage').get({
@@ -469,7 +449,7 @@ Page({
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
           imageA: res.data[0].ruleImage
-         
+
         })
 
 
@@ -483,245 +463,185 @@ Page({
       }
     })
 
-  }
-  ,
-  Mycenter:function()
-  {
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    const _ = db.command
-    db.collection('ServiceCenterrankings').orderBy('number', 'desc').limit(3).get({
-      success: res => {
-        console.log("Mycenter === "+res.data[0].number)
-        this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-          center1: res.data[0].Name,
-          center2: res.data[1].Name,
-          center3: res.data[2].Name,
-        })
-        var windowWidth = 320;
-        try {
-          var res = wx.getSystemInfoSync();
-          windowWidth = res.windowWidth;
-        } catch (e) {
-          console.error('getSystemInfoSync failed!');
+  },
+  Mycenter: function() {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      const _ = db.command
+      db.collection('ServiceCenterrankings').orderBy('number', 'desc').limit(3).get({
+        success: res => {
+          console.log("Mycenter === " + res.data[0].number)
+          this.setData({
+            queryResult: JSON.stringify(res.data, null, 2),
+            center1: res.data[0].Name,
+            center2: res.data[1].Name,
+            center3: res.data[2].Name,
+          })
+
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          console.error('[数据库] [查询记录] 失败：', err)
         }
-        areaChart = new wxCharts({
-          canvasId: 'areaCanvas',
-          type: 'area',
+      })
+    }
 
-          categories: [this.data.company1, this.data.company2, this.data.company3],
-          animation: true,
-          series: [{
-            name: '总积分',
-            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
-            format: function (val) {
-              return '' + val;
-            }
-          }],
-          yAxis: {
-            title: '',
-            format: function (val) {
-              return val;
+    ,
+  Mystudio: function() {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      const _ = db.command
+      db.collection('StudioRankings').orderBy('number', 'desc').limit(3).get({
+        success: res => {
+          console.log("StudioRankings === " + res.data)
+          this.setData({
+            queryResult: JSON.stringify(res.data, null, 2),
+
+            studio1: res.data[0].Name,
+            studio2: res.data[1].Name,
+            studio3: res.data[2].Name,
+          })
+          var windowWidth = 320;
+          try {
+            var res = wx.getSystemInfoSync();
+            windowWidth = res.windowWidth;
+          } catch (e) {
+            console.error('getSystemInfoSync failed!');
+          }
+          areaChart = new wxCharts({
+            canvasId: 'areaCanvas',
+            type: 'area',
+
+            categories: [this.data.company1, this.data.company2, this.data.company3],
+            animation: true,
+            series: [{
+              name: '总积分',
+              data: [this.data.company1Number, this.data.company2Number, this.data.company3Number, ],
+              format: function(val) {
+                return '' + val;
+              }
+            }],
+            yAxis: {
+              title: '',
+              format: function(val) {
+                return val;
+              },
+              min: 0,
+              fontColor: '#666',
+              gridColor: '#ec5d2a',
+              titleFontColor: '#ec5d2a'
             },
-            min: 0,
-            fontColor: '#666',
-            gridColor: '#ec5d2a',
-            titleFontColor: '#ec5d2a'
-          },
-          xAxis: {
-            fontColor: '#ec5d2a',
-            gridColor: '#666'
-          },
-          extra: {
-            legendTextColor: '#ec5d2a'
-          },
-          width: windowWidth,
-          height: 200
-        });
-        console.log('res.data ===  ', res.data)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  }
-
-  ,
-  Mystudio: function () {
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    const _ = db.command
-    db.collection('StudioRankings').orderBy('number', 'desc').limit(3).get({
-      success: res => {
-        console.log("StudioRankings === " + res.data)
-        this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-          
-          studio1: res.data[0].Name,
-          studio2: res.data[1].Name,
-          studio3: res.data[2].Name,
-        })
-        var windowWidth = 320;
-        try {
-          var res = wx.getSystemInfoSync();
-          windowWidth = res.windowWidth;
-        } catch (e) {
-          console.error('getSystemInfoSync failed!');
+            xAxis: {
+              fontColor: '#ec5d2a',
+              gridColor: '#666'
+            },
+            extra: {
+              legendTextColor: '#ec5d2a'
+            },
+            width: windowWidth,
+            height: 200
+          });
+          console.log('res.data ===  ', res.data)
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          console.error('[数据库] [查询记录] 失败：', err)
         }
-        areaChart = new wxCharts({
-          canvasId: 'areaCanvas',
-          type: 'area',
+      })
+    }
 
-          categories: [this.data.company1, this.data.company2, this.data.company3],
-          animation: true,
-          series: [{
-            name: '总积分',
-            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
-            format: function (val) {
-              return '' + val;
-            }
-          }],
-          yAxis: {
-            title: '',
-            format: function (val) {
-              return val;
+    ,
+  Mycompany: function() {
+      const db = wx.cloud.database()
+      // 查询当前用户所有的 counters
+      const _ = db.command
+      db.collection('Branchrankings').orderBy('number', 'desc').limit(3).get({
+        success: res => {
+          console.log("Branchrankings === " + res.data)
+          this.setData({
+            queryResult: JSON.stringify(res.data, null, 2),
+
+            company1: res.data[0].Name,
+            company2: res.data[1].Name,
+            company3: res.data[2].Name,
+
+            company1Number: res.data[0].number,
+            company2Number: res.data[1].number,
+            company3Number: res.data[2].number,
+
+
+          })
+          var windowWidth = 320;
+          try {
+            var res = wx.getSystemInfoSync();
+            windowWidth = res.windowWidth;
+          } catch (e) {
+            console.error('getSystemInfoSync failed!');
+          }
+          areaChart = new wxCharts({
+            canvasId: 'areaCanvas',
+            type: 'area',
+
+            categories: [this.data.company1, this.data.company2, this.data.company3],
+            animation: true,
+            series: [{
+              name: '总积分',
+              data: [this.data.company1Number, this.data.company2Number, this.data.company3Number, ],
+              format: function(val) {
+                return '' + val;
+              }
+            }],
+            yAxis: {
+              title: '',
+              format: function(val) {
+                return val;
+              },
+              min: 0,
+              fontColor: '#666',
+              gridColor: '#ec5d2a',
+              titleFontColor: '#ec5d2a'
             },
-            min: 0,
-            fontColor: '#666',
-            gridColor: '#ec5d2a',
-            titleFontColor: '#ec5d2a'
-          },
-          xAxis: {
-            fontColor: '#ec5d2a',
-            gridColor: '#666'
-          },
-          extra: {
-            legendTextColor: '#ec5d2a'
-          },
-          width: windowWidth,
-          height: 200
-        });
-        console.log('res.data ===  ', res.data)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  }
-
-  ,
-  Mycompany: function () {
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    const _ = db.command
-    db.collection('Branchrankings').orderBy('number', 'desc').limit(3).get({
-      success: res => {
-        console.log("Branchrankings === " + res.data)
-        this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-
-          company1: res.data[0].Name,
-          company2: res.data[1].Name,
-          company3: res.data[2].Name,
-
-          company1Number: res.data[0].number,
-          company2Number: res.data[1].number,
-          company3Number: res.data[2].number,
-
-
-        })
-        var windowWidth = 320;
-        try {
-          var res = wx.getSystemInfoSync();
-          windowWidth = res.windowWidth;
-        } catch (e) {
-          console.error('getSystemInfoSync failed!');
+            xAxis: {
+              fontColor: '#ec5d2a',
+              gridColor: '#666'
+            },
+            extra: {
+              legendTextColor: '#ec5d2a'
+            },
+            width: windowWidth,
+            height: 200
+          });
+          console.log('res.data ===  ', res.data)
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          console.error('[数据库] [查询记录] 失败：', err)
         }
-        areaChart = new wxCharts({
-          canvasId: 'areaCanvas',
-          type: 'area',
+      })
+    }
 
-          categories: [this.data.company1, this.data.company2, this.data.company3],
-          animation: true,
-          series: [{
-            name: '总积分',
-            data: [this.data.company1Number, this.data.company2Number, this.data.company3Number,],
-            format: function (val) {
-              return '' + val;
-            }
-          }],
-          yAxis: {
-            title: '',
-            format: function (val) {
-              return val;
-            },
-            min: 0,
-            fontColor: '#666',
-            gridColor: '#ec5d2a',
-            titleFontColor: '#ec5d2a'
-          },
-          xAxis: {
-            fontColor: '#ec5d2a',
-            gridColor: '#666'
-          },
-          extra: {
-            legendTextColor: '#ec5d2a'
-          },
-          width: windowWidth,
-          height: 200
-        });
-        console.log('res.data ===  ', res.data)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  }
-
-  ,
+    ,
   MyData: function() {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     const _ = db.command
     db.collection('personal').orderBy('MyNumber', 'desc').limit(3).get({
       success: res => {
-          this.setData({
-            queryResult: JSON.stringify(res.data, null, 2),
-            integral1: res.data[0].Name + " 积分 " + res.data[0].MyNumber,
-            integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
-            integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
-
-            // center1: res.data[0].MyCenter[1],
-            // center2: res.data[1].MyCenter[1],
-            // center3: res.data[2].MyCenter[1],
-
-            // studio1: res.data[0].MyWorkRoom[1],
-            // studio2: res.data[1].MyWorkRoom[1],
-            // studio3: res.data[2].MyWorkRoom[1],
-
-            // company1: res.data[0].MyCompany[1],
-            // company2: res.data[1].MyCompany[1],
-            // company3: res.data[2].MyCompany[1],
-
-            // company1Number: res.data[0].MyCompanyNumber,
-            // company2Number: res.data[1].MyCompanyNumber,
-            // company3Number: res.data[2].MyCompanyNumber,
-
-
-          })
+        this.setData({
+          queryResult: JSON.stringify(res.data, null, 2),
+          integral1: res.data[0].Name + " 积分 " + res.data[0].MyNumber,
+          integral2: res.data[1].Name + " 积分 " + res.data[1].MyNumber,
+          integral3: res.data[2].Name + " 积分 " + res.data[2].MyNumber,
+        })
         var windowWidth = 320;
         try {
           var res = wx.getSystemInfoSync();
@@ -773,29 +693,6 @@ Page({
       }
     })
 
-  },
-  bannerImage: function() {
-
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection('bannerImage').get({
-      success: res => {
-        this.setData({
-          queryResult: JSON.stringify(res.data, null, 2),
-          imgUrls: res.data[0].imgUrls,
-     
-        })
-
-        
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
   },
   slideupshowFun: function() {
     var that = this;
@@ -883,31 +780,8 @@ Page({
   onReachBottom: function() {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  // onShareAppMessage: function(res) {
-  //   return {
-  //     title: '慧吃慧动100天',
-  //     // 分享时在路径后拼接参数，可拼接多个参数。 
-  //     path: '/pages/home/home',
-  //     imageUrl: '../imgs/share.png',
-  //     success: function(res) {
-  //       // 转发成功
-  //       console.log("转发成功")
-  //       wx.showToast({
-  //         title: '转发成功',
-  //         icon: 'success',
-  //         duration: 2000,
-  //       })
-  //     },
-  //     fail: function(res) { // 转发失败
-  //       console.log("转发失败")
-  //     }
-  //   }
-  // },
   mydetaildata: function(openidstr) {
+
     console.log("获取openid")
     const db = wx.cloud.database()
     const _ = db.command
@@ -915,7 +789,7 @@ Page({
       _openid: openidstr
     }).get({
       success: res => {
-        console.log("获取time",res.data[0].time)
+        console.log("获取time", res.data[0].time)
         dateString = res.data[0].time
         this.num_data(dateString)
 
@@ -929,105 +803,11 @@ Page({
       }
     })
   },
-  jifeng: function(openid) {
-    const db = wx.cloud.database()
-    const _ = db.command
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        db.collection('personal').where({
-            _openid: openid
-          })
-          .get({
-            success: function(res) {
-              db.collection('personal').doc(res.data.id).update({
-                // data 传入需要局部更新的数据
-                data: {
-                  MyCenterNumber: _.inc(5),
-                  MyCompanyNumber: _.inc(5),
-                  MyWorkRoomNumber: _.inc(5),
-                  MyNumber: _.inc(5),
-                  number: _.inc(5),
-
-                }
-
-              }).then
-               {
-                that.MyBranchrankings()
-                that.MyServiceCenterrankings()
-                that.MyStudioRankings()
-              }
-            }
-          })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-      }
-    })
-  },
-  MyBranchrankings: function() {
-    var that = this
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('Branchrankings').doc(myCompanyId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        // 表示将 done 字段置为 true
-        number: _.inc(5),
-      },
-      success: function(res) {
-        console.log(res.data)
-      }
-    })
-  },
-  MyServiceCenterrankings: function() {
-    var that = this
-    console.log("myCenterId === " + myCenterId)
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('ServiceCenterrankings').doc(myCenterId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        number: _.inc(5),
-      },
-      success: function(res) {
-        console.log("MyServiceCenterrankings === " + res.data)
-      }
-    })
-
-  },
-  MyStudioRankings: function() {
-    var that = this
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('StudioRankings').doc(myStudioId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        // 表示将 done 字段置为 true
-        number: _.inc(5),
-      },
-      success: function(res) {
-        console.log(res.data)
-      }
-    })
-  },
-
   ToRankList: function(e) {
     console.log("id == " + e.currentTarget.id)
     wx.navigateTo({
       url: '../rankList/rankList?id=' + e.currentTarget.id
     })
-  },
-  ToRulesView: function(e) {
-
-
-  },
-  modalOk:function()
-  {
-  
-   
-  
   },
   globalData: {
     userInfo: null,
@@ -1079,55 +859,7 @@ Page({
       })
 
     }
-
-
-    
-
   },
-  everyDay:function()
-  {
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').where({
-      _openid: openidstring
-    }).get({
-      success: res => {
-        if (res.data[0] != null) {
-          console.log('[数据库] [查询记录] ：', res.data)
-          var that = this;
-          if (whetaher != 1) {
-            that.loginTrueOrFalse()
-
-          } else {
-            wx.showToast({
-              title: '已经签到',
-              icon: 'succes',
-              duration: 1000,
-              mask: true
-            })
-          }
-        } else {
-          wx.showToast({
-            title: '点击我要参与，加入战队',
-            icon: 'none',
-            duration: 1000,
-            mask: true
-          })
-
-
-        }
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  }
-  ,
   loginTrueOrFalse: function() {
     if (app.globalData.userInfo) {
       this.setData({
@@ -1149,7 +881,7 @@ Page({
     } else {
       wx.login({
         success: function(res) {
-         
+
           app.globalData.code = res.code
         }
       })
@@ -1202,19 +934,62 @@ Page({
     console.log(e.target.id)
 
   },
+  // 排行榜
   topfourbuttonaction: function(e) {
-   
+
+    // 获取openID查询个人信息表，如果个人信息表里存在则跳转，如果不存在提示加入战队
+    // var enddate = Y + "-" + M + "-" + D
+    // wx.login({
+    //   success: res => {
+    //     console.log('获取id===' + res.code)
+    //     app.postAction('授权', {
+    //       "code": res.code
+    //     }).then((res) => {
+
+    //       app.postAction('个人信息', {
+    //         "openId": res.data
+    //       }).then((res) => {
+    //         if (res.data[0] != null) {
+    //           wx.navigateTo({
+
+    //             url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + res.code
+    //           })
+    //         } else {
+    //           wx.showToast({
+    //             icon: 'none',
+    //             title: '点击我要参与，加入战队',
+    //             duration: 1000,
+    //             mask: true
+    //           })
+
+    //         }
+    //         wx.hideLoading();
+    //       }).catch((errMsg) => {
+    //         console.log("错误提示信息 === " + errMsg); //错误提示信息
+    //         wx.hideLoading();
+    //       });
+
+
+    //       wx.hideLoading();
+    //     }).catch((errMsg) => {
+    //       console.log("错误提示信息 === " + errMsg); //错误提示信息
+    //       wx.hideLoading();
+    //     });
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //   }
+    // })
+
     console.log(e.currentTarget.id, openidstring)
     const db = wx.cloud.database()
     const _ = db.command
-  
+
     db.collection('personal').where({
       _openid: openidstring
     }).get({
       success: res => {
         if (res.data[0] != null) {
           wx.navigateTo({
-      
+
             url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
           })
         } else {
@@ -1237,7 +1012,7 @@ Page({
       }
     })
 
-    
+
   },
   show: function() {
 
@@ -1256,6 +1031,45 @@ Page({
 
   },
   paihangbang: function() {
+
+    // var enddate = Y + "-" + M + "-" + D
+    // wx.login({
+    //   success: res => {
+    //     console.log('获取id===' + res.code)
+    //     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak/', { "code": res.code }).then((res) =>    {
+    //       console.log("正确返回结果 === " + res.data);//
+    //       app.globalData.openid = res.data
+    //       app.postAction('个人信息', { "openId": res.data}).then((res) => {
+    //         if (res.data[0] != null) {
+    //           wx.navigateTo({
+    //             url: '../rankList/rankList'
+    //           })
+    //         } else {
+    //           wx.showToast({
+    //             icon: 'none',
+    //             title: '点击我要参与，加入战队',
+    //             duration: 1000,
+    //             mask: true
+    //           })
+
+    //         }
+    //         wx.hideLoading();
+    //       }).catch((errMsg) => {
+    //         console.log("错误提示信息 === " + errMsg);//错误提示信息
+    //         wx.hideLoading();
+    //       });
+
+
+    //       wx.hideLoading();
+    //     }).catch((errMsg) => {
+    //       console.log("错误提示信息 === " + errMsg);//错误提示信息
+    //       wx.hideLoading();
+    //     });
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //   }
+    // })
+
+
 
     const db = wx.cloud.database()
     const _ = db.command
@@ -1298,12 +1112,41 @@ Page({
     })
   },
   mydataAction: function() {
-    console.log("shareOpenId == "+shareOpenId)
+    console.log("shareOpenId == " + shareOpenId)
     wx.navigateTo({
       url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
     })
   },
   pensonalAction: function() {
+
+    // var enddate = Y + "-" + M + "-" + D
+    // wx.login({
+    //   success: res => {
+    //     console.log('获取id===' + res.code)
+    //     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak/', { "code": res.code }).then((res) =>    {
+    //       console.log("正确返回结果 === " + res.data);//
+    //       app.globalData.openid = res.data
+    //       app.postAction('个人信息', { "openId": res.data}).then((res) => {
+    //         if (res.data[0] != null) {
+    //           wx.navigateTo({
+    //             url: '../rankList/rankList'
+    //           })
+    //         } else {
+    //           wx.showToast({
+    //             icon: 'none',
+    //             title: '点击我要参与，加入战队',
+    //             duration: 1000,
+    //             mask: true
+    //           })
+
+    //         }
+    //         wx.hideLoading();
+    //       }).catch((errMsg) => {
+    //         console.log("错误提示信息 === " + errMsg);//错误提示信息
+    //         wx.hideLoading();
+    //       });
+
+
     const db = wx.cloud.database()
     const _ = db.command
     db.collection('personal').where({

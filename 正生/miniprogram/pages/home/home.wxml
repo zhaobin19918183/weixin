@@ -1,15 +1,16 @@
 <!-- !--pages/home/home.wxml-->
+<label class='buttom' style='display:{{display1}};margin-top:200px;' bindtap='pensonalAction'>签到</label>
+<label class='buttom' style='margin-top:235px;display:{{display1}};' bindtap='paihangbang'>排行榜</label>
+<label class='buttom' style='margin-top:270px;display:{{display1}};' bindtap='mydataAction'>我的</label>
+<label class='buttom' style='margin-top:305px;color:orange;display:{{display1}};' bindtap=''>首页</label>
+<label class='buttom' style='margin-top:340px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
+<label class='daohang' style='margin-top:340px;display:{{display2}}' bindtap='showfunc1'>导航</label>
 <modal hidden="{{modalFlag}}" no-cancel bindconfirm="modalOk" confirmText="">
   <image style='width:100%;' src="../imgs/share.png" bindtap=""></image>
   <button style='font-size:30rpx' open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权获取您的微信昵称和头像(如果已经授权,点击关闭)</button>
 </modal>
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <view style='height:667px;margin-top:100rpx'>
-  <!-- <swiper style='height:100%' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" vertical="{{isVertical}}" duration="{{duration}}" circular='false'>
-    <swiper-item wx:key="{{imgUrls}}" wx:for="{{imgUrls}}">
-      <image src="{{item}}" />
-    </swiper-item>
-  </swiper> -->
   <!-- 活动规则 -->
   <view class="bg" bindtap='hideview' style='display:{{display}};'>
     <image style='font-size:25rpx;margin-left:90%;width:30px;height:30px;position: absolute;' src='../imgs/guanbi.png'></image>
@@ -22,58 +23,43 @@
   </view>
   <!-- 顶部四个按钮 -->
   <view style="height:100%;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
-    <!-- <view style=" display:flex;text-align:center"> -->
-    <!-- <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:19%;'>
-        <button class='firstB' id='{{itemName.id}}' bindtap="topfourbuttonaction">
-          <image class='firstimg' src="{{itemName.imgurl}}" bindtap=""></image>
-        </button>
-        <label class='label1' bindtap="">{{itemName.message}}</label>
-      </view> -->
-    <!-- </view> -->
     <!-- 签到 -->
     <view class='layout_horizontal' style='margin-top:2%;box-shadow:0px 0px 3px 3px gray;'>
-
-      <!-- <image style='width:80px;height:70px;position: absolute' src="{{imgeUrlAni}}" animation="{{animationData}}"></image> -->
-      <!-- <view class='layout_vertical' style='width:60%;position: absolute;margin-left:10%;margin-top:-20px'>
-        <button class='qiandao' style='font-size:40rpx'  bindtap='everyDay'>每日签到</button>
-        <button class='' >Daily check-in</button>
-      </view> -->
-
-
-      <button bindtap='showview' id='3'  style='width:100px;height:40px;background:#e1cdb1;position: absolute;margin-top:20px;margin-left:76%;'>活动须知</button>
-        <image   src='../imgs/jifen.png' style='width:163px;height:53px;position: absolute;margin-top:110%;'></image>
-        <text style='position: absolute;margin-top:114%;margin-left:18%;font-size:30rpx'>10000000</text>
-        <image  src='../imgs/tianshu.png' style='width:100px;height:54px;position: absolute;margin-top:126%;'></image>
-        <text style='position: absolute;margin-top:130%;margin-left:16%;font-size:30rpx'>100</text>
+      <button bindtap='showview' id='3'  style='width:80px;height:30px;background:#e1cdb1;position: absolute;margin-top:20px;margin-left:81%;font-size:24rpx'>活动须知</button>
+        <image   src='../imgs/jifen.png' style='width:200px;height:54px;position: absolute;margin-top:110%;'></image>
+        <text style='position: absolute;margin-top:113%;margin-left:7%;font-size:30rpx;font-weight:bold'>10000000</text>
+        <text style='position: absolute;margin-top:114%;margin-left:28%;font-size:25rpx;font-weight:bold'>总积分</text>
+        <image  src='../imgs/tianshu.png' style='width:200px;height:54px;position: absolute;margin-top:126%;'></image>
+        <text style='position: absolute;margin-top:129.6%;margin-left:17%;font-size:30rpx;font-weight:bold'>100</text>
+        <text style='position: absolute;margin-top:130%;margin-left:5%;font-size:25rpx;font-weight:bold'>天数</text>
+       
         <image bindtap='goSingIn' id='3' src='../imgs/canyu.png' style='width:200px;height:54px;position: absolute;margin-top:143%;'></image>
+         <text style='position: absolute;margin-top:145%;margin-left:5%;font-size:50rpx;font-weight:bold'>我要参与</text>
     </view>
     <image src='../imgs/vcfhgfhg.png' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>
   <!-- 个人排行榜 -->
-  <view style="margin-top:2%;height:280px;box-shadow:0px 0px 0px 0px gray;">
+  <view style="margin-top:2%;height:40%;box-shadow:0px 0px 0px 0px gray;">
     <view class='layout_horizontal ' style='position: absolute'>
       <image src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
       <label id='4' bindtap="topfourbuttonaction" style='font-size:30rpx;height:20px;width:120px'>个人排行榜</label>
     </view>
-    <view class="init" animation="{{slide1}}" style='margin-left:17%;margin-top:10%;width:40%;position: absolute;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='margin-left:17%;margin-top:30px;width:40%;position: absolute;opacity:0'>
       <text class="init" style='margin-top:30%;font-size:25rpx;'>{{integral1}}</text>
       <progress class="init" stroke-width='2' percent="100" active='true' active-color="purple" background-color="transparent" />
     </view>
-
-    <view class="init" animation="{{slide1}}" style='width:40%;position: absolute;margin-left:45%;margin-top:30%;;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:40%;position: absolute;margin-left:45%;margin-top:90px;opacity:0'>
       <label style='font-size:25rpx;'>{{integral2}}</label>
       <progress stroke-width='2' percent="100" active='true' active-color="blue" background-color="transparent" />
     </view>
 
-    <view class="init" animation="{{slide1}}" style='width:35%;position: absolute; margin-left:65%;margin-top:220px;opacity:0'>
+    <view class="init" animation="{{slide1}}" style='width:35%;position: absolute; margin-left:65%;margin-top:150px;opacity:0'>
       <text style='margin-top:30%;font-size:25rpx;'>{{integral3}}</text>
       <progress class='child1' stroke-width='2' percent="100" active='true' background-color="transparent" />
     </view>
-    <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:10%;margin-top:83%;position: absolute' src='../imgs/a1.png'></image>
-    <image animation="{{slide_up2}}" style='width:70px;height:200px;margin-left:35%;margin-top:83%;position: absolute' src='../imgs/a2.png'></image>
-    <image animation="{{slide_up3}}" style='width:70px;height:200px;margin-left:60%;margin-top:83%;position: absolute' src='../imgs/a3.png'></image>
-
-
+    <image animation="{{slide_up1}}" style='width:70px;height:200px;margin-left:10%;margin-top:{{btuBottom}};position: absolute' src='../imgs/a1.png'></image>
+    <image animation="{{slide_up2}}" style='width:70px;height:200px;margin-left:35%;margin-top:{{btuBottom}};position: absolute' src='../imgs/a2.png'></image>
+    <image animation="{{slide_up3}}" style='width:70px;height:200px;margin-left:60%;margin-top:{{btuBottom}};position: absolute' src='../imgs/a3.png'></image>
     <image src='../imgs/img3.png' style='position: relative；display: block;width:100%;;height:100%'></image>
   </view>
   <!-- 工作室排行榜 -->
@@ -106,25 +92,19 @@
     </view>
     <button style='font-size:25rpx;position: absolute;margin-left:1%;margin-top:30%'>{{center1}} </button>
     <button style='font-size:25rpx;position: absolute;margin-left:70%;margin-top:45%'>{{center2}} </button>
-    <button style='font-size:25rpx;position: absolute;margin-top:55%;margin-top:55%'>{{center3}} </button>
-    <image style='position: absolute;;margin-left:10%;margin-top:15%;' src='../imgs/dt.png'></image>
+    <button style='font-size:25rpx;position: absolute;margin-left:20%;margin-top:48%'>{{center3}} </button>
+    <image style='position: absolute;margin-left:25%;margin-top:20%;width:212px;height:178px' src='../imgs/dt.png'></image>
     <image src='../imgs/img5.png' style='position: relative；display: block;width:100%;;height:100%'></image>
   </view>
   <!-- 分公司排行榜 -->
-  <view style=";margin-top:2%;height:220px;;box-shadow:0px 0px 3px 3px gray;">
+  <view style=";margin-top:2%;height:280px;;box-shadow:0px 0px 3px 3px gray;">
 
     <view class='layout_horizontal' style='margin-top:5px;position: absolute'>
       <image src='../imgs/jinbei.png' style='width:25px;height:20px;margin-left:2%'></image>
       <label id='1' bindtap="topfourbuttonaction" style='font-size:30rpx;height:20px;width:150px'>分公司排行榜</label>
     </view>
-    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="" style='margin-left:3%;position: absolute;'></canvas>
+    <canvas canvas-id="areaCanvas" class="canvas" bindtouchstart="" style='margin-left:3%;position: absolute;margin-top:50px'></canvas>
     <image src='../imgs/img8.jpg' style='position: relative；display: block;width:100%;height:100%'></image>
   </view>
 
 </view>
-<label class='buttom' style='display:{{display1}};' bindtap='pensonalAction'>签到</label>
-<label class='buttom' style='margin-top:35px;display:{{display1}};' bindtap='paihangbang'>排行榜</label>
-<label class='buttom' style='margin-top:70px;display:{{display1}};' bindtap='mydataAction'>我的</label>
-<label class='buttom' style='margin-top:105px;color:orange;display:{{display1}};' bindtap=''>首页</label>
-<label class='buttom' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
-<label class='daohang' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>

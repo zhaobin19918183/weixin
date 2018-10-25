@@ -378,7 +378,6 @@ Page({
    
   },
   phb1: function (data) {
-    console.log(data)
     var that = this;
     if (data == 1) {
       that.MyListData('Branchrankings');

@@ -280,13 +280,14 @@ border: none;
   font-size: 60rpx;
 }
 .daohang{
-  width: 45px;
+  width: 12%;
   height:30px;
   background:black;
   display: flex;
   flex-direction: row;
   position: fixed;
   bottom:10; 
+  margin-left: 88%;
   font-size: 0.7rem;
   text-align: center;
   color: white;
