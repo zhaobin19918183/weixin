@@ -111,13 +111,13 @@ App({
     share: false, // 分享默认为false
     height: 0,
   },
-  postAction: function (url, data) {
+  postAction1: function (url, data) {
     var promise = new Promise((resolve, reject) => {
       //init
       var that = this;
       var postData = data;
       /*
-      //自动添加签名字段到postData，makeSign(obj)是一个自定义的生成签名字符串的函数
+      //自动添加签名字段到postData，makeSign(obj)是一个自定义的生成签名字符串的函数application/x-www-form-urlencoded
       postData.signature = that.makeSign(postData);
       */
       //网络请求
@@ -127,9 +127,9 @@ App({
         method: 'POST',
         header: { 'content-type': 'application/x-www-form-urlencoded' },
         success: function (res) {//服务器返回数据
-          console.log("服务器返回数据 Django " + res.data.resultcode)
+          // console.log("服务器返回数据 Django " + res.data.resultcode)
           if (res.data.resultcode == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
-            resolve(res);
+            resolve(res.data);
           } else {//返回错误提示信息
             reject(res.data.info);
           }
@@ -141,6 +141,37 @@ App({
     });
     return promise;
   },
+  postAction: function (url, data) {
+    var promise = new Promise((resolve, reject) => {
+      //init
+      var that = this;
+      var postData = data;
+      /*
+      //自动添加签名字段到postData，makeSign(obj)是一个自定义的生成签名字符串的函数application/x-www-form-urlencoded
+      postData.signature = that.makeSign(postData);
+      */
+      //网络请求
+      wx.request({
+        url: url,
+        data: postData,
+        method: 'POST',
+        header: { 'content-type': 'application/json' },
+        success: function (res) {//服务器返回数据
+          console.log("服务器返回数据 Django " + res.data.re)
+          if (res.data.resultcode == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
+            resolve(res.data);
+          } else {//返回错误提示信息
+            reject(res.data.info);
+          }
+        },
+        error: function (e) {
+          reject('网络出错');
+        }
+      })
+    });
+    return promise;
+  },
+  //application/x-www-form-urlencoded
   getAction: function (url,data) {
     var promise = new Promise((resolve, reject) => {
       //init
@@ -157,8 +188,38 @@ App({
         data: postData,
         header: { 'content-type': 'application/json' },
         success: function (res) {//服务器返回数据
-          console.log("服务器返回数据 Django " + res.data.data)
-          if (res.data.code == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
+          console.log("服务器返回数据 Django " + res.data.resultcode)
+          if (res.data.resultcode == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
+            resolve(res.data);
+          } else {//返回错误提示信息
+            reject(res.data.info);
+          }
+        },
+        error: function (e) {
+          reject('网络出错');
+        }
+      })
+    });
+    return promise;
+  },
+  getAction1: function (url, data) {
+    var promise = new Promise((resolve, reject) => {
+      //init
+      var that = this;
+      var postData = data;
+      /*
+      //自动添加签名字段到postData，makeSign(obj)是一个自定义的生成签名字符串的函数
+      postData.signature = that.makeSign(postData);
+      */
+      //网络请求
+      wx.request({
+        url: url,
+        method: 'GET',
+        data: postData,
+        header: { 'content-type': 'aapplication/x-www-form-urlencoded' },
+        success: function (res) {//服务器返回数据
+          console.log("服务器返回数据 GET " + res.data)
+          if (res.data.resultcode == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
             resolve(res.data);
           } else {//返回错误提示信息
             reject(res.data.info);
@@ -171,5 +232,6 @@ App({
     });
     return promise;
   }
+
 
 })

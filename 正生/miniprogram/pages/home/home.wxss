@@ -294,6 +294,7 @@ border: none;
   opacity: 0.8;
   line-height: 55rpx;
   justify-content: center;
+  border-radius: 5px
   
 }
 .imageButton

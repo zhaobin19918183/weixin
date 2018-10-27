@@ -137,7 +137,10 @@ Page({
     dayNumber: 0,
     allNumber: 0,
     allDay: 0,
-    arrayData: [],
+    arrayTableDataWork: [],
+    arrayTableDataCenter: [],
+    arrayTableDataCompany: [],
+    arrayTableDataPersion: [],
     display1: 'none',
     display2: 'block',
     nvabarData: {
@@ -215,7 +218,9 @@ Page({
   },
   onLoad: function(options)
    {
-    shareOpenIdString = options.shareOpenId  
+    shareOpenIdString = options.openidstring
+    openidstring = options.openidstring
+    this.phb1(1)
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -261,7 +266,10 @@ Page({
     GetList(that);
     GetTableVIewList(that);
     that.MyData()
-    that.MyListData('Branchrankings')
+    // that.MyListData('Branchrankings')
+
+      
+    
   },
   MyListData: function(name) {
     this.data.name = name
@@ -287,6 +295,46 @@ Page({
   },
   MyData: function() {
 
+    app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
+      "openid": shareOpenIdString,
+    }).then((res) => {
+      console.log('[我的]  ', res.data.persion.joinDate)
+  
+      this.setData({
+        dayNumber: res.data.persion.joinDate,
+        allNumber: res.data.persion.memberIntegral,
+        allDay: res.data.persion.continuitySigninDate,
+        listData: [{
+          "code": "我的工作室",
+          "text": res.data.persion.studioName
+        },
+        {
+          "code": "我的积分",
+          "text": res.data.persion.memberIntegral
+        },
+        {
+          "code": "工作室积分",
+          "text": res.data.persion.studioIntegral
+        },
+        {
+          "code": "服务中心积分",
+          "text": res.data.persion.serviceCentreIntegral
+        },
+        {
+          "code": "分公司积分",
+          "text": res.data.persion.companyIntegral
+        },
+
+        ],
+        // arrayData: data.imageArray
+      })
+
+
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+    });
+
     const db = wx.cloud.database()
     const _ = db.command
     console.log('[云] ')
@@ -297,40 +345,13 @@ Page({
         console.log('[云函]', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
-        this.MyPersional(res.result.openid)
+        // this.MyPersional(res.result.openid)
         db.collection('personal').where({
           _openid: res.result.openid
         }).get({
           success: res => {
 
-            this.setData({
-              dayNumber: res.data[0].day,
-              allNumber: res.data[0].MyNumber,
-              allDay: res.data[0].allDay,
-              listData: [{
-                  "code": "我的工作室",
-                  "text": res.data[0].MyWorkRoom[1]
-                },
-                {
-                  "code": "我的积分",
-                  "text": res.data[0].MyNumber
-                },
-                {
-                  "code": "工作室积分",
-                  "text": res.data[0].MyWorkRoomNumber
-                },
-                {
-                  "code": "服务中心积分",
-                  "text": res.data[0].MyCenterNumber
-                },
-                {
-                  "code": "分公司积分",
-                  "text": res.data[0].MyCompanyNumber
-                },
-
-              ],
-              arrayData: res.data[0].imageArray
-            })
+         
             console.log('[数据库] res.data[0].imageArray ：', res.data[0].imageArray)
             whetaher = res.data[0].whetaher
             qiandaoYes = res.data[0].whetaher
@@ -355,7 +376,12 @@ Page({
 
   },
 
-  addTeam: function(e) {
+  addTeam: function (e) {
+    wx.showToast({
+      title: '加入中.......',
+      icon: 'loading',
+      duration: 5000,
+    })
     wx.setStorage({
       key: "goSingIn",
       data: "每日签到"
@@ -364,52 +390,90 @@ Page({
       key: "disable",
       data: true
     })
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').where({
-      _openid: openidstring
-    }).get({
-      success: res => {
-        console.log(res.data)
-        if (res.data[0] != null) {
-          wx.showToast({
-            title: '不能重复加入战队',
-            icon: 'succes',
-            duration: 1000,
-            mask: true
-          })
-        } else {
 
-          var workroom = []
-         
-          if (arrayMydata.length > 1) {
 
-            workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
-            this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
-            workroomName = arrayMydata[e.target.id].Name
-            workroomNumber = arrayMydata[e.target.id].number
 
-            console.log("工作室 == " + arrayMydata[e.target.id].number)
 
-          } else {
-            workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
-            this.searchCenter(arrayMydata[0].centerID, workroom)
-            workroomName = arrayMydata[0].Name
-            workroomNumber = arrayMydata[0].number
-            console.log("工作室 == " + arrayMydata[e.target.id].number)
-          }
+    var enddate = Y + "-" + M + "-" + D
+    app.postAction1('http://127.0.0.1:8000/zhengsheng/addPersonal/', {
+      "openid": openidstring,
+      "time": enddate,
+      "studioName": arrayTableDataWork[e.target.id].fields.studioName,
+      "memberName": app.globalData.userInfo.nickName,
+      "memberImage": app.globalData.userInfo.avatarUrl
+    }).then((res) => {
+      console.log('加入战队   ====== ', res.data)
 
-        }
-
-      },
-      fail: err => {
+      if (res.data === "不能重复加入张队") {
         wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
+          title: '不能重复加入战队',
+          icon: 'success',
+          duration: 2000,
         })
-    
       }
-    })
+      else {
+        wx.showToast({
+          title: '加入战队成功',
+          icon: 'success',
+          duration: 2000,
+        })
+
+      }
+      wx.navigateTo({
+        url: '../home/home'
+      })
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+    });
+    console.log(arrayTableDataWork[e.target.id].fields.studioName)
+    // const db = wx.cloud.database()
+    // const _ = db.command
+    // db.collection('personal').where({
+    //   _openid: openidstring
+    // }).get({
+    //   success: res => {
+    //     if (res.data[0] != null) {
+    //       wx.showToast({
+    //         title: '不能重复加入战队',
+    //         icon: 'succes',
+    //         duration: 1000,
+    //         mask: true
+    //       })
+    //     } else {
+
+    //       var workroom = []
+
+    //       if (arrayMydata.length > 1) {
+
+    //         workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
+
+    //         this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
+    //         workroomName = arrayMydata[e.target.id].Name
+    //         workroomNumber = arrayMydata[e.target.id].number
+
+
+
+    //       } else {
+
+    //         workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
+    //         this.searchCenter(arrayMydata[0].centerID, workroom)
+    //         workroomName = arrayMydata[0].Name
+    //         workroomNumber = arrayMydata[0].number
+
+    //       }
+
+    //     }
+
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
   },
   searchCenter: function(centerid, workroom) {
     var myCenterArray = [];
@@ -574,89 +638,112 @@ Page({
     })
   },
   panghangbang: function(e) {
-    console.log(e.target.id)
+    var data = e.target.id
+    this.phb1(data)
+  },
+  phb1: function (data) {
     var that = this;
-    if (e.target.id == 1) {
-      that.MyListData('Branchrankings');
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('personal').where({
-        _openid: openidstring
-      }).get({
-        success: res => {
-          this.setData({
-            myCompanyName: res.data[0].MyCompany[1],
-            myCompanyNumber: res.data[0].MyCompanyNumber,
-            Myimage: res.data[0].image,
-            searchString: "请输入分公司全称进行搜索"
+    if (data == 1) {
+      app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
+        "openid": openidstring,
+      }).then((res) => {
+        var data = JSON.parse(res.data.json_data);
+        // var personal = JSON.parse(res.json_personalData);
+        console.log('[分公司排行版]  ', res)
+        this.setData({
 
+          isShowCompany: true,
+          isShowWorkRoom: false,
+          isShowCenter: false,
+          isShowPersion: false,
+          arrayTableDataCompany: data,
+
+
+        })
+        if (res.data.json_personalData != null) {
+          this.setData({
+            myCompanyName: res.data.json_personalData.companyName,
+            myCompanyNumber: res.data.json_personalData.companyIntegral,
+            // Myimage: res.data[0].image
+            showPersonal: true
           })
-          console.log(res.data)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
         }
-      })
+        wx.hideLoading();
+      }).catch((errMsg) => {
+        console.log("错误提示信息1 === " + errMsg); //错误提示信息wx.hideLoading();
+      });
+
+
     }
-    if (e.target.id == 2) {
+    if (data == 2) {
+      app.getAction1('http://127.0.0.1:8000/zhengsheng/centerJson/', {
+        "openid": openidstring,
+      }).then((res) => {
+        var data = JSON.parse(res.data.json_data);
+        //
+        this.setData({
 
-      that.MyListData('ServiceCenterrankings');
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('personal').where({
-        _openid: openidstring
-      }).get({
-        success: res => {
+          isShowCompany: false,
+          isShowWorkRoom: false,
+          isShowCenter: true,
+          isShowPersion: false,
+          arrayTableDataCenter: data,
+
+
+        })
+
+        if (res.data.json_personalData != null) {
           this.setData({
-
-            myCompanyName: res.data[0].MyCenter[1],
-            myCompanyNumber: res.data[0].MyCenterNumber,
-            Myimage: res.data[0].image,
-            searchString: "请输入分服务中心进行搜索"
-
+            myCompanyName: res.data.json_personalData.serviceCentreName,
+            myCompanyNumber: res.data.json_personalData.serviceCentreIntegral,
+            // Myimage: res.data[0].image
+            showPersonal: true
           })
-          console.log(res.data)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
         }
-      })
+
+        console.log('[云函数]  ', data)
+
+        wx.hideLoading();
+      }).catch((errMsg) => {
+        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+      });
+
     }
-    if (e.target.id == 3) {
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('personal').where({
-        _openid: openidstring
-      }).get({
-        success: res => {
+    if (data == 3) {
+
+      app.getAction1('http://127.0.0.1:8000/zhengsheng/workroomJson/', {
+        "openid": openidstring,
+      }).then((res) => {
+        console.log('[云函数] workroomJson ', res)
+        var data = JSON.parse(res.data.json_data);
+
+        arrayTableDataWork = data
+        this.setData({
+          isShowCompany: false,
+          isShowWorkRoom: true,
+          isShowCenter: false,
+          isShowPersion: false,
+          arrayTableDataWork: data,
+
+
+        })
+        if (res.data.json_personalData != null) {
           this.setData({
-            myCompanyName: res.data[0].MyWorkRoom[1],
-            myCompanyNumber: res.data[0].MyWorkRoomNumber,
-            Myimage: res.data[0].image,
-            searchString: "请输入工作室进行搜索"
+            myCompanyName: res.data.json_personalData.studioName,
+            myCompanyNumber: res.data.json_personalData.studioIntegral,
+            showPersonal: true
           })
-          console.log(res.data)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
         }
-      })
-      that.MyListData('StudioRankings');
+
+
+        wx.hideLoading();
+      }).catch((errMsg) => {
+        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+      });
+
+
       this.setData({
         showzhandui: true,
-
       })
 
     } else {
@@ -665,31 +752,37 @@ Page({
 
       })
     }
-    if (e.target.id == 4) {
-      const db = wx.cloud.database()
-      // 查询当前用户所有的 counters
-      db.collection('personal').where({
-        _openid: openidstring
-      }).get({
-        success: res => {
-          this.setData({
-            myCompanyName: res.data[0].Name,
-            myCompanyNumber: res.data[0].MyNumber,
-            Myimage: res.data[0].image,
-            searchString: "请输入微信昵称进行搜索"
+    if (data == 4) {
+      app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
+        "openid": openidstring,
+      }).then((res) => {
+        console.log('[云函数]  ', res)
+        var data = JSON.parse(res.data.json_data);
+        //
+        this.setData({
 
+          isShowCompany: false,
+          isShowWorkRoom: false,
+          isShowCenter: false,
+          isShowPersion: true,
+          arrayTableDataPersion: data,
+        })
+
+        if (res.data.persion != null) {
+          this.setData({
+            myCompanyName: res.data.persion.memberName,
+            myCompanyNumber: res.data.persion.memberIntegral,
+            Myimage: res.data.persion.memberImage,
+            showPersonal: true
           })
-          console.log(res.data)
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '查询记录失败'
-          })
-          console.error('[数据库] [查询记录] 失败：', err)
         }
-      })
-      that.MyListData('personal');
+
+
+        wx.hideLoading();
+      }).catch((errMsg) => {
+        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+      });
+      // that.MyListData('personal');
     }
 
   },
@@ -702,10 +795,10 @@ Page({
     }).get({
       success: res => {
         this.setData({
-          myCompanyName: res.data[0].MyCompany[1],
-          myCompanyNumber: res.data[0].MyCompanyNumber,
-          Myimage: res.data[0].image,
-          showPersonal: true
+          // myCompanyName: res.data[0].MyCompany[1],
+          // myCompanyNumber: res.data[0].MyCompanyNumber,
+          // Myimage: res.data[0].image,
+          // showPersonal: true
 
         })
         mytimeString = res.data[0].time

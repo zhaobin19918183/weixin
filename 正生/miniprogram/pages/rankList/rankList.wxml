@@ -14,16 +14,18 @@
 <view style='width:80%:height:100px;margin-top:2%;margin-left:10%'>
   <view class="wxSearch-section">
     <view class="wxSearch-pancel">
-      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="{{searchString}} "/>
+      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="{{searchString}} " />
       <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
     </view>
   </view>
 </view>
 <view>
 </view>
-<view  >
+<view>
+
+
   <scroll-view scroll-y="true" class='tableview'>
-    <view   wx:if ="{{showPersonal}}" style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
+    <view wx:if="{{showPersonal}}" style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
 
       <image class='imaget1' src='{{Myimage}}' style='position: absolute;margin-left:18%'></image>
       <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
@@ -32,66 +34,66 @@
       <label class='labelt2' style='position: absolute;margin-left:63%'>{{myCompanyNumber}}</label>
       <image src='' mode='widthFix' style='position: relative；display: block;width:100%;height:100%;background:#ec5d2a'></image>
     </view>
-    
-    <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.Name}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+
+    <view wx:if="{{isShowWorkRoom}}" wx:for="{{arrayTableDataWork}}" wx:for-index="idx" wx:key="{{itemName.Name}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.image}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='{{itemName.studioImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
-          <label style='position: absolute;word-break:break-all;'>{{itemName.Name}}</label>
+          <label style='position: absolute;word-break:break-all;'>{{itemName.fields.studioName}}</label>
         </view>
-        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.number}}</label>
-        <label class='button1'  wx:if ="{{showzhandui}}" id='{{idx}}'  style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
+        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.fields.studioIntegral}}</label>
+        <label class='button1' wx:if="{{showzhandui}}" id='{{idx}}' style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
         <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
 
       </view>
     </view>
-<!-- <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.companyName}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+    <view wx:if="{{isShowCompany}}" wx:for="{{arrayTableDataCompany}}" wx:for-index="idx" wx:key="{{itemName.companyName}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.companyName}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='{{itemName.fields.companyImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
-          <label style='position: absolute;word-break:break-all;'>{{itemName.Name}}</label>
+          <label style='position: absolute;word-break:break-all;'>{{itemName.fields.companyName}}</label>
         </view>
-        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.number}}</label>
-        <label class='button1'  wx:if ="{{showzhandui}}" id='{{idx}}'  style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
+        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.fields.companyIntegral}}</label>
+        <label class='button1' wx:if="{{showzhandui}}" id='{{idx}}' style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
         <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
 
       </view>
-    </view> -->
+    </view>
 
 
-<!-- <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.Name}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+    <view wx:if="{{isShowCenter}}" wx:for="{{arrayTableDataCenter}}" wx:for-index="idx" wx:key="{{itemName.Name}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.image}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='{{itemName.fields.serviceCentreImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
-          <label style='position: absolute;word-break:break-all;'>{{itemName.Name}}</label>
+          <label style='position: absolute;word-break:break-all;'>{{itemName.fields.serviceCentreName}}</label>
         </view>
-        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.number}}</label>
-        <label class='button1'  wx:if ="{{showzhandui}}" id='{{idx}}'  style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
+        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.fields.serviceCentreIntegral}}</label>
+        <label class='button1' wx:if="{{showzhandui}}" id='{{idx}}' style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
         <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
 
       </view>
-    </view> -->
+    </view>
 
-<!-- <view wx:for="{{arrayTableData}}"    wx:for-index="idx"   wx:key="{{itemName.companyName}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
+    <view wx:if="{{isShowPersion}}" wx:for="{{arrayTableDataPersion}}" wx:for-index="idx" wx:key="{{itemName.companyName}}" wx:for-item="itemName" class='layout_horizontal2' style='height:80px;background:ligntgray'>
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.image}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='{{itemName.fields.memberImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
-          <label style='position: absolute;word-break:break-all;'>{{itemName.Name}}</label>
+          <label style='position: absolute;word-break:break-all;'>{{itemName.fields.memberName}}</label>
         </view>
-        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.number}}</label>
-        <label class='button1'  wx:if ="{{showzhandui}}" id='{{idx}}'  style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
+        <label class='labelt2' style='position: absolute;margin-left:63%'>{{itemName.fields.memberIntegral}}</label>
+        <label class='button1' wx:if="{{showzhandui}}" id='{{idx}}' style='position: absolute;margin-left:78%' bindtap='addTeam'>加入战队</label>
         <image src='../imgs/img3.png' mode='widthFix' style='position: relative；display: block;width:100%;height:100%'></image>
 
       </view>
-    </view> -->    
+    </view>
   </scroll-view>
 
 </view>
