@@ -10,6 +10,7 @@ var workroomName = ""
 var workroomNumber = 0
 var centerNumber = 0
 var companyNumber = 0
+var tagValue = 1
 var timestamp =
   Date.parse(new Date());
 //返回当前时间毫秒数
@@ -110,9 +111,10 @@ Page({
     console.log("mmmp == " + openidstring, data)
     var that = this
     if (data != null) {
+      tagValue = data
       this.phb1(data)
     } else {
-      
+      tagValue = 1
       this.phb1(1)
     }
 
@@ -135,9 +137,6 @@ Page({
       data: true
     })
    
-
-
-
     var enddate = Y + "-" + M + "-" + D
     app.postAction1('http://127.0.0.1:8000/zhengsheng/addPersonal/', {
       "openid": openidstring,
@@ -147,12 +146,11 @@ Page({
       "memberImage": app.globalData.userInfo.avatarUrl
     }).then((res) => {
       console.log('加入战队   ====== ', res.data)
-     
       if (res.data === "不能重复加入张队")
      {
         wx.showToast({
           title: '不能重复加入战队',
-          icon: 'success',
+          icon: 'error',
           duration: 2000,
         })
      }
@@ -163,16 +161,15 @@ Page({
           icon: 'success',
           duration: 2000,
         })
-
+        wx.navigateTo({
+          url: '../home/home'
+        })
      }
-      wx.navigateTo({
-        url: '../home/home'
-      })
+      
       wx.hideLoading();
     }).catch((errMsg) => {
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-    console.log(arrayTableDataWork[e.target.id].fields.studioName)
     // const db = wx.cloud.database()
     // const _ = db.command
     // db.collection('personal').where({
@@ -355,14 +352,22 @@ Page({
 
   },
   phb1: function(data) {
+    wx.showToast({
+      title: '数据载入中....... ',
+      icon: 'loading',
+      duration: 5000,
+    })
     var that = this;
     if (data == 1) {
+      tagValue = 1
       app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
         "openid": openidstring,
       }).then((res) => {
-        var data = JSON.parse(res.data.json_data);
+       
+        var data = JSON.parse(res.data.companyRankingList);
         // var personal = JSON.parse(res.json_personalData);
         console.log('[分公司排行版]  ', res)
+        wx.hideLoading();
         this.setData({
 
           isShowCompany: true,
@@ -373,10 +378,10 @@ Page({
          
 
         })
-        if (res.data.json_personalData != null) {
+        if (res.data.memberCompanyInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.companyName,
-            myCompanyNumber: res.data.json_personalData.companyIntegral,
+            myCompanyName: res.data.memberCompanyInfo.companyName,
+            myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
             // Myimage: res.data[0].image
             showPersonal: true
           })
@@ -391,10 +396,11 @@ Page({
 
     }
     if (data == 2) {
+      tagValue = 2
       app.getAction1('http://127.0.0.1:8000/zhengsheng/centerJson/', {
         "openid": openidstring,
       }).then((res) => {
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.serviceCentreRankingList);
         //
         this.setData({
 
@@ -407,10 +413,10 @@ Page({
 
         })
 
-        if (res.data.json_personalData != null) {
+        if (res.data.memberCentrerInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.serviceCentreName,
-            myCompanyNumber: res.data.json_personalData.serviceCentreIntegral,
+            myCompanyName: res.data.memberCentrerInfo.serviceCentreName,
+            myCompanyNumber: res.data.memberCentrerInfo.serviceCentreIntegral,
             // Myimage: res.data[0].image
             showPersonal: true
           })
@@ -425,12 +431,12 @@ Page({
    
     }
     if (data == 3) {
-
+      tagValue = 3
       app.getAction1('http://127.0.0.1:8000/zhengsheng/workroomJson/', {
         "openid": openidstring,
       }).then((res) => {
         console.log('[云函数] workroomJson ', res)
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.studioRankingList);
        
         arrayTableDataWork = data
         this.setData({
@@ -442,10 +448,10 @@ Page({
        
 
         })
-        if (res.data.json_personalData != null) {
+        if (res.data.memberStudioInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.studioName,
-            myCompanyNumber: res.data.json_personalData.studioIntegral,
+            myCompanyName: res.data.memberStudioInfo.studioName,
+            myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
             showPersonal: true
           })
         }
@@ -468,11 +474,12 @@ Page({
       })
     }
     if (data == 4) {
+      tagValue = 4
       app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
         "openid": openidstring,
       }).then((res) => {
         console.log('[云函数]  ', res)
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.memberRankingList);
         //
         this.setData({
 
@@ -483,12 +490,12 @@ Page({
           arrayTableDataPersion: data,
         })
        
-        if (res.data.persion != null)
+        if (res.data.memberInfo != null)
         {
           this.setData({
-          myCompanyName: res.data.persion.memberName,
-          myCompanyNumber: res.data.persion.memberIntegral,
-              Myimage: res.data.persion.memberImage,
+            myCompanyName: res.data.memberInfo.memberName,
+            myCompanyNumber: res.data.memberInfo.memberIntegral,
+            Myimage: res.data.memberInfo.memberImage,
             showPersonal: true
           })
        }
@@ -544,14 +551,89 @@ Page({
       })
     }
   },
+  wxSearchFn: function (e) {
+    var enddate = Y + "-" + M + "-" + D
+    app.postAction1('http://127.0.0.1:8000/zhengsheng/queryInfo/', {
+      "openId": openidstring,
+      "tagValue":tagValue,
+      "queryValue": this.data.wxSearchData.value,
+
+    }).then((res) => {
+      console.log('加入战队   ====== ', res.data.companyRankingList[0])
+      
+      if (tagValue == 1)
+      {
+        var data = JSON.parse(res.data.companyRankingList);
+        this.setData({
+          arrayTableDataCompany: data,
+        })
+      }
+      if (tagValue == 2) {
+        var data = JSON.parse(res.data.serviceCentreRankingList);
+        this.setData({
+          arrayTableDataCenter: data,
+        })
+      }
+      if (tagValue == 3) {
+        var data = JSON.parse(res.data.studioRankingList);
+        this.setData({
+          arrayTableDataWork: data,
+        })
+      }
+      if (tagValue == 4) {
+        var data = JSON.parse(res.data.memberRankingList);
+        this.setData({
+          arrayTableDataPersion: data,
+        })
+      }
+
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+    });
+
+    // var that = this
+    // const db = wx.cloud.database()
+    // // 查询当前用户所有的 counters
+    // db.collection(this.data.name).where({
+    //   Name: that.data.wxSearchData.value
+
+    // }).get({
+    //   success: res => {
+    //     this.setData({
+    //       arrayTableData: res.data
+    //     })
+    //     if (res.data.length == 0) {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '查询数据为空，请检查查询条件'
+    //       })
+    //     }
+    //     console.log('[数据库] 签到成功===  ', res.data)
+
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
+
+
+  },
   wxSearchInput: function(e) {
+
+
+   
     var that = this
     WxSearch.wxSearchInput(e, that);
-    console.log("搜索框" + that.data.wxSearchData.value)
-    if (that.data.wxSearchData.value == "") {
-      console.log("无数据")
-      that.MyListData(this.data.name)
-    }
+   console.log("搜索框" + that.data.wxSearchData.value)
+    // if (that.data.wxSearchData.value == "") {
+    //   console.log("无数据")
+    //   that.MyListData(this.data.name)
+    // }
 
   },
   wxSerchFocus: function(e) {
@@ -663,7 +745,7 @@ Page({
           // arrayTableData: res.data
         })
         arrayMydata = res.data
-        console.log('[数据库] 签到成功===  ', res.data)
+        console.log('[ssssssss] 签到成功===  ', res.data)
 
       },
       fail: err => {
@@ -728,7 +810,7 @@ Page({
   },
   mydataAction: function() {
     wx.navigateTo({
-      url: '../my/myData'
+      url: '../my/myData?openidstring=' + openidstring
     })
   },
   MyData: function() {
@@ -752,7 +834,7 @@ Page({
   },
   pensonalAction: function() {
     wx.navigateTo({
-      url: '../personal/personal'
+      url: '../personal/personal?id=' + openidstring
     })
   },
   paihangbang: function() {

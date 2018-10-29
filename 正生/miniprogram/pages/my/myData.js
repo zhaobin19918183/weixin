@@ -12,12 +12,13 @@ var mytimeString =""
 var doubleColumnCanvasWidth = 0;
 var doubleColumnCanvasHeight = 0;
 var openidstring = ""
-
+var tagValue = 1
 var workroomName = ""
 var workroomNumber = 0
 var centerNumber = 0
 var companyNumber = 0
 var shareOpenIdString =""
+var arrayTableDataWork = []
 var timestamp =
   Date.parse(new Date());
 //返回当前时间毫秒数
@@ -221,6 +222,7 @@ Page({
     shareOpenIdString = options.openidstring
     openidstring = options.openidstring
     this.phb1(1)
+    tagValue = 1
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
@@ -294,35 +296,39 @@ Page({
 
   },
   MyData: function() {
-
+    wx.showToast({
+      title: '数据载入中....... ',
+      icon: 'loading',
+      duration: 2000,
+    })
+    console.log("shareOpenIdString +===" + openidstring)
     app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
-      "openid": shareOpenIdString,
+      "openid": openidstring,
     }).then((res) => {
-      console.log('[我的]  ', res.data.persion.joinDate)
-  
+      console.log("joinDate == =" + res.data)
       this.setData({
-        dayNumber: res.data.persion.joinDate,
-        allNumber: res.data.persion.memberIntegral,
-        allDay: res.data.persion.continuitySigninDate,
+        dayNumber: res.data.memberInfo.joinDate,
+        allNumber: res.data.memberInfo.memberIntegral,
+        allDay: res.data.memberInfo.continuitySigninDate,
         listData: [{
           "code": "我的工作室",
-          "text": res.data.persion.studioName
+          "text": res.data.memberInfo.studioName
         },
         {
           "code": "我的积分",
-          "text": res.data.persion.memberIntegral
+          "text": res.data.memberInfo.memberIntegral
         },
         {
           "code": "工作室积分",
-          "text": res.data.persion.studioIntegral
+          "text": res.data.memberInfo.studioIntegral
         },
         {
           "code": "服务中心积分",
-          "text": res.data.persion.serviceCentreIntegral
+          "text": res.data.memberInfo.serviceCentreIntegral
         },
         {
           "code": "分公司积分",
-          "text": res.data.persion.companyIntegral
+          "text": res.data.memberInfo.companyIntegral
         },
 
         ],
@@ -332,7 +338,7 @@ Page({
 
       wx.hideLoading();
     }).catch((errMsg) => {
-      console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+      console.log("错误提示信息joinDate === " + errMsg); //错误提示信息wx.hideLoading();
     });
 
     const db = wx.cloud.database()
@@ -351,8 +357,6 @@ Page({
         }).get({
           success: res => {
 
-         
-            console.log('[数据库] res.data[0].imageArray ：', res.data[0].imageArray)
             whetaher = res.data[0].whetaher
             qiandaoYes = res.data[0].whetaher
             myCompanyId = res.data[0].MyCompany[0]
@@ -426,7 +430,7 @@ Page({
     }).catch((errMsg) => {
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-    console.log(arrayTableDataWork[e.target.id].fields.studioName)
+    
     // const db = wx.cloud.database()
     // const _ = db.command
     // db.collection('personal').where({
@@ -499,10 +503,10 @@ Page({
 
       },
       fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
+        // wx.showToast({
+        //   icon: 'none',
+        //   title: '查询记录失败'
+        // })
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
@@ -642,14 +646,22 @@ Page({
     this.phb1(data)
   },
   phb1: function (data) {
+    wx.showToast({
+      title: '数据载入中....... ',
+      icon: 'loading',
+      duration: 5000,
+    })
     var that = this;
     if (data == 1) {
+      tagValue = 1
       app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
         "openid": openidstring,
       }).then((res) => {
-        var data = JSON.parse(res.data.json_data);
+
+        var data = JSON.parse(res.data.companyRankingList);
         // var personal = JSON.parse(res.json_personalData);
         console.log('[分公司排行版]  ', res)
+        wx.hideLoading();
         this.setData({
 
           isShowCompany: true,
@@ -660,26 +672,29 @@ Page({
 
 
         })
-        if (res.data.json_personalData != null) {
+        if (res.data.memberCompanyInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.companyName,
-            myCompanyNumber: res.data.json_personalData.companyIntegral,
+            myCompanyName: res.data.memberCompanyInfo.companyName,
+            myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
             // Myimage: res.data[0].image
             showPersonal: true
           })
         }
+
+
         wx.hideLoading();
       }).catch((errMsg) => {
-        console.log("错误提示信息1 === " + errMsg); //错误提示信息wx.hideLoading();
+        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
       });
 
 
     }
     if (data == 2) {
+      tagValue = 2
       app.getAction1('http://127.0.0.1:8000/zhengsheng/centerJson/', {
         "openid": openidstring,
       }).then((res) => {
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.serviceCentreRankingList);
         //
         this.setData({
 
@@ -692,10 +707,10 @@ Page({
 
         })
 
-        if (res.data.json_personalData != null) {
+        if (res.data.memberCentrerInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.serviceCentreName,
-            myCompanyNumber: res.data.json_personalData.serviceCentreIntegral,
+            myCompanyName: res.data.memberCentrerInfo.serviceCentreName,
+            myCompanyNumber: res.data.memberCentrerInfo.serviceCentreIntegral,
             // Myimage: res.data[0].image
             showPersonal: true
           })
@@ -710,12 +725,12 @@ Page({
 
     }
     if (data == 3) {
-
+      tagValue = 3
       app.getAction1('http://127.0.0.1:8000/zhengsheng/workroomJson/', {
         "openid": openidstring,
       }).then((res) => {
         console.log('[云函数] workroomJson ', res)
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.studioRankingList);
 
         arrayTableDataWork = data
         this.setData({
@@ -727,10 +742,10 @@ Page({
 
 
         })
-        if (res.data.json_personalData != null) {
+        if (res.data.memberStudioInfo != null) {
           this.setData({
-            myCompanyName: res.data.json_personalData.studioName,
-            myCompanyNumber: res.data.json_personalData.studioIntegral,
+            myCompanyName: res.data.memberStudioInfo.studioName,
+            myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
             showPersonal: true
           })
         }
@@ -738,14 +753,13 @@ Page({
 
         wx.hideLoading();
       }).catch((errMsg) => {
-        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+        console.log("错误提示信息studioRankingList === " + errMsg); //错误提示信息wx.hideLoading();
       });
 
 
       this.setData({
         showzhandui: true,
       })
-
     } else {
       this.setData({
         showzhandui: false,
@@ -753,11 +767,12 @@ Page({
       })
     }
     if (data == 4) {
+      tagValue = 4
       app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
         "openid": openidstring,
       }).then((res) => {
         console.log('[云函数]  ', res)
-        var data = JSON.parse(res.data.json_data);
+        var data = JSON.parse(res.data.memberRankingList);
         //
         this.setData({
 
@@ -768,11 +783,11 @@ Page({
           arrayTableDataPersion: data,
         })
 
-        if (res.data.persion != null) {
+        if (res.data.memberInfo != null) {
           this.setData({
-            myCompanyName: res.data.persion.memberName,
-            myCompanyNumber: res.data.persion.memberIntegral,
-            Myimage: res.data.persion.memberImage,
+            myCompanyName: res.data.memberInfo.memberName,
+            myCompanyNumber: res.data.memberInfo.memberIntegral,
+            Myimage: res.data.memberInfo.memberImage,
             showPersonal: true
           })
         }
@@ -787,7 +802,6 @@ Page({
 
   },
   MyPersional: function(openidstr) {
-    console.log("是否分享11111" + openidstr)
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('personal').where({
@@ -1172,70 +1186,110 @@ Page({
 
   },
   pensonalAction: function() {
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').where({
-      _openid: openidstring
-    }).get({
-      success: res => {
-        if (res.data[0] != null) {
-          wx.navigateTo({
-            url: '../personal/personal'
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '尚未加入战队'
-          })
-
-        }
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
+  
+    wx.navigateTo({
+      url: '../personal/personal?id=' + openidstring
     })
+
+    // const db = wx.cloud.database()
+    // const _ = db.command
+    // db.collection('personal').where({
+    //   _openid: openidstring
+    // }).get({
+    //   success: res => {
+    //     if (res.data[0] != null) {
+          
+    //     } else {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '尚未加入战队'
+    //       })
+
+    //     }
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
 
 
   },
 
   paihangbang: function() {
     wx.navigateTo({
-      url: '../rankList/rankList'
+      url: '../rankList/rankList?shareOpenId=' + openidstring
     })
   },
   wxSearchFn: function(e) {
-    var that = this
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection(this.data.name).where({
-      Name: that.data.wxSearchData.value
+    app.postAction1('http://127.0.0.1:8000/zhengsheng/queryInfo/', {
+      "openId": openidstring,
+      "tagValue": tagValue,
+      "queryValue": this.data.wxSearchData.value,
 
-    }).get({
-      success: res => {
+    }).then((res) => {
+      console.log('加入战队   ====== ', res.data.companyRankingList[0])
+
+      if (tagValue == 1) {
+        var data = JSON.parse(res.data.companyRankingList);
         this.setData({
-          arrayTableData: res.data
+          arrayTableDataCompany: data,
         })
-        arrayMydata = res.data
-        if (res.data.length == 0) {
-          wx.showToast({
-            icon: 'none',
-            title: '查询数据为空，请检查查询条件'
-          })
-        }
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
       }
-    })
+      if (tagValue == 2) {
+        var data = JSON.parse(res.data.serviceCentreRankingList);
+        this.setData({
+          arrayTableDataCenter: data,
+        })
+      }
+      if (tagValue == 3) {
+        var data = JSON.parse(res.data.studioRankingList);
+        this.setData({
+          arrayTableDataWork: data,
+        })
+      }
+      if (tagValue == 4) {
+        var data = JSON.parse(res.data.memberRankingList);
+        this.setData({
+          arrayTableDataPersion: data,
+        })
+      }
+
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+    });
+    // var that = this
+    // const db = wx.cloud.database()
+    // // 查询当前用户所有的 counters
+    // db.collection(this.data.name).where({
+    //   Name: that.data.wxSearchData.value
+
+    // }).get({
+    //   success: res => {
+    //     this.setData({
+    //       arrayTableData: res.data
+    //     })
+    //     arrayMydata = res.data
+    //     if (res.data.length == 0) {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '查询数据为空，请检查查询条件'
+    //       })
+    //     }
+
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
 
 
   },

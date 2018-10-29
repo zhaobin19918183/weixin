@@ -105,7 +105,7 @@
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.studioImage}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='http://127.0.0.1:8000/media/{{itemName.fields.studioImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
           <label style='position: absolute;word-break:break-all;'>{{itemName.fields.studioName}}</label>
         </view>
@@ -119,7 +119,7 @@
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.fields.companyImage}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='http://127.0.0.1:8000/media/{{itemName.fields.companyImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
           <label style='position: absolute;word-break:break-all;'>{{itemName.fields.companyName}}</label>
         </view>
@@ -135,7 +135,7 @@
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.fields.serviceCentreImage}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='http://127.0.0.1:8000/media/{{itemName.fields.serviceCentreImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
           <label style='position: absolute;word-break:break-all;'>{{itemName.fields.serviceCentreName}}</label>
         </view>
@@ -150,7 +150,7 @@
       <view style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
         <label style='margin-top:6%;margin-left:8%;position: absolute' wx:if="{{idx+1>3}}">{{idx+1}}</label>
         <image wx:if="{{idx+1<4}}" class='imaget' src='../imgs/persional/jp{{idx+1}}.png' style='position: absolute;margin-left:8%'></image>
-        <image class='imaget1' src='{{itemName.fields.memberImage}}' style='position: absolute;margin-left:18%'></image>
+        <image class='imaget1' src='http://127.0.0.1:8000/media/{{itemName.fields.memberImage}}' style='position: absolute;margin-left:18%'></image>
         <view style='margin-top:8%;width:35%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
           <label style='position: absolute;word-break:break-all;'>{{itemName.fields.memberName}}</label>
         </view>
