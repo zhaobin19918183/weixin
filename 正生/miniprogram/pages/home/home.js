@@ -130,7 +130,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '../personal/personal'
+        url: '../personal/personal?id=' + openidstring
       })
     }
 
