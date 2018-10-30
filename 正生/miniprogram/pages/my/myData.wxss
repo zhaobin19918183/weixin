@@ -176,7 +176,7 @@ button::after {
 .label1 {
   font-family: "楷体";
   width: 100%;
-  color: black;
+  color: white;
   font-size: 20rpx;
   margin-top: -10%;
   /* text-align: center; *//* background: black; */
@@ -185,7 +185,7 @@ button::after {
 .table {
   margin-top: 10%;
   margin-left: 5%;
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   width: 90%;
   height: 27%;
 }
@@ -201,10 +201,11 @@ button::after {
 .td {
   width: 50%;
   height: 30px;
-  border-right: 2px solid #ddd;
+  /* border-right: 2px solid #ddd; */
   justify-content: center;
   text-align: center;
   line-height: 57rpx;
+  color: white
 }
 
 .bg-w {
@@ -214,7 +215,7 @@ button::after {
 .bg-g {
   line-height: 57rpx;
   background: #ec5d2a;
-  opacity: 0.4;
+  
 }
 
 .th {

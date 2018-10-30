@@ -66,48 +66,7 @@ var GetTableVIewList = function(that) {
     ]
   })
 }
-var GetTableVIewList2 = function(that) {
 
-  that.setData({
-
-    arrayTableData: [{
-        message: '服务在中心1排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 1
-      },
-      {
-        message: '服务在中心2排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 2
-      }, {
-        message: '服务在中心3排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 3
-      }, {
-        message: '服务在中心4排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 4
-      },
-      {
-        message: '服务在中心5排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 4
-      },
-      {
-        message: '服务在中心6排行榜',
-        imgurl: "../imgs/img01_05.png",
-        numberData: 17000,
-        id: 4
-      }
-
-    ]
-  })
-}
 var GetList = function(that) {
 
   that.setData({
@@ -227,7 +186,6 @@ Page({
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
-    this.zhuzhuangtu();
     this.setData({
       showAdverst: true,
       showCamera: false
@@ -268,32 +226,6 @@ Page({
     GetList(that);
     GetTableVIewList(that);
     that.MyData()
-    // that.MyListData('Branchrankings')
-
-      
-    
-  },
-  MyListData: function(name) {
-    this.data.name = name
-    const db = wx.cloud.database()
-    db.collection(name).orderBy('number', 'desc').get({
-      success: res => {
-        this.setData({
-          arrayTableData: res.data
-
-        })
-        
-        arrayMydata = res.data;
-        console.log('[数据库] 签到成功===  ', arrayMydata, name)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-      }
-    })
-
   },
   MyData: function() {
     wx.showToast({
@@ -305,7 +237,7 @@ Page({
     app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
       "openid": openidstring,
     }).then((res) => {
-      console.log("joinDate == =" + res.data)
+      console.log("imageListjson == =" + res.data.imageListjson)
       this.setData({
         dayNumber: res.data.memberInfo.joinDate,
         allNumber: res.data.memberInfo.memberIntegral,
@@ -335,48 +267,21 @@ Page({
         // arrayData: data.imageArray
       })
 
+      if (res.data.memberInfo.shareNumber == 3) {
 
+        this.setData({
+          buttonshow: true,
+        })
+      }
+      else {
+        this.setData({
+          buttonshow: false
+        })
+      }
       wx.hideLoading();
     }).catch((errMsg) => {
       console.log("错误提示信息joinDate === " + errMsg); //错误提示信息wx.hideLoading();
     });
-
-    const db = wx.cloud.database()
-    const _ = db.command
-    console.log('[云] ')
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函]', res.result.openid)
-        // 查询当前用户所有的 counters
-        openidstring = res.result.openid
-        // this.MyPersional(res.result.openid)
-        db.collection('personal').where({
-          _openid: res.result.openid
-        }).get({
-          success: res => {
-
-            whetaher = res.data[0].whetaher
-            qiandaoYes = res.data[0].whetaher
-            myCompanyId = res.data[0].MyCompany[0]
-            myCenterId = res.data[0].MyCenter[0]
-            myStudioId = res.data[0].MyWorkRoom[0]
-          },
-          fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '查询记录失败'
-            })
-            console.error('[数据库] [查询记录] 失败：', err)
-          }
-        })
-
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-      }
-    })
 
   },
 
@@ -394,10 +299,6 @@ Page({
       key: "disable",
       data: true
     })
-
-
-
-
     var enddate = Y + "-" + M + "-" + D
     app.postAction1('http://127.0.0.1:8000/zhengsheng/addPersonal/', {
       "openid": openidstring,
@@ -430,217 +331,9 @@ Page({
     }).catch((errMsg) => {
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-    
-    // const db = wx.cloud.database()
-    // const _ = db.command
-    // db.collection('personal').where({
-    //   _openid: openidstring
-    // }).get({
-    //   success: res => {
-    //     if (res.data[0] != null) {
-    //       wx.showToast({
-    //         title: '不能重复加入战队',
-    //         icon: 'succes',
-    //         duration: 1000,
-    //         mask: true
-    //       })
-    //     } else {
-
-    //       var workroom = []
-
-    //       if (arrayMydata.length > 1) {
-
-    //         workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
-
-    //         this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
-    //         workroomName = arrayMydata[e.target.id].Name
-    //         workroomNumber = arrayMydata[e.target.id].number
-
-
-
-    //       } else {
-
-    //         workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
-    //         this.searchCenter(arrayMydata[0].centerID, workroom)
-    //         workroomName = arrayMydata[0].Name
-    //         workroomNumber = arrayMydata[0].number
-
-    //       }
-
-    //     }
-
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
   },
-  searchCenter: function(centerid, workroom) {
-    var myCenterArray = [];
-    var that = this
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection("ServiceCenterrankings").where({
-      _id: centerid
+ 
 
-    }).get({
-      success: res => {
-        myCenterArray = [res.data[0]._id, res.data[0].Name]
-        console.log("中心 == " + res.data[0].number)
-        centerNumber = res.data[0].number
-
-        this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
-        if (res.data.length == 0) {
-          wx.showToast({
-            icon: 'none',
-            title: '查询数据为空，请检查查询条件'
-          })
-        }
-
-      },
-      fail: err => {
-        // wx.showToast({
-        //   icon: 'none',
-        //   title: '查询记录失败'
-        // })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-
-
-  },
-  myCompanyData: function(companyID, workroom, centerArray) {
-    var that = this
-    const db = wx.cloud.database()
-    var myCompanyArray = [];
-
-    // 查询当前用户所有的 counters
-    db.collection("Branchrankings").where({
-      _id: companyID
-
-    }).get({
-      success: res => {
-
-        myCompanyArray = [res.data[0]._id, res.data[0].Name]
-        companyNumber = res.data[0].number
-        this.addPensonal(workroom, centerArray, myCompanyArray)
-        if (res.data.length == 0) {
-          wx.showToast({
-            icon: 'none',
-            title: '查询数据为空，请检查查询条件'
-          })
-        }
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  },
-  addPensonal: function(workroom, centerArray, myCompanyArray) {
-    wx.showToast({
-      title: '加入中',
-      icon: 'loading',
-      duration: 10000
-    })
-    var enddate = Y + "-" + M + "-" + D
-   
-    var numberdata = 0
-    const db = wx.cloud.database()
-    db.collection('personal').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        MyCompanyNumber: companyNumber,
-        MyNumber: 0,
-        MyCenterNumber: centerNumber,
-        MyWorkRoom: workroom,
-        MyCompany: myCompanyArray,
-        MyCenter: centerArray,
-        MyWorkRoomNumber: workroomNumber,
-        Name: app.globalData.userInfo.nickName,
-        allDay: 0,
-        day: 0,
-        image: app.globalData.userInfo.avatarUrl,
-        myStudio: [workroomName,
-          numberdata,
-          workroomNumber,
-          centerNumber,
-          companyNumber
-        ],
-        imageArray:[],
-        number: 0,
-        time: enddate,
-        whetaher: 0,
-        share:0
-      },
-      success: function(res) {
-
-          wx.navigateTo({
-            url: '../home/home'
-          })
-          wx.showToast({
-            title: '加入战队成功',
-            icon: 'success',
-            duration: 2000,
-          })
-      
-      },
-      fail: console.error
-    })
-
-  },
-  MyBranchrankings: function () {
-    var that = this
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('Branchrankings').doc(myCompanyId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        // 表示将 done 字段置为 true
-        number: _.inc(5),
-      },
-      success: function (res) {
-        console.log(res.data)
-      }
-    })
-  },
-  MyServiceCenterrankings: function () {
-    var that = this
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('ServiceCenterrankings').doc(myCenterId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        number: _.inc(5),
-      },
-      success: function (res) {
-        console.log("MyServiceCenterrankings === " + res.data)
-      }
-    })
-
-  },
-  MyStudioRankings: function () {
-    var that = this
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('StudioRankings').doc(myStudioId).update({
-      // data 传入需要局部更新的数据
-      data: {
-        // 表示将 done 字段置为 true
-        number: _.inc(5),
-      },
-      success: function (res) {
-        console.log(res.data)
-      }
-    })
-  },
   panghangbang: function(e) {
     var data = e.target.id
     this.phb1(data)
@@ -843,7 +536,7 @@ Page({
   },
 
   onShareAppMessage: function(res) {
-    this.jifeng(openidstring)
+    this.shareAppMessage(openidstring)
     return {
       title: '慧吃慧动100天',
       // 分享时在路径后拼接参数，可拼接多个参数。 
@@ -864,46 +557,31 @@ Page({
     }
   }
   ,
-  jifeng: function (shareid) {
-    console.log("是分享========" + shareid)
-    const db = wx.cloud.database()
-    const _ = db.command
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        //  var openidstri =  
-        db.collection('personal').where({
-          _openid: shareid
-        })
-          .get({
-            success: function (res) {
-              console.log(res.data[0]._id)
+  shareAppMessage:function(openid)
+  {
 
-              db.collection('personal').doc(res.data[0]._id).update({
-                data: {
-                  // 表示指示数据库将字段自增 10
-                  number: _.inc(5),
-                  MyNumber: _.inc(5),
-                  share:_.inc(1)
-                },
-                success: function (res) {
-                  console.log(res.data)
-                }
-              })
-            }
-          })
-
-
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
+    app.postAction1('http://127.0.0.1:8000/zhengsheng/share/', {
+      "openid": openidstring,
+    }).then((res) => {
+      console.log('分享完成1   ====== ', res.data)
+      this.MyData()
+      if (res.data === "分享完成") {
+        console.log('分享完成2   ====== ', res.data)
       }
-    })
+      else {
+        
+        console.log('分享完成3   ====== ', res.data)
+      }
+ 
+      wx.hideLoading();
+    }).catch((errMsg) => {
+      console.log("错误提示信息 分享完成=== " + errMsg); //错误提示信息wx.hideLoading();
+    });
 
-  },
+  }
+  ,
+
   show: function() {
-
 
     this.setData({
       flag: false
@@ -920,231 +598,6 @@ Page({
 
   },
 
-  zhuzhuangtu: function() {
-    var imageWidth = wx.getSystemInfoSync().windowWidth
-    rate = imageWidth / 750;
-    var updateData = {};
-    doubleColumnCanvasWidth = imageWidth - rate * 64;
-    doubleColumnCanvasHeight = rate * 304 + rate * 20 + rate * 32 + rate * 24;
-    var doubleColumnYMax = 0;
-    var doubleColumnYMin = 0;
-    updateData['doubleColumnCanvasData.canvasWidth'] = doubleColumnCanvasWidth;
-    updateData['doubleColumnCanvasData.axisPadd'] = {
-      left: rate * 10,
-      top: rate * 20,
-      right: rate * 10
-    };
-    updateData['doubleColumnCanvasData.axisMargin'] = {
-      bottom: rate * 32,
-      left: rate * 20,
-      right: rate * 20
-    };
-    updateData['doubleColumnCanvasData.yAxis.fontSize'] = rate * 22;
-    updateData['doubleColumnCanvasData.yAxis.fontColor'] = '#637280';
-    updateData['doubleColumnCanvasData.yAxis.lineColor'] = '#DCE0E6';
-    updateData['doubleColumnCanvasData.yAxis.lineWidth'] = rate * 2;
-    updateData['doubleColumnCanvasData.yAxis.dataWidth'] = rate * 62;
-    updateData['doubleColumnCanvasData.yAxis.isShow'] = true;
-    updateData['doubleColumnCanvasData.yAxis.isDash'] = true;
-    updateData['doubleColumnCanvasData.yAxis.minData'] = doubleColumnYMin;
-    updateData['doubleColumnCanvasData.yAxis.maxData'] = doubleColumnYMax;
-    updateData['doubleColumnCanvasData.yAxis.padd'] = rate * 304 / (doubleColumnYMax - doubleColumnYMin);
-
-    updateData['doubleColumnCanvasData.xAxis.dataHeight'] = rate * 26;
-    updateData['doubleColumnCanvasData.xAxis.fontSize'] = rate * 22;
-    updateData['doubleColumnCanvasData.xAxis.fontColor'] = '#637280';
-    updateData['doubleColumnCanvasData.xAxis.lineColor'] = '#DCE0E6';
-    updateData['doubleColumnCanvasData.xAxis.lineWidth'] = rate * 2;
-    updateData['doubleColumnCanvasData.xAxis.padd'] = rate * 132;
-    updateData['doubleColumnCanvasData.xAxis.dataWidth'] = rate * 48;
-    updateData['doubleColumnCanvasData.xAxis.leftOffset'] = rate * 48;
-
-
-    updateData['doubleColumnCanvasData.canvasHeight'] = doubleColumnCanvasHeight;
-    updateData['doubleColumnCanvasData.enableScroll'] = false;
-
-
-    updateData['doubleColumnCanvasData.point'] = {
-      bColor: "#FFA848",
-      sClor: "#FFFFFF",
-      size: rate * 4,
-      isShow: true
-    };
-    updateData['doubleColumnCanvasData.touchDetail.width'] = rate * 144;
-    updateData['doubleColumnCanvasData.touchDetail.height'] = rate * 149;
-    updateData['doubleColumnCanvasData.touchDetail.fontSize'] = rate * 20;
-    updateData['doubleColumnCanvasData.touchDetail.fontColor'] = '#ffffff';
-    updateData['doubleColumnCanvasData.touchDetail.padd'] = rate * 12;
-    updateData['doubleColumnCanvasData.touchDetail.bgColor'] = "#637280";
-    updateData['doubleColumnCanvasData.touchDetail.lineSpacingExtra'] = rate * 12;
-    let doubleCloumnRightYAxisData = [];
-    let doubleCloumnRightYMax = 0;
-    let doubleCloumnRightYMin = 0;
-    let doubleCloumnRatio = 1;
-
-    let doubleColumnSeries = {
-      cloumnData: {
-        data: [{
-            axis: [{
-                x: "搜索类",
-                y: "100",
-                columnStartColor: "#3DB2FF",
-                columnEndColor: "#0077FF"
-              },
-              {
-                x: "搜索类",
-                y: "80",
-                columnStartColor: "#2BE99F",
-                columnEndColor: "#13CE66"
-              },
-              {
-                x: "搜索类",
-                y: "180",
-                columnStartColor: "#2BE99F",
-                columnEndColor: "#13CE66"
-              }
-            ],
-            x: '搜索类',
-            y: 100,
-            title: "搜索类|展现量10000|点击量:1000|点击率:10%"
-          },
-          {
-            axis: [{
-                x: "资讯类",
-                y: "930",
-                columnStartColor: "#3DB2FF",
-                columnEndColor: "#0077FF"
-              },
-              {
-                x: "资讯类",
-                y: "730",
-                columnStartColor: "#2BE99F",
-                columnEndColor: "#13CE66"
-              }
-            ],
-            x: '资讯类',
-            y: 930,
-            title: "资讯类|展现量:10000|点击量:1000|点击率:10%"
-          },
-          {
-            axis: [{
-                x: "社交类",
-                y: "430",
-                columnStartColor: "#3DB2FF",
-                columnEndColor: "#0077FF"
-              },
-              {
-                x: "社交类",
-                y: "530",
-                columnStartColor: "#2BE99F",
-                columnEndColor: "#13CE66"
-              }
-            ],
-            x: '社交类',
-            y: 430,
-            title: "社交类|展现量:10000|点击量:1000|点击率:10%"
-          },
-
-        ],
-        columnStartColor: "#2BE99F",
-        columnEndColor: "#13CE66"
-      }
-    };
-    let doubleColumnXAxisData = [{
-        x: '搜索类',
-        y: 0,
-        title: "搜索类"
-      },
-      {
-        x: '资讯类',
-        y: 0,
-        title: "资讯类"
-      },
-      {
-        x: '社交类',
-        y: 0,
-        title: "社交类"
-      },
-    ];
-    let doubleColumnYAxisData = [];
-    doubleColumnYMax = 1000;
-    doubleColumnYMin = 0;
-    doubleColumnYMax = this.getYMax(doubleColumnYMax);
-    doubleColumnYAxisData = this.getYAxiss(doubleColumnYMax);
-
-    doubleCloumnRightYMax = this.getYMax(6.0 * 100);
-    doubleCloumnRatio = doubleColumnYMax / doubleCloumnRightYMax;
-
-    updateData['doubleColumnCanvasData.yAxis.minData'] = doubleColumnYMin;
-    updateData['doubleColumnCanvasData.yAxis.maxData'] = doubleColumnYMax;
-    updateData['doubleColumnCanvasData.series'] = doubleColumnSeries;
-    updateData['doubleColumnCanvasData.xAxis.data'] = doubleColumnXAxisData;
-    updateData['doubleColumnCanvasData.yAxis.data'] = doubleColumnYAxisData;
-    updateData['doubleColumnCanvasData.yAxis.rightData'] = doubleCloumnRightYAxisData;
-    updateData['doubleColumnCanvasData.yAxis.padd'] = rate * 304 / (doubleColumnYMax - doubleColumnYMin);
-    this.setData(updateData);
-
-
-  },
-  /**
-   * 获得y轴最大值
-   * @param  {[type]} yMax 当前最大值
-   * @return {[type]}      [description]
-   */
-  getYMax: function(yMax) {
-    let maxInt = Math.floor(yMax);
-    let maxLength = maxInt.toString().length;
-    let interval = 0;
-    if (maxInt == 0) {
-      interval = 3 * Math.pow(10, 1);
-    } else {
-      if (maxLength > 3) {
-        interval = 3 * Math.pow(10, maxLength - 2);
-      } else {
-        interval = 3 * Math.pow(10, maxLength - 1);
-      }
-    }
-
-    let remainder = maxInt % interval;
-    let conversionMax = ((maxInt - remainder) / interval + 1) * interval;
-    return conversionMax;
-  },
-
-  /**
-   * 获得y轴数组
-   * @param  {[type]} yMax y轴最大值
-   * @return {[type]}      [description]
-   */
-  getYAxiss: function(yMax) {
-    let yAxisData = [];
-
-    let avg = yMax / 3;
-
-    let point = {};
-    point.x = 0;
-    point.y = 0;
-    point.title = '0'
-    yAxisData.push(point);
-
-    let point1 = {};
-    point1.x = 0;
-    point1.y = Math.floor(avg);
-    point1.title = Math.floor(avg);
-    yAxisData.push(point1);
-
-    let point2 = {};
-    point2.x = 0;
-    point2.y = Math.floor(avg) * 2;;
-    point2.title = Math.floor(avg) * 2;
-    yAxisData.push(point2);
-
-    let point3 = {};
-    point3.x = 0;
-    point3.y = Math.floor(avg) * 3;
-    point3.title = Math.floor(avg) * 3;
-    yAxisData.push(point3);
-    return yAxisData;
-  },
   backAction: function() {
     wx.navigateBack()
   },
@@ -1153,70 +606,11 @@ Page({
       url: '../home/home'
     })
   },
-  mydataAction: function() {
-
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').where({
-      _openid: openidstring
-    }).get({
-      success: res => {
-        if (res.data[0] != null) {
-          wx.navigateTo({
-            url: '../my/myData'
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '尚未加入战队'
-          })
-
-        }
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-
-
-  },
   pensonalAction: function() {
   
     wx.navigateTo({
       url: '../personal/personal?id=' + openidstring
     })
-
-    // const db = wx.cloud.database()
-    // const _ = db.command
-    // db.collection('personal').where({
-    //   _openid: openidstring
-    // }).get({
-    //   success: res => {
-    //     if (res.data[0] != null) {
-          
-    //     } else {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '尚未加入战队'
-    //       })
-
-    //     }
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
-
-
   },
 
   paihangbang: function() {
@@ -1262,35 +656,7 @@ Page({
     }).catch((errMsg) => {
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-    // var that = this
-    // const db = wx.cloud.database()
-    // // 查询当前用户所有的 counters
-    // db.collection(this.data.name).where({
-    //   Name: that.data.wxSearchData.value
-
-    // }).get({
-    //   success: res => {
-    //     this.setData({
-    //       arrayTableData: res.data
-    //     })
-    //     arrayMydata = res.data
-    //     if (res.data.length == 0) {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '查询数据为空，请检查查询条件'
-    //       })
-    //     }
-
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
-
+    
 
   },
   wxSearchInput: function(e) {
@@ -1299,7 +665,6 @@ Page({
     console.log("搜索框" + that.data.wxSearchData.value)
     if (that.data.wxSearchData.value == "") {
       console.log("无数据")
-      that.MyListData(this.data.name)
     }
 
   },

@@ -32,76 +32,7 @@ var tagValue = 1
    10 ? '0' + date.getDate() :
    date.getDate();
 
- var GetTableVIewList = function(that) {
 
-   that.setData({
-     arrayTableData: [{
-         message: '分公司排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 16000,
-         id: 1
-       }, {
-         message: '服务中心排行榜',
-         imgurl: "../imgs/img01_07.png",
-         numberData: 16000,
-         id: 2
-       }, {
-         message: '工作室排行榜',
-         imgurl: "../imgs/img01_09.png",
-         numberData: 16000,
-         id: 3
-       }, {
-         message: '个人排行榜',
-         imgurl: "../imgs/img01_11.png",
-         numberData: 16000,
-         id: 4
-       }
-
-     ]
-   })
- }
- var GetTableVIewList2 = function(that) {
-
-   that.setData({
-
-     arrayTableData: [{
-         message: '服务在中心1排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 1
-       },
-       {
-         message: '服务在中心2排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 2
-       }, {
-         message: '服务在中心3排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 3
-       }, {
-         message: '服务在中心4排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 4
-       },
-       {
-         message: '服务在中心5排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 4
-       },
-       {
-         message: '服务在中心6排行榜',
-         imgurl: "../imgs/img01_05.png",
-         numberData: 17000,
-         id: 4
-       }
-
-     ]
-   })
- }
  var GetList = function(that) {
 
    that.setData({
@@ -331,58 +262,13 @@ var tagValue = 1
 
      var that = this;
      GetList(that);
-     GetTableVIewList(that);
+
      that.MyData()
 
      that.MyListData('Branchrankings');
 
    },
-   MyBranchrankings: function() {
-     var that = this
-     const db = wx.cloud.database()
-     const _ = db.command
-     db.collection('Branchrankings').doc(myCompanyId).update({
-       // data 传入需要局部更新的数据
-       data: {
-         // 表示将 done 字段置为 true
-         number: _.inc(5),
-       },
-       success: function(res) {
-         console.log(res.data)
-       }
-     })
-   },
-   MyServiceCenterrankings: function() {
-     var that = this
-     console.log("myCenterId === " + myCenterId)
-     const db = wx.cloud.database()
-     const _ = db.command
-     db.collection('ServiceCenterrankings').doc(myCenterId).update({
-       // data 传入需要局部更新的数据
-       data: {
-         number: _.inc(5),
-       },
-       success: function(res) {
-         console.log("MyServiceCenterrankings === " + res.data)
-       }
-     })
-
-   },
-   MyStudioRankings: function() {
-     var that = this
-     const db = wx.cloud.database()
-     const _ = db.command
-     db.collection('StudioRankings').doc(myStudioId).update({
-       // data 传入需要局部更新的数据
-       data: {
-         // 表示将 done 字段置为 true
-         number: _.inc(5),
-       },
-       success: function(res) {
-         console.log(res.data)
-       }
-     })
-   },
+ 
    MyData: function() {
 
      wx.showToast({
@@ -397,7 +283,17 @@ var tagValue = 1
        console.log("serviceCentreName == =" + res.data.memberInfo.serviceCentreName)
        console.log("studioName == =" + res.data.memberInfo.studioName)
 
-      
+       if (res.data.memberInfo.shareNumber == 3) {
+
+         this.setData({
+           buttonshow: true,
+         })
+       }
+       else {
+         this.setData({
+           buttonshow: false
+         })
+       }
        this.setData({
          dayNumber: res.data.memberInfo.joinDate,
          allNumber: res.data.memberInfo.memberIntegral,
@@ -405,8 +301,6 @@ var tagValue = 1
          startCompany: res.data.memberInfo.companyName,
          startworkroom: res.data.memberInfo.serviceCentreName,
          startcenter: res.data.memberInfo.studioName
-         //clockIn
-         // arrayData: data.imageArray
        })
        qiandaoYes = res.data.memberInfo.isWhetaher
 
@@ -417,51 +311,9 @@ var tagValue = 1
      });
 
 
-
-     //  const db = wx.cloud.database()
-     //  const _ = db.command
-     //  wx.cloud.callFunction({
-     //    name: 'login',
-     //    data: {},
-     //    success: res => {
-     //       console.log('[云函数] [login] user openid: ', res.result.openid)
-     //         // 查询当前用户所有的 counters
-     //      openidstring = res.result.openid
-     //      this.MyPersional(openidstring)
-     //  db.collection('personal').where({
-     //    _openid: openidstring
-     //  }).get({
-     //    success: res => {
-     //      this.setData({
-     //        dayNumber: res.data[0].day,
-     //        allNumber: res.data[0].MyNumber,
-     //        allDay: res.data[0].allDay 
-     //      })
-     //      console.log('[数据库] [查询记录] ：', res)
-     //      whetaher = res.data[0].whetaher
-     //       = res.data[0].whetaher
-     //      myCompanyId = res.data[0].MyCompany[0]
-     //      myCenterId = res.data[0].MyCenter[0]
-     //      myStudioId = res.data[0].MyWorkRoom[0]
-     //    },
-     //    fail: err => {
-     //      wx.showToast({
-     //        icon: 'none',
-     //        title: '查询记录失败'
-     //      })
-     //      console.error('[数据库] [查询记录] 失败：', err)
-     //    }
-     //  })
-
-     //    },
-     //    fail: err => {
-     //      console.error('[云函数] [login] 调用失败', err)
-     //    }
-     //  })
-
    },
    onShareAppMessage: function(res) {
-     this.jifeng(openidstring)
+     this.shareAppMessage(openidstring)
      return {
        title: '慧吃慧动100天',
        // 分享时在路径后拼接参数，可拼接多个参数。 
@@ -483,44 +335,30 @@ var tagValue = 1
        }
      }
    },
+   shareAppMessage: function (openid) {
+
+     app.postAction1('http://127.0.0.1:8000/zhengsheng/share/', {
+       "openid": openidstring,
+     }).then((res) => {
+       console.log('分享完成1   ====== ', res.data)
+       this.MyData()
+       if (res.data === "分享完成") {
+         console.log('分享完成2   ====== ', res.data)
+       }
+       else {
+
+         console.log('分享完成3   ====== ', res.data)
+       }
+
+       wx.hideLoading();
+     }).catch((errMsg) => {
+       console.log("错误提示信息 分享完成=== " + errMsg); //错误提示信息wx.hideLoading();
+     });
+
+   }
+   ,
    shareAction: function(openidstr) {
      this.jifeng(openidstr)
-   },
-   jifeng: function(shareid) {
-
-     const db = wx.cloud.database()
-     const _ = db.command
-     wx.cloud.callFunction({
-       name: 'login',
-       data: {},
-       success: res => {
-         //  var openidstri =  
-         db.collection('personal').where({
-             _openid: shareid
-           })
-           .get({
-             success: function(res) {
-               db.collection('personal').doc(res.data[0]._id).update({
-                 data: {
-                   // 表示指示数据库将字段自增 10
-                   number: _.inc(5),
-                   MyNumber: _.inc(5),
-                   share: _.inc(1)
-                 },
-                 success: function(res) {
-                   console.log(res.data)
-                 }
-               })
-             }
-           })
-
-
-       },
-       fail: err => {
-         console.error('[云函数] [login] 调用失败', err)
-       }
-     })
-
    },
 
    show: function() {
@@ -539,42 +377,6 @@ var tagValue = 1
        flag: true
      })
 
-   },
-   jiaruzhandui: function() {
-     const db = wx.cloud.database()
-     const _ = db.command
-     db.collection('personal').where({
-       _openid: openidstring
-     }).get({
-       success: res => {
-         if (res.data[0] != null) {
-           wx.showToast({
-             title: '不能重复加入战队',
-             icon: 'succes',
-             duration: 1000,
-             mask: true
-           })
-         } else {
-
-         }
-
-       },
-       fail: err => {
-         wx.showToast({
-           icon: 'none',
-           title: '查询记录失败'
-         })
-         console.error('[数据库] [查询记录] 失败：', err)
-       }
-     })
-
-   },
-   yiqiandao: function() {
-     // wx.navigateTo({
-     //   url: '../my/myData'
-     // })
-     var that = this;
-     //  this.bindChooiceProduct()
    },
    qiandao: function() {
 
@@ -627,93 +429,7 @@ var tagValue = 1
       
 
      }
-     //  var that = this;
-     //  that.MyData()
-
-     //  if (whetaher == 1) {
-     //      
-
-     //  }
-     //  if (that.data.that.data.show1  == 2) {
-     //    wx.showToast({
-     //      title: '签到中.......',
-     //      icon: 'loading',
-     //      duration: 5000,
-     //    })
-     //    if (qiandaoYes== 0)
-     //    {
-     //      const db = wx.cloud.database()
-     //      const _ = db.command
-     //      wx.cloud.callFunction({
-     //        name: 'login',
-     //        data: {},
-     //        success: res => {
-     //          db.collection('personal').where({
-     //            _openid: res.result.openid
-     //          })
-     //            .get({
-     //              success: function (res) {
-     //                var allday = res.data[0].allDay
-     //                var updateNumber = 5 + allday *5
-     //                db.collection('personal').doc(res.data[0]._id).update({
-     //                  // data 传入需要局部更新的数据
-     //                  data: {
-     //                    whetaher: 1,
-     //                    MyCenterNumber: _.inc(updateNumber),
-     //                    MyCompanyNumber: _.inc(updateNumber),
-     //                    MyWorkRoomNumber: _.inc(updateNumber),
-     //                    MyNumber: _.inc(updateNumber),
-     //                    number: _.inc(updateNumber),
-     //                    day: _.inc(1),
-     //                    allDay: _.inc(1),
-     //                    time: Y + "-" + M + "-" + D,
-     //                    continuousSing: 0,
-     //                  }
-
-     //                }).then
-     //                {
-     //                  wx.showToast({
-     //                    title: '签到成功',
-     //                    icon: 'success',
-     //                    duration: 2000,
-     //                  })
-     //                  that.MyBranchrankings()
-     //                  that.MyServiceCenterrankings()
-     //                  that.MyStudioRankings()
-     //                  wx.navigateTo({
-     //                    url: '/pages/home/home'
-     //                  })
-     //                }
-     //              }
-     //            })
-
-
-     //        },
-     //        fail: err => {
-     //          wx.showToast({
-     //            title: '服务器开小差了。。。',
-     //            icon: 'error',
-     //            duration: 2000,
-     //          })
-     //          wx.navigateTo({
-     //            url: '/pages/home/home'
-     //          })
-     //          console.error('[云函数] [login] 调用失败', err)
-     //        }
-     //      })
-
-
-     //    }
-
-     //  }
-
-     //    if (whetaher == 0) {
-     //      that.data.show1 = 2
-     //      this.setData({
-     //        showAdverst: false,
-     //        showCamera: true
-     //      })
-     //    }
+     
 
    },
 
@@ -1121,16 +837,20 @@ var tagValue = 1
            duration: 10000
          })
          var uploadImgCount = 0;
+         var enddate = Y + "-" + M + "-" + D
          for (var i = 0, h = tempFilePaths.length; i < h; i++) {
            wx.uploadFile({
-             url: 'http://192.168.8.118:8082/zeacen/wechatapplet/signIn',
+             url: 'http://127.0.0.1:8000/zhengsheng/clockIn/',
              filePath: tempFilePaths[i],
              name: 'uploadfile',
              formData: {
-               'openId': openid
+               "openid": openidstring,
+               'time': enddate,
+               "imageName": app.globalData.userInfo.nickName,
              },
              header: {
-               "Content-Type": "multipart/form-data"
+               "Content-Type": "multipart/form-data",
+
              },
              success: function(res) {
                uploadImgCount++;
