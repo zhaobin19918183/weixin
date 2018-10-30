@@ -30,7 +30,7 @@
         <text style='position: absolute;margin-top:114%;margin-left:7%;font-size:30rpx;font-weight:bold;text-align: center;'>{{continuitySigninDate}}</text>
         <text style='position: absolute;margin-top:114%;margin-left:118px;font-size:25rpx;font-weight:bold'>总积分</text>
         <image  src='../imgs/tianshu.png' style='width:200px;height:54px;position: absolute;margin-top:126%;'></image>
-        <text style='position: absolute;margin-top:129.5%;margin-left:15.5%;font-size:30rpx;font-weight:bold;text-align: center;'>{{joinDate}}</text>
+        <label style='position: absolute;margin-top:129.5%;margin-left:16%;font-size:30rpx;font-weight:bold;text-align: center;'>{{joinDate}}</label>
         <text style='position: absolute;margin-top:130%;margin-left:1%;font-size:23rpx;font-weight:bold'>参加天数</text>
         <image bindtap='goSingIn' id='3' src='../imgs/canyu.png' style='width:200px;height:54px;position: absolute;margin-top:143%;'></image>
          <text style='color:#fff;position: absolute;margin-top:145%;margin-left:5%;font-size:50rpx;font-weight:bold'>我要参与</text>

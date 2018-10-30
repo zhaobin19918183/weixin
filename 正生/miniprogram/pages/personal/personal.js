@@ -192,34 +192,7 @@ var tagValue = 1
      }).catch((errMsg) => {
        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
      });
-    //  var that = this
-    //  const db = wx.cloud.database()
-    //  // 查询当前用户所有的 counters
-    //  db.collection(this.data.name).where({
-    //    Name: that.data.wxSearchData.value
-
-    //  }).get({
-    //    success: res => {
-    //      this.setData({
-    //        arrayTableData: res.data
-    //      })
-    //      if (res.data.length == 0) {
-    //        wx.showToast({
-    //          icon: 'none',
-    //          title: '查询数据为空，请检查查询条件'
-    //        })
-    //      }
-    //      console.log('[数据库] 签到成功===  ', res.data)
-
-    //    },
-    //    fail: err => {
-    //      wx.showToast({
-    //        icon: 'none',
-    //        title: '查询记录失败'
-    //      })
-    //      console.error('[数据库] [查询记录] 失败：', err)
-    //    }
-    //  })
+  
 
 
    },
@@ -481,7 +454,7 @@ var tagValue = 1
          console.log('[分公司排行版]  ', res)
          wx.hideLoading();
          this.setData({
-
+           searchString: "请输入分公司全称进行搜索",
            isShowCompany: true,
            isShowWorkRoom: false,
            isShowCenter: false,
@@ -515,7 +488,7 @@ var tagValue = 1
          var data = JSON.parse(res.data.serviceCentreRankingList);
          //
          this.setData({
-
+           searchString: "请输入服务中心名称进行搜索",
            isShowCompany: false,
            isShowWorkRoom: false,
            isShowCenter: true,
@@ -552,6 +525,7 @@ var tagValue = 1
 
          arrayTableDataWork = data
          this.setData({
+           searchString: "请输入工作室名称进行搜索",
            isShowCompany: false,
            isShowWorkRoom: true,
            isShowCenter: false,
@@ -594,7 +568,7 @@ var tagValue = 1
          var data = JSON.parse(res.data.memberRankingList);
          //
          this.setData({
-
+           searchString: "请输入昵称进行搜索",
            isShowCompany: false,
            isShowWorkRoom: false,
            isShowCenter: false,

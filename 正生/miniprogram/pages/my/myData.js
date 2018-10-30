@@ -237,8 +237,11 @@ Page({
     app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
       "openid": openidstring,
     }).then((res) => {
+     
+      var data = JSON.parse(res.data.imageListjson);
       console.log("imageListjson == =" + res.data.imageListjson)
       this.setData({
+        arrayData: data,
         dayNumber: res.data.memberInfo.joinDate,
         allNumber: res.data.memberInfo.memberIntegral,
         allDay: res.data.memberInfo.continuitySigninDate,
@@ -264,7 +267,7 @@ Page({
         },
 
         ],
-        // arrayData: data.imageArray
+         
       })
 
       if (res.data.memberInfo.shareNumber == 3) {
@@ -350,13 +353,13 @@ Page({
       app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
         "openid": openidstring,
       }).then((res) => {
-
+        
         var data = JSON.parse(res.data.companyRankingList);
         // var personal = JSON.parse(res.json_personalData);
         console.log('[分公司排行版]  ', res)
         wx.hideLoading();
         this.setData({
-
+          searchString: "请输入分公司全称进行搜索",
           isShowCompany: true,
           isShowWorkRoom: false,
           isShowCenter: false,
@@ -390,7 +393,7 @@ Page({
         var data = JSON.parse(res.data.serviceCentreRankingList);
         //
         this.setData({
-
+          searchString: "请输入服务中心进行搜索",
           isShowCompany: false,
           isShowWorkRoom: false,
           isShowCenter: true,
@@ -424,7 +427,7 @@ Page({
       }).then((res) => {
         console.log('[云函数] workroomJson ', res)
         var data = JSON.parse(res.data.studioRankingList);
-
+        searchString: "请输入工作室进行搜索",
         arrayTableDataWork = data
         this.setData({
           isShowCompany: false,
@@ -468,7 +471,7 @@ Page({
         var data = JSON.parse(res.data.memberRankingList);
         //
         this.setData({
-
+          searchString: "请输入昵称进行搜索",
           isShowCompany: false,
           isShowWorkRoom: false,
           isShowCenter: false,

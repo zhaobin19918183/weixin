@@ -58,8 +58,8 @@
   </view>
   <text style='position: absolute;margin-left:10%;width:80%;text-align: center;margin-top:60%;color:white'>打卡情况</text>
   <scroll-view scroll-y="true" class='tableview' style='height:220px;position: absolute;margin-top:70%'>
-    <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_horizontal2' style='margin-top:5%'>
-      <image src='{{arrayData[idx]}}' style='margin-left:15%;height:200px;width:70%;'> </image>
+    <view wx:for="{{arrayData}}" wx:key="{{itemName.fields.image}}" wx:for-index="idx" wx:for-item="itemName" class='layout_horizontal2' style='margin-top:5%'>
+      <image src='http://127.0.0.1:8000/media/{{arrayData[idx].fields.image}}' style='margin-left:15%;height:200px;width:70%;'> </image>
       <!-- <image src='{{arrayData[idx+1]}}' style='height:100px;width:40%;margin-left:10%;'></image> -->
     </view>
   </scroll-view>

@@ -170,53 +170,7 @@ Page({
     }).catch((errMsg) => {
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-    // const db = wx.cloud.database()
-    // const _ = db.command
-    // db.collection('personal').where({
-    //   _openid: openidstring
-    // }).get({
-    //   success: res => {
-    //     if (res.data[0] != null) {
-    //       wx.showToast({
-    //         title: '不能重复加入战队',
-    //         icon: 'succes',
-    //         duration: 1000,
-    //         mask: true
-    //       })
-    //     } else {
-
-    //       var workroom = []
-
-    //       if (arrayMydata.length > 1) {
-
-    //         workroom = [arrayMydata[e.target.id]._id, arrayMydata[e.target.id].Name]
-
-    //         this.searchCenter(arrayMydata[e.target.id].centerID, workroom)
-    //         workroomName = arrayMydata[e.target.id].Name
-    //         workroomNumber = arrayMydata[e.target.id].number
-
-
-
-    //       } else {
-
-    //         workroom = [arrayMydata[0]._id, arrayMydata[0].Name]
-    //         this.searchCenter(arrayMydata[0].centerID, workroom)
-    //         workroomName = arrayMydata[0].Name
-    //         workroomNumber = arrayMydata[0].number
-
-    //       }
-
-    //     }
-
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
+   
   },
 
   searchCenter: function(centerid, workroom) {
@@ -369,7 +323,7 @@ Page({
         console.log('[分公司排行版]  ', res)
         wx.hideLoading();
         this.setData({
-
+          searchString: "请输入分公司全称进行搜索",
           isShowCompany: true,
           isShowWorkRoom: false,
           isShowCenter: false,
@@ -403,7 +357,7 @@ Page({
         var data = JSON.parse(res.data.serviceCentreRankingList);
         //
         this.setData({
-
+          searchString: "请输入服务中心名称进行搜索",
           isShowCompany: false,
           isShowWorkRoom: false,
           isShowCenter: true,
@@ -440,6 +394,7 @@ Page({
        
         arrayTableDataWork = data
         this.setData({
+          searchString: "请输入工作室名称进行搜索",
           isShowCompany: false,
           isShowWorkRoom: true,
           isShowCenter: false,
@@ -482,7 +437,7 @@ Page({
         var data = JSON.parse(res.data.memberRankingList);
         //
         this.setData({
-
+          searchString: "请输入昵称进行搜索",
           isShowCompany: false,
           isShowWorkRoom: false,
           isShowCenter: false,
