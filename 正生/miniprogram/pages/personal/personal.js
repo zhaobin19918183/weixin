@@ -104,7 +104,8 @@ var tagValue = 1
 
      startCompany:"",
      startworkroom: "",
-     startcenter: ""
+     startcenter: "",
+     btuBottom: "60px",
 
 
    },
@@ -113,6 +114,27 @@ var tagValue = 1
 
    },
    onLoad: function(options) {
+  var that = this
+   wx.getSystemInfo({
+       success: function (res) {
+         //model中包含着设备信息
+         console.log(res.model)
+         var model = res.model
+         if (model.search('iPhone X') != -1) {
+           that.setData({
+             btuBottom: "100px"
+           })
+         } else {
+           that.setData({
+             btuBottom: "60px",
+           })
+         }
+         if (model.search('iPad') != -1) {
+           console.log("iPad Pro 10.5-inch ===ffff= ")
+         }
+       }
+     })
+
      openidstring = options.id
      this.phb1(1)
      tagValue = 1
@@ -146,6 +168,7 @@ var tagValue = 1
          }
        })
      }
+  
 
      var that = this
      //初始化的时候渲染wxSearchdata
@@ -154,35 +177,36 @@ var tagValue = 1
 
    },
 
-   wxSearchFn: function(e) {
-     app.postAction1('http://127.0.0.1:8000/zhengsheng/queryInfo/', {
+   wxSearchFn: function (e) {
+     var enddate = Y + "-" + M + "-" + D
+     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/queryInfo', {
        "openId": openidstring,
        "tagValue": tagValue,
        "queryValue": this.data.wxSearchData.value,
 
      }).then((res) => {
-       console.log('加入战队   ====== ', res.data.companyRankingList[0])
+
 
        if (tagValue == 1) {
-         var data = JSON.parse(res.data.companyRankingList);
+         var data = res.data.companyRankingList;
          this.setData({
            arrayTableDataCompany: data,
          })
        }
        if (tagValue == 2) {
-         var data = JSON.parse(res.data.serviceCentreRankingList);
+         var data = res.data.serviceCentreRankingList;
          this.setData({
            arrayTableDataCenter: data,
          })
        }
        if (tagValue == 3) {
-         var data = JSON.parse(res.data.studioRankingList);
+         var data = res.data.studioRankingList;
          this.setData({
            arrayTableDataWork: data,
          })
        }
        if (tagValue == 4) {
-         var data = JSON.parse(res.data.memberRankingList);
+         var data = res.data.memberRankingList;
          this.setData({
            arrayTableDataPersion: data,
          })
@@ -192,7 +216,35 @@ var tagValue = 1
      }).catch((errMsg) => {
        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
      });
-  
+
+     // var that = this
+     // const db = wx.cloud.database()
+     // // 查询当前用户所有的 counters
+     // db.collection(this.data.name).where({
+     //   Name: that.data.wxSearchData.value
+
+     // }).get({
+     //   success: res => {
+     //     this.setData({
+     //       arrayTableData: res.data
+     //     })
+     //     if (res.data.length == 0) {
+     //       wx.showToast({
+     //         icon: 'none',
+     //         title: '查询数据为空，请检查查询条件'
+     //       })
+     //     }
+     //     console.log('[数据库] 签到成功===  ', res.data)
+
+     //   },
+     //   fail: err => {
+     //     wx.showToast({
+     //       icon: 'none',
+     //       title: '查询记录失败'
+     //     })
+     //     console.error('[数据库] [查询记录] 失败：', err)
+     //   }
+     // })
 
 
    },
@@ -249,12 +301,12 @@ var tagValue = 1
        icon: 'loading',
        duration: 2000,
      })
-     app.getAction1('http://127.0.0.1:8000/zhengsheng/signInQuery/', {
-       "openid": openidstring,
+     //http://192.168.8.73:8082/zeacen/wechatapplet/signInQuery
+     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signInQuery', {
+       "openId": openidstring,
      }).then((res) => {
-       console.log("companyName == =" + res.data.memberInfo.companyName)
-       console.log("serviceCentreName == =" + res.data.memberInfo.serviceCentreName)
-       console.log("studioName == =" + res.data.memberInfo.studioName)
+       console.log("companyName == =" + res.data.memberRankingList)
+     
 
        if (res.data.memberInfo.shareNumber == 3) {
 
@@ -267,10 +319,18 @@ var tagValue = 1
            buttonshow: false
          })
        }
+      
+       if (res.data.memberInfo.joinDate!=null)
+      {
+         this.setData({
+           dayNumber: res.data.memberInfo.joinDate,
+           allNumber: res.data.memberInfo.totalIntegral,
+           allDay: res.data.memberInfo.continuitySigninDate,
+         })
+      }
+
        this.setData({
-         dayNumber: res.data.memberInfo.joinDate,
-         allNumber: res.data.memberInfo.memberIntegral,
-         allDay: res.data.memberInfo.continuitySigninDate,
+
          startCompany: res.data.memberInfo.companyName,
          startworkroom: res.data.memberInfo.serviceCentreName,
          startcenter: res.data.memberInfo.studioName
@@ -310,8 +370,8 @@ var tagValue = 1
    },
    shareAppMessage: function (openid) {
 
-     app.postAction1('http://127.0.0.1:8000/zhengsheng/share/', {
-       "openid": openidstring,
+     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/share', {
+       "openId": openidstring,
      }).then((res) => {
        console.log('分享完成1   ====== ', res.data)
        this.MyData()
@@ -369,11 +429,12 @@ var tagValue = 1
 
      }
      if (this.data.showBool) {
-       console.log("签到")
+       console.log("签到", openidstring)
        var enddate = Y + "-" + M + "-" + D
-       app.postAction1('http://127.0.0.1:8000/zhengsheng/clockIn/', {
-         "openid": openidstring,
-         "time": enddate
+       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signIn', {
+         "openId": openidstring,
+         "time": enddate,
+         
        }).then((res) => {
 
          wx.showToast({
@@ -381,7 +442,7 @@ var tagValue = 1
            icon: 'success',
            duration: 2000,
          })
-
+         console.log(res)
          wx.navigateTo({
            url: '/pages/home/home'
          })
@@ -445,13 +506,17 @@ var tagValue = 1
      var that = this;
      if (data == 1) {
        tagValue = 1
-       app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
-         "openid": openidstring,
+       //http://192.168.8.73:8082/zeacen/wechatapplet/rankingList
+       console.log("openidstring" + openidstring)
+       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+         "openId": openidstring,
+         "tagValue": tagValue
        }).then((res) => {
 
-         var data = JSON.parse(res.data.companyRankingList);
+         var data = res.data.companyRankingList;
+
          // var personal = JSON.parse(res.json_personalData);
-         console.log('[分公司排行版]  ', res)
+
          wx.hideLoading();
          this.setData({
            searchString: "请输入分公司全称进行搜索",
@@ -464,15 +529,14 @@ var tagValue = 1
 
          })
          if (res.data.memberCompanyInfo != null) {
+           var dataimgae = res.data.memberCompanyInfo;
            this.setData({
              myCompanyName: res.data.memberCompanyInfo.companyName,
              myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
-             // Myimage: res.data[0].image
+             Myimage: res.data.memberCompanyInfo.companyImage,
              showPersonal: true
            })
          }
-
-
          wx.hideLoading();
        }).catch((errMsg) => {
          console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
@@ -482,11 +546,13 @@ var tagValue = 1
      }
      if (data == 2) {
        tagValue = 2
-       app.getAction1('http://127.0.0.1:8000/zhengsheng/centerJson/', {
-         "openid": openidstring,
+       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+         "openId": openidstring,
+         "tagValue": tagValue
        }).then((res) => {
-         var data = JSON.parse(res.data.serviceCentreRankingList);
-         //
+         var data = res.data.centreRankingList;
+
+         console.log('[云函数] dataimgae ', res.data.memberCentreInfo)
          this.setData({
            searchString: "请输入服务中心名称进行搜索",
            isShowCompany: false,
@@ -498,16 +564,17 @@ var tagValue = 1
 
          })
 
-         if (res.data.memberCentrerInfo != null) {
+         if (res.data.memberCentreInfo != null) {
+
            this.setData({
-             myCompanyName: res.data.memberCentrerInfo.serviceCentreName,
-             myCompanyNumber: res.data.memberCentrerInfo.serviceCentreIntegral,
-             // Myimage: res.data[0].image
+             myCompanyName: res.data.memberCentreInfo.serviceCentreName,
+             myCompanyNumber: res.data.memberCentreInfo.serviceCentreIntegral,
+             Myimage: res.data.memberCentreInfo.servicecentreImage,
              showPersonal: true
            })
          }
 
-         console.log('[云函数]  ', data)
+
 
          wx.hideLoading();
        }).catch((errMsg) => {
@@ -517,12 +584,11 @@ var tagValue = 1
      }
      if (data == 3) {
        tagValue = 3
-       app.getAction1('http://127.0.0.1:8000/zhengsheng/workroomJson/', {
-         "openid": openidstring,
+       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+         "openId": openidstring,
+         "tagValue": tagValue
        }).then((res) => {
-         console.log('[云函数] workroomJson ', res)
-         var data = JSON.parse(res.data.studioRankingList);
-
+         var data = res.data.studioRankingList;
          arrayTableDataWork = data
          this.setData({
            searchString: "请输入工作室名称进行搜索",
@@ -535,9 +601,11 @@ var tagValue = 1
 
          })
          if (res.data.memberStudioInfo != null) {
+           var dataimgae = res.data.memberStudioInfo.studioImage;
            this.setData({
              myCompanyName: res.data.memberStudioInfo.studioName,
              myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
+             Myimage: dataimgae,
              showPersonal: true
            })
          }
@@ -561,12 +629,12 @@ var tagValue = 1
      }
      if (data == 4) {
        tagValue = 4
-       app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
-         "openid": openidstring,
+       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+         "openId": openidstring,
+         "tagValue": tagValue
        }).then((res) => {
          console.log('[云函数]  ', res)
-         var data = JSON.parse(res.data.memberRankingList);
-         //
+         var data = res.data.memberRankingList;
          this.setData({
            searchString: "请输入昵称进行搜索",
            isShowCompany: false,
@@ -594,6 +662,7 @@ var tagValue = 1
      }
 
    },
+
 
    MyPersional: function(openidstr) {
      const db = wx.cloud.database()
@@ -814,26 +883,27 @@ var tagValue = 1
          var enddate = Y + "-" + M + "-" + D
          for (var i = 0, h = tempFilePaths.length; i < h; i++) {
            wx.uploadFile({
-             url: 'http://127.0.0.1:8000/zhengsheng/clockIn/',
+             url: 'http://192.168.8.73:8082/zeacen/wechatapplet/signIn',
              filePath: tempFilePaths[i],
              name: 'uploadfile',
              formData: {
-               "openid": openidstring,
+               "openId": openidstring,
                'time': enddate,
-               "imageName": app.globalData.userInfo.nickName,
              },
              header: {
                "Content-Type": "multipart/form-data",
 
              },
              success: function(res) {
-               uploadImgCount++;
-               var data = JSON.parse(res.data);
-               //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }  
-               //如果是最后一张,则隐藏等待中  
-               if (uploadImgCount == tempFilePaths.length) {
-                 wx.hideToast();
-               }
+               wx.showToast({
+                 title: '签到成功',
+                 icon: 'success',
+                 duration: 2000,
+               })
+
+               wx.navigateTo({
+                 url: '/pages/home/home'
+               })
              },
              fail: function(res) {
                wx.hideToast();

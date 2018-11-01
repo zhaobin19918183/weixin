@@ -132,20 +132,20 @@ Page({
       key: "goSingIn",
       data: "每日签到"
     })
-    wx.setStorage({
-      key: "disable",
-      data: true
-    })
-   
+  
+    console.log(arrayTableDataWork[e.target.id])
     var enddate = Y + "-" + M + "-" + D
-    app.postAction1('http://127.0.0.1:8000/zhengsheng/addPersonal/', {
-      "openid": openidstring,
-      "time": enddate,
-      "studioName": arrayTableDataWork[e.target.id].fields.studioName,
+    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/addMemberInfo', {
+      "openId": openidstring,
+      "studioId": arrayTableDataWork[e.target.id].studioId,
       "memberName": app.globalData.userInfo.nickName,
       "memberImage": app.globalData.userInfo.avatarUrl
     }).then((res) => {
       console.log('加入战队   ====== ', res.data)
+      wx.setStorage({
+        key: "disable",
+        data: true
+      })
       if (res.data === "不能重复加入张队")
      {
         wx.showToast({
@@ -173,138 +173,6 @@ Page({
    
   },
 
-  searchCenter: function(centerid, workroom) {
-    console.log("searchCenter ==== " + centerid, workroom)
-    var myCenterArray = [];
-    var that = this
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection("ServiceCenterrankings").where({
-      _id: centerid
-
-    }).get({
-      success: res => {
-        myCenterArray = [res.data[0]._id, res.data[0].Name]
-        console.log("中心1 == " + res.data[0].number)
-        centerNumber = res.data[0].number
-
-        this.myCompanyData(res.data[0].companyID, workroom, myCenterArray)
-        if (res.data.length == 0) {
-          wx.showToast({
-            icon: 'none',
-            title: '查询数据为空，请检查查询条件'
-          })
-        }
-
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-
-
-  },
-  myCompanyData: function(companyID, workroom, centerArray) {
-    var that = this
-    const db = wx.cloud.database()
-    var myCompanyArray = [];
-    console.log("myCompanyData == " + companyID, workroom, centerArray)
-    // 查询当前用户所有的 counters
-    db.collection("Branchrankings").where({
-      _id: companyID
-
-    }).get({
-      success: res => {
-
-        myCompanyArray = [res.data[0]._id, res.data[0].Name]
-        console.log("公司 == " + res.data[0].number)
-        companyNumber = res.data[0].number
-        this.addPensonal(workroom, centerArray, myCompanyArray)
-        if (res.data.length == 0) {
-          wx.showToast({
-            icon: 'none',
-            title: '查询数据为空，请检查查询条件'
-          })
-        }
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  },
-  addPensonal: function(workroom, centerArray, myCompanyArray) {
-
-    wx.showToast({
-      title: '加入中',
-      icon: 'loading',
-      duration: 10000
-    })
-    var enddate = Y + "-" + M + "-" + D
-    console.log("res === ", workroom, centerArray, myCompanyArray, workroomName, workroomNumber, centerNumber, companyNumber, enddate)
-    var numberdata = 0
-    const db = wx.cloud.database()
-    db.collection('personal').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        MyCompanyNumber: companyNumber,
-        MyNumber: 0,
-        MyCenterNumber: centerNumber,
-        MyWorkRoom: workroom,
-        MyCompany: myCompanyArray,
-        MyCenter: centerArray,
-        MyWorkRoomNumber: workroomNumber,
-        Name: app.globalData.userInfo.nickName,
-        allDay: 0,
-        day: 0,
-        image: app.globalData.userInfo.avatarUrl,
-        myStudio: [workroomName,
-          numberdata,
-          workroomNumber,
-          centerNumber,
-          companyNumber
-        ],
-        imageArray: [],
-        number: 0,
-        time: enddate,
-        whetaher: 0,
-        share: 0
-      },
-      success: function(res) {
-        console.log("成功")
-
-        wx.navigateTo({
-          url: '../home/home'
-        })
-        wx.showToast({
-          title: '加入战队成功',
-          icon: 'success',
-          duration: 2000,
-        })
-      },
-      fail: console.error
-    })
-    setTimeout(function() {
-      wx.showToast({
-        title: '服务器开小差了......',
-        icon: 'error',
-        duration: 5000,
-      })
-      wx.navigateTo({
-        url: '../home/home'
-      })
-    }, 10000)
-
-
-  },
   phb1: function(data) {
     wx.showToast({
       title: '数据载入中....... ',
@@ -314,13 +182,17 @@ Page({
     var that = this;
     if (data == 1) {
       tagValue = 1
-      app.getAction1('http://127.0.0.1:8000/zhengsheng/companyJson/', {
-        "openid": openidstring,
+      //http://192.168.8.73:8082/zeacen/wechatapplet/rankingList
+      console.log("openidstring" + openidstring)
+      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+        "openId": openidstring ,
+        "tagValue": tagValue
       }).then((res) => {
        
-        var data = JSON.parse(res.data.companyRankingList);
+        var data = res.data.companyRankingList;
+       
         // var personal = JSON.parse(res.json_personalData);
-        console.log('[分公司排行版]  ', res)
+       
         wx.hideLoading();
         this.setData({
           searchString: "请输入分公司全称进行搜索",
@@ -333,15 +205,14 @@ Page({
 
         })
         if (res.data.memberCompanyInfo != null) {
+          var dataimgae = res.data.memberCompanyInfo;
           this.setData({
             myCompanyName: res.data.memberCompanyInfo.companyName,
             myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
-            // Myimage: res.data[0].image
+            Myimage: res.data.memberCompanyInfo.companyImage,
             showPersonal: true
           })
         }
-        
-
         wx.hideLoading();
       }).catch((errMsg) => {
         console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
@@ -351,11 +222,13 @@ Page({
     }
     if (data == 2) {
       tagValue = 2
-      app.getAction1('http://127.0.0.1:8000/zhengsheng/centerJson/', {
-        "openid": openidstring,
+      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+        "openId": openidstring,
+        "tagValue": tagValue
       }).then((res) => {
-        var data = JSON.parse(res.data.serviceCentreRankingList);
-        //
+        var data = res.data.centreRankingList;
+        
+        console.log('[云函数] dataimgae ', res.data.memberCentreInfo)
         this.setData({
           searchString: "请输入服务中心名称进行搜索",
           isShowCompany: false,
@@ -367,16 +240,17 @@ Page({
 
         })
 
-        if (res.data.memberCentrerInfo != null) {
+        if (res.data.memberCentreInfo != null) {
+        
           this.setData({
-            myCompanyName: res.data.memberCentrerInfo.serviceCentreName,
-            myCompanyNumber: res.data.memberCentrerInfo.serviceCentreIntegral,
-            // Myimage: res.data[0].image
+            myCompanyName: res.data.memberCentreInfo.serviceCentreName,
+            myCompanyNumber: res.data.memberCentreInfo.serviceCentreIntegral,
+            Myimage: res.data.memberCentreInfo.servicecentreImage,
             showPersonal: true
           })
         }
 
-        console.log('[云函数]  ', data)
+      
 
         wx.hideLoading();
       }).catch((errMsg) => {
@@ -386,12 +260,11 @@ Page({
     }
     if (data == 3) {
       tagValue = 3
-      app.getAction1('http://127.0.0.1:8000/zhengsheng/workroomJson/', {
-        "openid": openidstring,
+      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+        "openId": openidstring,
+        "tagValue": tagValue
       }).then((res) => {
-        console.log('[云函数] workroomJson ', res)
-        var data = JSON.parse(res.data.studioRankingList);
-       
+        var data = res.data.studioRankingList;
         arrayTableDataWork = data
         this.setData({
           searchString: "请输入工作室名称进行搜索",
@@ -404,9 +277,11 @@ Page({
 
         })
         if (res.data.memberStudioInfo != null) {
+          var dataimgae = res.data.memberStudioInfo.studioImage;
           this.setData({
             myCompanyName: res.data.memberStudioInfo.studioName,
             myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
+            Myimage: dataimgae,
             showPersonal: true
           })
         }
@@ -430,12 +305,12 @@ Page({
     }
     if (data == 4) {
       tagValue = 4
-      app.getAction1('http://127.0.0.1:8000/zhengsheng/personalJson/', {
-        "openid": openidstring,
+      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+        "openId": openidstring,
+        "tagValue": tagValue
       }).then((res) => {
         console.log('[云函数]  ', res)
-        var data = JSON.parse(res.data.memberRankingList);
-        //
+        var data = res.data.memberRankingList;
         this.setData({
           searchString: "请输入昵称进行搜索",
           isShowCompany: false,
@@ -508,35 +383,35 @@ Page({
   },
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
-    app.postAction1('http://127.0.0.1:8000/zhengsheng/queryInfo/', {
+    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,
       "queryValue": this.data.wxSearchData.value,
 
     }).then((res) => {
-      console.log('加入战队   ====== ', res.data.companyRankingList[0])
+      
       
       if (tagValue == 1)
       {
-        var data = JSON.parse(res.data.companyRankingList);
+        var data = res.data.companyRankingList;
         this.setData({
           arrayTableDataCompany: data,
         })
       }
       if (tagValue == 2) {
-        var data = JSON.parse(res.data.serviceCentreRankingList);
+        var data = res.data.serviceCentreRankingList;
         this.setData({
           arrayTableDataCenter: data,
         })
       }
       if (tagValue == 3) {
-        var data = JSON.parse(res.data.studioRankingList);
+        var data = res.data.studioRankingList;
         this.setData({
           arrayTableDataWork: data,
         })
       }
       if (tagValue == 4) {
-        var data = JSON.parse(res.data.memberRankingList);
+        var data = res.data.memberRankingList;
         this.setData({
           arrayTableDataPersion: data,
         })
