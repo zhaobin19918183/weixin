@@ -321,12 +321,11 @@ Page({
       key: "goSingIn",
       data: "每日签到"
     })
-   
+
     var enddate = Y + "-" + M + "-" + D
-    app.postAction1('http://192.168.8.67:8000/zhengsheng/addPersonal/', {
-      "openid": openidstring,
-      "time": enddate,
-      "studioName": arrayTableDataWork[e.target.id].fields.studioName,
+    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/addMemberInfo', {
+      "openId": openidstring,
+      "studioId": this.data.arrayTableDataWork[e.target.id].studioId,
       "memberName": app.globalData.userInfo.nickName,
       "memberImage": app.globalData.userInfo.avatarUrl
     }).then((res) => {
@@ -338,7 +337,7 @@ Page({
       if (res.data === "不能重复加入张队") {
         wx.showToast({
           title: '不能重复加入战队',
-          icon: 'success',
+          icon: 'error',
           duration: 2000,
         })
       }
@@ -348,15 +347,21 @@ Page({
           icon: 'success',
           duration: 2000,
         })
-
+        wx.navigateTo({
+          url: '../home/home'
+        })
       }
-      wx.navigateTo({
-        url: '../home/home'
-      })
+
       wx.hideLoading();
     }).catch((errMsg) => {
+      wx.showToast({
+        title: '不能重复加入战队',
+        icon: 'error',
+        duration: 2000,
+      })
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
+
   },
  
 

@@ -133,11 +133,10 @@ Page({
       data: "每日签到"
     })
   
-    console.log(arrayTableDataWork[e.target.id])
     var enddate = Y + "-" + M + "-" + D
     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/addMemberInfo', {
       "openId": openidstring,
-      "studioId": arrayTableDataWork[e.target.id].studioId,
+      "studioId": this.data.arrayTableDataWork[e.target.id].studioId,
       "memberName": app.globalData.userInfo.nickName,
       "memberImage": app.globalData.userInfo.avatarUrl
     }).then((res) => {
@@ -168,6 +167,11 @@ Page({
       
       wx.hideLoading();
     }).catch((errMsg) => {
+      wx.showToast({
+        title: '不能重复加入战队',
+        icon: 'error',
+        duration: 2000,
+      })
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
    

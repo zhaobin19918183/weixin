@@ -301,7 +301,6 @@ var tagValue = 1
        icon: 'loading',
        duration: 2000,
      })
-     //http://192.168.8.73:8082/zeacen/wechatapplet/signInQuery
      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signInQuery', {
        "openId": openidstring,
      }).then((res) => {
@@ -434,7 +433,6 @@ var tagValue = 1
        app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signIn', {
          "openId": openidstring,
          "time": enddate,
-         
        }).then((res) => {
 
          wx.showToast({
@@ -442,9 +440,9 @@ var tagValue = 1
            icon: 'success',
            duration: 2000,
          })
-         console.log(res)
+         
          wx.navigateTo({
-           url: '/pages/home/home'
+           url: '../home/home'
          })
 
          wx.hideLoading();
@@ -461,10 +459,8 @@ var tagValue = 1
          this.data.showBool = true
        }
       
-
      }
      
-
    },
 
    MyListData: function(name) {
@@ -881,9 +877,10 @@ var tagValue = 1
          })
          var uploadImgCount = 0;
          var enddate = Y + "-" + M + "-" + D
+         // 'content-type': 'application/json'
          for (var i = 0, h = tempFilePaths.length; i < h; i++) {
            wx.uploadFile({
-             url: 'http://192.168.8.73:8082/zeacen/wechatapplet/signIn',
+             url: 'http://192.168.8.73:8082/zeacen/wechatapplet/pictureSignIn',
              filePath: tempFilePaths[i],
              name: 'uploadfile',
              formData: {
@@ -891,6 +888,7 @@ var tagValue = 1
                'time': enddate,
              },
              header: {
+               
                "Content-Type": "multipart/form-data",
 
              },

@@ -119,15 +119,15 @@ Page({
     joinDate: 0,
     showpersonal1:false,
     showpersonal2: false,
-    showpersonal3: false
+    showpersonal3: false,
+
+    top:"20px"
 
 
   },
   goSingIn: function(e) {
     console.log(e)
-    var disable = wx.getStorageSync('disable')
-    if (disable == false) {
-
+    if (this.data.joinBoll == false) {
       wx.navigateTo({
         url: '../rankList/rankList?id=' + e.currentTarget.id + '&shareOpenId=' + openidstring
       })
@@ -139,20 +139,20 @@ Page({
 
   },
   Myopenid: function() {
-    // openidstring = wx.getStorageSync('openidstring')
+    // https://hchd.zeacen.com
 
    
       wx.login({
         success: res => {
           console.log('获取id===' + res.code)
-          app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/oauthCallbak', {
+          app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/oauthCallbak', {
             "code": res.code
           }).then((res) => {
             console.log("openid 获取 === " + res.data); //
             openidstring = res.data
             console.log("+===" + openidstring)
             var enddate = Y + "-" + M + "-" + D
-            app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/index', {
+            app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/index', {
               "openId": res.data,
               "time": enddate
             }).then((res) => {
@@ -572,11 +572,13 @@ Page({
         var model = res.model
         if (model.search('iPhone X') != -1) {
           that.setData({
-            btuBottom: "16%"
+            btuBottom: "16%",
+            top: "100px"
           })
         } else {
           that.setData({
             btuBottom: "10%",
+            top: "20px"
           })
         }
         if (model.search('iPad') != -1) {

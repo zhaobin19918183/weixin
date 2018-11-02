@@ -25,7 +25,7 @@
   <view style="height:100%;text-align:center;margin-top:2%;box-shadow:0px 0px 3px 3px gray">
     <!-- 签到 -->
     <view class='layout_horizontal' style='margin-top:2%;box-shadow:0px 0px 3px 3px gray;'>
-      <button bindtap='showview' id='3'  style='width:30%;height:30px;background:#e1cdb1;position: absolute;margin-top:20px;margin-left:70%;font-size:24rpx'>活动须知</button>
+      <button bindtap='showview' id='3'  style='width:25%;height:30px;background:#e1cdb1;position: absolute;margin-top:{{top}};margin-left:78%;font-size:24rpx'>活动须知</button>
         <image   src='../imgs/jifen.png' style='width:200px;height:54px;position: absolute;margin-top:110%;'></image>
         <text style='position: absolute;margin-top:114%;margin-left:7%;font-size:30rpx;font-weight:bold;text-align: center;'>{{continuitySigninDate}}</text>
         <text style='position: absolute;margin-top:114%;margin-left:118px;font-size:25rpx;font-weight:bold'>总积分</text>
