@@ -160,8 +160,6 @@ Page({
               var companyRankingList = res.data.companyRankingList;
               var studioRankingList = res.data.studioRankingList;
               if (res.data.memberInfo != null) {
-          
-                ;
                 // this.updateTime(res.data.memberInfo.time)
                 this.setData({
                   continuitySigninDate: res.data.memberInfo.totalIntegral,
@@ -171,7 +169,10 @@ Page({
 
               }
               var data = res.data.memberRankingList
-              if (data.length == 1) {
+
+              console.log("首页信息" + data)
+  
+              if (data[0].memberName != null) {
                 this.setData({
                   showpersonal1: true,
                   showpersonal2: false,
@@ -273,7 +274,7 @@ Page({
 
               wx.hideLoading();
             }).catch((errMsg) => {
-              console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+              console.log("错误提示信息 1=== " + errMsg); //错误提示信息wx.hideLoading();
             });
             wx.setStorage({
               key: "openidstring",
@@ -281,7 +282,7 @@ Page({
             })
             wx.hideLoading();
           }).catch((errMsg) => {
-            console.log("错误提示信息 === " + errMsg); //错误提示信息
+            console.log("错误提示信息 2=== " + errMsg); //错误提示信息
             wx.hideLoading();
           });
         }

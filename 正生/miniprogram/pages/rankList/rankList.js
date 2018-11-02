@@ -134,7 +134,7 @@ Page({
     })
   
     var enddate = Y + "-" + M + "-" + D
-    app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/addMemberInfo', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/addMemberInfo', {
       "openId": openidstring,
       "studioId": this.data.arrayTableDataWork[e.target.id].studioId,
       "memberName": app.globalData.userInfo.nickName,
@@ -186,9 +186,9 @@ Page({
     var that = this;
     if (data == 1) {
       tagValue = 1
-      //https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/rankingList
+      //https://hchd.zeacen.com/zeacen/wechatapplet/rankingList
       console.log("openidstring" + openidstring)
-      app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring ,
         "tagValue": tagValue
       }).then((res) => {
@@ -226,7 +226,7 @@ Page({
     }
     if (data == 2) {
       tagValue = 2
-      app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -264,7 +264,7 @@ Page({
     }
     if (data == 3) {
       tagValue = 3
-      app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -309,7 +309,7 @@ Page({
     }
     if (data == 4) {
       tagValue = 4
-      app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -387,7 +387,7 @@ Page({
   },
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
-    app.postAction('https://hchd.zeacen.com/zeacen2/zeacen/wechatapplet/queryInfo', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,
       "queryValue": this.data.wxSearchData.value,
