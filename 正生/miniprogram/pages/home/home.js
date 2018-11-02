@@ -140,8 +140,6 @@ Page({
   },
   Myopenid: function() {
     // https://hchd.zeacen.com
-
-   
       wx.login({
         success: res => {
           console.log('获取id===' + res.code)
@@ -569,7 +567,7 @@ Page({
       success: function(res) {
         //model中包含着设备信息
         console.log(res.model)
-        var model = res.model
+        var model = res.model 
         if (model.search('iPhone X') != -1) {
           that.setData({
             btuBottom: "16%",

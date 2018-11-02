@@ -179,7 +179,7 @@ var tagValue = 1
 
    wxSearchFn: function (e) {
      var enddate = Y + "-" + M + "-" + D
-     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/queryInfo', {
+     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
        "openId": openidstring,
        "tagValue": tagValue,
        "queryValue": this.data.wxSearchData.value,
@@ -301,7 +301,7 @@ var tagValue = 1
        icon: 'loading',
        duration: 2000,
      })
-     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signInQuery', {
+     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signInQuery', {
        "openId": openidstring,
      }).then((res) => {
        console.log("companyName == =" + res.data.memberRankingList)
@@ -369,7 +369,7 @@ var tagValue = 1
    },
    shareAppMessage: function (openid) {
 
-     app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/share', {
+     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
        "openId": openidstring,
      }).then((res) => {
        console.log('分享完成1   ====== ', res.data)
@@ -430,7 +430,7 @@ var tagValue = 1
      if (this.data.showBool) {
        console.log("签到", openidstring)
        var enddate = Y + "-" + M + "-" + D
-       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/signIn', {
+       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signIn', {
          "openId": openidstring,
          "time": enddate,
        }).then((res) => {
@@ -502,9 +502,9 @@ var tagValue = 1
      var that = this;
      if (data == 1) {
        tagValue = 1
-       //http://192.168.8.73:8082/zeacen/wechatapplet/rankingList
+       //https://hchd.zeacen.com/zeacen/wechatapplet/rankingList
        console.log("openidstring" + openidstring)
-       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -542,7 +542,7 @@ var tagValue = 1
      }
      if (data == 2) {
        tagValue = 2
-       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -580,7 +580,7 @@ var tagValue = 1
      }
      if (data == 3) {
        tagValue = 3
-       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -625,7 +625,7 @@ var tagValue = 1
      }
      if (data == 4) {
        tagValue = 4
-       app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -880,7 +880,7 @@ var tagValue = 1
          // 'content-type': 'application/json'
          for (var i = 0, h = tempFilePaths.length; i < h; i++) {
            wx.uploadFile({
-             url: 'http://192.168.8.73:8082/zeacen/wechatapplet/pictureSignIn',
+             url: 'https://hchd.zeacen.com/zeacen/wechatapplet/pictureSignIn',
              filePath: tempFilePaths[i],
              name: 'uploadfile',
              formData: {

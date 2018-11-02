@@ -252,8 +252,8 @@ Page({
       duration: 2000,
     })
     console.log("shareOpenIdString +===" + openidstring)
-    //http://192.168.8.73:8082/zeacen/wechatapplet/myInfo
-    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/myInfo', {
+    //https://hchd.zeacen.com/zeacen/wechatapplet/myInfo
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/myInfo', {
       "openId": openidstring,
     }).then((res) => {
      
@@ -311,7 +311,7 @@ Page({
 
   },
 
-  addTeam: function (e) {
+  addTeam: function(e) {
     wx.showToast({
       title: '加入中.......',
       icon: 'loading',
@@ -321,9 +321,9 @@ Page({
       key: "goSingIn",
       data: "每日签到"
     })
-
+  
     var enddate = Y + "-" + M + "-" + D
-    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/addMemberInfo', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/addMemberInfo', {
       "openId": openidstring,
       "studioId": this.data.arrayTableDataWork[e.target.id].studioId,
       "memberName": app.globalData.userInfo.nickName,
@@ -334,14 +334,16 @@ Page({
         key: "disable",
         data: true
       })
-      if (res.data === "不能重复加入张队") {
+      if (res.data === "不能重复加入张队")
+     {
         wx.showToast({
           title: '不能重复加入战队',
           icon: 'error',
           duration: 2000,
         })
-      }
-      else {
+     }
+     else
+      {
         wx.showToast({
           title: '加入战队成功',
           icon: 'success',
@@ -350,18 +352,13 @@ Page({
         wx.navigateTo({
           url: '../home/home'
         })
-      }
-
+     }
+      
       wx.hideLoading();
     }).catch((errMsg) => {
-      wx.showToast({
-        title: '不能重复加入战队',
-        icon: 'error',
-        duration: 2000,
-      })
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
-
+   
   },
  
 
@@ -378,9 +375,9 @@ Page({
     var that = this;
     if (data == 1) {
       tagValue = 1
-      //http://192.168.8.73:8082/zeacen/wechatapplet/rankingList
+      //https://hchd.zeacen.com/zeacen/wechatapplet/rankingList
       console.log("openidstring" + openidstring)
-      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -418,7 +415,7 @@ Page({
     }
     if (data == 2) {
       tagValue = 2
-      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -456,7 +453,7 @@ Page({
     }
     if (data == 3) {
       tagValue = 3
-      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -501,7 +498,7 @@ Page({
     }
     if (data == 4) {
       tagValue = 4
-      app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -600,7 +597,7 @@ Page({
   shareAppMessage:function(openid)
   {
 
-    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/share', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
       "openId": openidstring,
     }).then((res) => {
       console.log('分享完成1   ====== ', res.data)
@@ -661,7 +658,7 @@ Page({
   },
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
-    app.postAction('http://192.168.8.73:8082/zeacen/wechatapplet/queryInfo', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue": tagValue,
       "queryValue": this.data.wxSearchData.value,
