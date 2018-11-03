@@ -236,7 +236,7 @@ button::after {
   position: fixed;
   bottom: 400px;
   border: 0 solid #fff;
-  width: 12%;
+  width: 20%;
   height:30px;
   background:black;
   display: flex;
@@ -246,7 +246,7 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx; 
-  margin-left: 88%;
+  margin-left: 80%;
   border-radius: 5px
    
 }
@@ -257,7 +257,7 @@ button::after {
   position: fixed;
   bottom: 365px;
   border: 0 solid #fff;
-  width: 12%;
+  width: 20%;
   height: 30px;
   background: black;
   flex-direction: row;
@@ -266,7 +266,7 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx;
-  margin-left: 88%;
+  margin-left: 80%;
   border-radius: 5px
 }
 .post2 {
@@ -275,7 +275,7 @@ button::after {
   position: fixed;
   bottom: 330px;
   border: 0 solid #fff;
-  width: 12%;
+  width: 20%;
   height: 30px;
   background: black;
   display: flex;
@@ -285,7 +285,7 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx;
-  margin-left: 88%;
+  margin-left: 80%;
   border-radius: 5px
 }
 .post3{
@@ -294,7 +294,7 @@ button::after {
   position: fixed;
   bottom: 290px;
   border: 0 solid #fff;
-  width: 12%;
+  width: 20%;
   height: 30px;
   background: black;
   display: flex;
@@ -304,7 +304,7 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx;
-  margin-left: 88%;
+  margin-left: 80%;
   border-radius: 5px
 }
 .post4{
@@ -313,7 +313,7 @@ button::after {
   position: fixed;
   bottom: 240px;
   border: 0 solid #fff;
-  width: 12%;
+  width: 20%;
   height: 30px;
   background: black;
   display: flex;
@@ -322,7 +322,7 @@ button::after {
   color: white;
   opacity: 0.8;
   line-height: 55rpx;
-  margin-left: 88%;
+  margin-left: 80%;
   border-radius: 5px;
   text-align: center;
 

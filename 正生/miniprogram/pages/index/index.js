@@ -27,15 +27,11 @@ Component({
   methods: {
     // 返回上一页面
     _navback() {
-      wx.navigateTo({
-        url: '../home/home'
-      })
+      wx.navigateBack()
     },
     //返回到首页
     _backhome() {
-      wx.navigateTo({
-        url: '../home/home'
-      })
+      wx.navigateBack()
     }
   }
 

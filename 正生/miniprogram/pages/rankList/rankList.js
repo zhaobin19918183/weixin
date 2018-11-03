@@ -99,13 +99,34 @@ Page({
     isShowWorkRoom: false,
     isShowCenter: false,
     isShowPersion: false,
-
+    btuBottom: "20%;",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this
+    wx.getSystemInfo({
+      success: function (res) {
+        //model中包含着设备信息
+        console.log(res.model)
+        var model = res.model
+        if (model.search('iPhone X') != -1) {
+          that.setData({
+            btuBottom: "30%;"
+          })
+        } else {
+          that.setData({
+            btuBottom: "20%;",
+          })
+        }
+        if (model.search('iPad') != -1) {
+          console.log("iPad Pro 10.5-inch ===ffff= ")
+        }
+      }
+    })
+
     var data = options.id;
     openidstring = options.shareOpenId
     console.log("mmmp == " + openidstring, data)
@@ -126,7 +147,7 @@ Page({
     wx.showToast({
       title: '加入中.......',
       icon: 'loading',
-      duration: 5000,
+      duration: 2000,
     })
     wx.setStorage({
       key: "goSingIn",
@@ -387,6 +408,7 @@ Page({
   },
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
+    // http://192.168.8.73:8082
     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,

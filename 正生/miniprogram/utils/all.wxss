@@ -53,9 +53,9 @@
   
 }
 .buttom{
-  width: 12%;
+  width: 20%;
   height:30px;
-  margin-left: 88%;
+  margin-left: 80%;
   background:black;
   display: flex;
   flex-direction: row;

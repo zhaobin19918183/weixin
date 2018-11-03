@@ -157,7 +157,7 @@ App({
         method: 'POST',
         header: { 'content-type': 'application/json' },
         success: function (res) {//服务器返回数据
-          console.log("服务器返回数据 code " + res.data.resultcode)
+          console.log("服务器返回数据 code " + res.data.resultMessage)
           if (res.data.resultcode == 1) {//res.data 为 后台返回数据，格式为{"data":{...}, "info":"成功", "status":1}, 后台规定：如果status为1,既是正确结果。可以根据自己业务逻辑来设定判断条件
             resolve(res.data);
           } else {//返回错误提示信息

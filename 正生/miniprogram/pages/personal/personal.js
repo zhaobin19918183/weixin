@@ -109,6 +109,14 @@ var tagValue = 1
 
 
    },
+   addTeam: function (e) {
+     wx.showToast({
+       title: '已经加入战队',
+       icon: 'none',
+       duration: 2000,
+     })
+    
+     },
    //事件处理函数
    bindViewTap: function() {
 

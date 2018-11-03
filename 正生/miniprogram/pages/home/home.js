@@ -139,39 +139,32 @@ Page({
 
   },
   Myopenid: function() {
-    // https://hchd.zeacen.com
       wx.login({
         success: res => {
-          console.log('获取id===' + res.code)
           app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/oauthCallbak', {
             "code": res.code
           }).then((res) => {
-            console.log("openid 获取 === " + res.data); //
             openidstring = res.data
-            console.log("+===" + openidstring)
             var enddate = Y + "-" + M + "-" + D
             app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/index', {
-              "openId": res.data,
+              "openId": openidstring,
               "time": enddate
-            }).then((res) => {
-              console.log("首页信息" + res.data.companyRankingList)
-              
+            }).then((res) => { 
               var serviceCentreRankingList = res.data.serviceCentreRankingList;
               var companyRankingList = res.data.companyRankingList;
               var studioRankingList = res.data.studioRankingList;
               if (res.data.memberInfo != null) {
-                // this.updateTime(res.data.memberInfo.time)
-                this.setData({
-                  continuitySigninDate: res.data.memberInfo.totalIntegral,
-                  joinDate: res.data.memberInfo.joinDate,
-                  joinBoll: true
-                })
-
+                console.log("首页信息=====1=====" + res.data.memberInfo)
+                if (res.data.memberInfo.totalIntegral!=null)
+                {
+                  this.setData({
+                    continuitySigninDate: res.data.memberInfo.totalIntegral,
+                    joinDate: res.data.memberInfo.joinDate,
+                    joinBoll: true
+                  })
+                }
               }
               var data = res.data.memberRankingList
-
-              console.log("首页信息" + data)
-  
               if (data[0].memberName != null) {
                 this.setData({
                   showpersonal1: true,
@@ -207,27 +200,17 @@ Page({
                 studio3: studioRankingList[2].studioName
               })
               this.setData({
-
                 center1: serviceCentreRankingList[0].serviceCentreName,
                 center2: serviceCentreRankingList[1].serviceCentreName,
                 center3: serviceCentreRankingList[2].serviceCentreName,
-
               })
-
-
-
               this.setData({
-
-
                 company1: companyRankingList[0].companyName,
                 company2: companyRankingList[1].companyName,
                 company3: companyRankingList[2].companyName,
-
                 company1Number: companyRankingList[0].companyIntegral,
                 company2Number: companyRankingList[1].companyIntegral,
                 company3Number: companyRankingList[2].companyIntegral,
-
-
               })
               var windowWidth = 320;
               try {
@@ -269,9 +252,6 @@ Page({
                 width: windowWidth,
                 height: 200
               });
-              console.log('res.data ===  ', res.data)
-
-
               wx.hideLoading();
             }).catch((errMsg) => {
               console.log("错误提示信息 1=== " + errMsg); //错误提示信息wx.hideLoading();
@@ -627,7 +607,6 @@ Page({
     // 查询当前用户所有的 counters
     db.collection('ruleImage').get({
       success: res => {
-        console.log("+++ruleImage+++" + res.data[0].ruleImage)
         this.setData({
           queryResult: JSON.stringify(res.data, null, 2),
           imageA: res.data[0].ruleImage

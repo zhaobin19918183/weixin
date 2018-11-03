@@ -1,7 +1,7 @@
 <nav-bar navbar-data='{{nvabarData}}'></nav-bar>
 <!-- 底部四个 -->
 <view>
-  <view style=" display:flex;text-align:center;margin-top:20%;">
+  <view style=" display:flex;text-align:center;margin-top:{{btuBottom}}">
     <view wx:for="{{arrayData}}" wx:key="{{itemName.message}}" wx:for-index="idx" wx:for-item="itemName" class='layout_vertical' style='width:25%;height:20%;'>
       <button class='firstB' id='{{itemName.id}}' bindtap="panghangbang">
         <image class='firstimg' src="{{itemName.imgurl}}"></image>
@@ -97,9 +97,9 @@
   </scroll-view>
 
 </view>
-<label class='post' style='justify-content: center;display:{{display1}};' bindtap='pensonalAction'>签到</label>
+<!-- <label class='post' style='justify-content: center;display:{{display1}};' bindtap='pensonalAction'>签到</label>
 <label class='post1' style='justify-content: center;display:{{display1}};color:orange;' bindtap=''>排行榜</label>
 <label class='post2' style='justify-content: center;display:{{display1}};' bindtap='mydataAction'>我的</label>
 <label class='post3' style='justify-content: center;display:{{display1}};' bindtap='firstHome'>首页</label>
 <label class='post4' style='margin-top:140px;display:{{display2}}' bindtap='showfunc1'>导航</label>
-<label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label>
+<label class='post4' style='margin-top:140px;display:{{display1}}' bindtap='backFunc'>隐藏</label> -->

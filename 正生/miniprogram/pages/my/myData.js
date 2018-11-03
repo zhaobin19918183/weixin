@@ -258,10 +258,11 @@ Page({
     }).then((res) => {
      
      
-      console.log("imageListjson == =" + res.data.myStudio.studioIntegral)
+    
 
       if (res.data.memberInfo.joinDate!=null)
       {
+        console.log("res.data.imageArray图片 == =" + res.data.imageArray[0].signInImage)
         this.setData({
           arrayData: res.data.imageArray,
           dayNumber: res.data.memberInfo.joinDate,
@@ -356,6 +357,11 @@ Page({
       
       wx.hideLoading();
     }).catch((errMsg) => {
+      wx.showToast({
+        title: '不能重复加入战队',
+        icon: 'error',
+        duration: 2000,
+      })
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
    
