@@ -4,6 +4,7 @@ const app = getApp()
 var showAdverst = true
 var showCamera = false
 var showzhandui = false
+var shareNumberWx = 0
 var rate = 0;
 var arrayMydata = [];
 var arrayMyCenter = [];
@@ -178,6 +179,7 @@ Page({
   },
   onLoad: function(options)
    {
+    wx.hideShareMenu()
     shareOpenIdString = options.openidstring
     openidstring = options.openidstring
     this.phb1(1)
@@ -252,17 +254,14 @@ Page({
       duration: 2000,
     })
     console.log("shareOpenIdString +===" + openidstring)
-    //https://hchd.zeacen.com/zeacen/wechatapplet/myInfo
     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/myInfo', {
       "openId": openidstring,
     }).then((res) => {
      
-     
-    
-
+      console.log("res.data.imageArray图片 == =" + res.data)
       if (res.data.memberInfo.joinDate!=null)
       {
-        console.log("res.data.imageArray图片 == =" + res.data.imageArray[0].signInImage)
+        
         this.setData({
           arrayData: res.data.imageArray,
           dayNumber: res.data.memberInfo.joinDate,
@@ -295,7 +294,7 @@ Page({
       }
 
       if (res.data.memberInfo.shareNumber == 3) {
-
+        shareNumberWx = 3
         this.setData({
           buttonshow: true,
         })
@@ -576,17 +575,19 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-  },
+  }
+  ,
 
   onShareAppMessage: function(res) {
     this.shareAppMessage(openidstring)
     return {
-      title: '慧吃慧动100天',
+      title: '慧吃慧动100天' + "（第" + this.data.dayNumber + "天)",
       // 分享时在路径后拼接参数，可拼接多个参数。 
       path: '/pages/home/home?id=' + openidstring,
       imageUrl: '../imgs/share.png',
       success: function(res) {
         // 转发成功
+        console.log("shareNumberWx=="+shareNumberWx) 
         wx.showToast({
           title: '转发成功',
           icon: 'success',
@@ -602,7 +603,7 @@ Page({
   ,
   shareAppMessage:function(openid)
   {
-
+    console.log('分享完成3   ====== ', res.data)
     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
       "openId": openidstring,
     }).then((res) => {
@@ -613,7 +614,7 @@ Page({
       }
       else {
 
-        console.log('分享完成3   ====== ', res.data)
+        
       }
 
       wx.hideLoading();
@@ -702,34 +703,7 @@ Page({
       console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
     });
 
-    // var that = this
-    // const db = wx.cloud.database()
-    // // 查询当前用户所有的 counters
-    // db.collection(this.data.name).where({
-    //   Name: that.data.wxSearchData.value
-
-    // }).get({
-    //   success: res => {
-    //     this.setData({
-    //       arrayTableData: res.data
-    //     })
-    //     if (res.data.length == 0) {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '查询数据为空，请检查查询条件'
-    //       })
-    //     }
-    //     console.log('[数据库] 签到成功===  ', res.data)
-
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
+ 
 
 
   },

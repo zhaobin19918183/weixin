@@ -5,14 +5,15 @@
  var showAdverst = true
  var showCamera = false
  var showzhandui = false
+var shareNumberWx = 0
  var whetaher = 0
  var qiandaoYes = ""
  var myCompanyId = ""
  var myCenterId = ""
  var myStudioId = ""
  var openidstring = ""
-var arrayTableDataWork = []
-var tagValue = 1
+ var arrayTableDataWork = []
+ var tagValue = 1
  var timestamp =
    Date.parse(new Date());
  //返回当前时间毫秒数
@@ -102,29 +103,33 @@ var tagValue = 1
      arrayTableDataPersion: [],
      showBool: false,
 
-     startCompany:"",
+     startCompany: "",
      startworkroom: "",
      startcenter: "",
      btuBottom: "60px",
+     img: [],
+     jumpBool:false,
+     sharehide:true,
 
 
    },
-   addTeam: function (e) {
+   addTeam: function(e) {
      wx.showToast({
        title: '已经加入战队',
        icon: 'none',
        duration: 2000,
      })
-    
-     },
+
+   },
    //事件处理函数
    bindViewTap: function() {
 
    },
    onLoad: function(options) {
-  var that = this
-   wx.getSystemInfo({
-       success: function (res) {
+     var that = this
+     wx.hideShareMenu()
+     wx.getSystemInfo({
+       success: function(res) {
          //model中包含着设备信息
          console.log(res.model)
          var model = res.model
@@ -176,7 +181,7 @@ var tagValue = 1
          }
        })
      }
-  
+
 
      var that = this
      //初始化的时候渲染wxSearchdata
@@ -185,7 +190,7 @@ var tagValue = 1
 
    },
 
-   wxSearchFn: function (e) {
+   wxSearchFn: function(e) {
      var enddate = Y + "-" + M + "-" + D
      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
        "openId": openidstring,
@@ -224,35 +229,6 @@ var tagValue = 1
      }).catch((errMsg) => {
        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
      });
-
-     // var that = this
-     // const db = wx.cloud.database()
-     // // 查询当前用户所有的 counters
-     // db.collection(this.data.name).where({
-     //   Name: that.data.wxSearchData.value
-
-     // }).get({
-     //   success: res => {
-     //     this.setData({
-     //       arrayTableData: res.data
-     //     })
-     //     if (res.data.length == 0) {
-     //       wx.showToast({
-     //         icon: 'none',
-     //         title: '查询数据为空，请检查查询条件'
-     //       })
-     //     }
-     //     console.log('[数据库] 签到成功===  ', res.data)
-
-     //   },
-     //   fail: err => {
-     //     wx.showToast({
-     //       icon: 'none',
-     //       title: '查询记录失败'
-     //     })
-     //     console.error('[数据库] [查询记录] 失败：', err)
-     //   }
-     // })
 
 
    },
@@ -301,7 +277,7 @@ var tagValue = 1
      that.MyListData('Branchrankings');
 
    },
- 
+
    MyData: function() {
 
      wx.showToast({
@@ -309,38 +285,37 @@ var tagValue = 1
        icon: 'loading',
        duration: 2000,
      })
+     
      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signInQuery', {
        "openId": openidstring,
      }).then((res) => {
        console.log("companyName == =" + res.data.memberRankingList)
-     
+
 
        if (res.data.memberInfo.shareNumber == 3) {
-
+         shareNumberWx = 3
          this.setData({
            buttonshow: true,
          })
-       }
-       else {
+       } else {
          this.setData({
            buttonshow: false
          })
        }
-      
-       if (res.data.memberInfo.joinDate!=null)
-      {
+
+       if (res.data.memberInfo.joinDate != null) {
          this.setData({
            dayNumber: res.data.memberInfo.joinDate,
            allNumber: res.data.memberInfo.totalIntegral,
            allDay: res.data.memberInfo.continuitySigninDate,
          })
-      }
+       }
 
        this.setData({
 
          startCompany: res.data.memberInfo.companyName,
-         startworkroom: res.data.memberInfo.serviceCentreName,
-         startcenter: res.data.memberInfo.studioName
+         startworkroom: res.data.memberInfo.studioName ,
+         startcenter: res.data.memberInfo.serviceCentreName
        })
        qiandaoYes = res.data.memberInfo.isWhetaher
 
@@ -352,30 +327,38 @@ var tagValue = 1
 
 
    },
-   onShareAppMessage: function(res) {
+   showview: function () {
+     var that = this;
+     this.setData({
+       display: "block",
+     })
+
+   },
+   hideview: function () {
+     this.setData({
+       display: "none",
+
+     })
+   },
+   onShareAppMessage: function (res) {
+    
      this.shareAppMessage(openidstring)
      return {
-       title: '慧吃慧动100天',
+       title: '慧吃慧动100天' + "（第" + this.data.dayNumber+"天)",
        // 分享时在路径后拼接参数，可拼接多个参数。 
        path: '/pages/home/home?id=' + openidstring,
        imageUrl: '../imgs/share.png',
-       success: function(res) {
-         // 转发成功
-
+       success: function (res) {
+        
          console.log("转发成功")
-         wx.showToast({
-           title: "转发成功",
-           icon: 'success',
-           duration: 2000,
-         })
        },
-       fail: function(res) { // 转发失败
+       fail: function (res) { // 转发失败
+         
          console.log("转发失败")
-
        }
      }
    },
-   shareAppMessage: function (openid) {
+   shareAppMessage: function(openid) {
 
      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
        "openId": openidstring,
@@ -384,8 +367,7 @@ var tagValue = 1
        this.MyData()
        if (res.data === "分享完成") {
          console.log('分享完成2   ====== ', res.data)
-       }
-       else {
+       } else {
 
          console.log('分享完成3   ====== ', res.data)
        }
@@ -395,8 +377,7 @@ var tagValue = 1
        console.log("错误提示信息 分享完成=== " + errMsg); //错误提示信息wx.hideLoading();
      });
 
-   }
-   ,
+   },
    shareAction: function(openidstr) {
      this.jifeng(openidstr)
    },
@@ -419,9 +400,9 @@ var tagValue = 1
 
    },
    qiandao: function() {
-
+     
      if (qiandaoYes == "1") {
-      
+
        wx.showToast({
          title: '已经签到',
          icon: 'succes',
@@ -437,6 +418,9 @@ var tagValue = 1
      }
      if (this.data.showBool) {
        console.log("签到", openidstring)
+      //  this.setData({
+      //    jumpBool: true
+      //  })
        var enddate = Y + "-" + M + "-" + D
        app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signIn', {
          "openId": openidstring,
@@ -448,7 +432,7 @@ var tagValue = 1
            icon: 'success',
            duration: 2000,
          })
-         
+
          wx.navigateTo({
            url: '../home/home'
          })
@@ -462,13 +446,29 @@ var tagValue = 1
 
 
      if (this.data.showBool == false) {
-       if (qiandaoYes == "0")
-       {
+       if (qiandaoYes == "0") {
          this.data.showBool = true
        }
-      
+
      }
-     
+
+
+    //  if (!this.data.jumpBool)
+    //  {
+       
+      
+    //  }
+    //  else
+    //  {
+    //    wx.showToast({
+    //      icon: 'none',
+    //      title: '请勿重复点击'
+    //    })
+    //  }
+
+
+
+
    },
 
    MyListData: function(name) {
@@ -501,7 +501,7 @@ var tagValue = 1
      var data = e.target.id
      this.phb1(data)
    },
-   phb1: function (data) {
+   phb1: function(data) {
      wx.showToast({
        title: '数据载入中....... ',
        icon: 'loading',
@@ -758,99 +758,6 @@ var tagValue = 1
      })
 
    },
-   bindChooiceProduct: function() {
-     var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-     var code = ""
-     var codeLength = 4;
-     for (var i = 0; i < codeLength; i++) {
-
-       //设置随机数范围,这设置为0 ~ 36
-
-       var index = Math.floor(Math.random() * 36);
-
-       //字符串拼接 将每次随机的字符 进行拼接
-
-       code += random[index];
-
-     }
-
-     wx.chooseImage({
-       count: 1, // 最多可以选择的图片张数，默认9
-       sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
-       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
-       success: chooseResult => {
-         // 将图片上传至云存储空间
-         wx.cloud.uploadFile({
-           // 指定上传到的云路径
-           cloudPath: code + '.png',
-           // 指定要上传的文件的小程序临时文件路径
-           filePath: chooseResult.tempFilePaths[0],
-           // 成功回调
-           success: res => {
-             console.log('上传成功', res.fileID)
-             var imageurl = res.fileID
-             const db = wx.cloud.database()
-             const _ = db.command
-             wx.showToast({
-               title: '图片上传中',
-               icon: 'loading',
-               duration: 10000
-             })
-             wx.cloud.callFunction({
-               name: 'login',
-               data: {},
-               success: res => {
-                 console.log('[云函数] [login] user openid: ', res.result.openid)
-                 db.collection('personal').where({
-                     _openid: res.result.openid
-                   })
-                   .get({
-                     success: function(res) {
-                       var enddate = Y + "-" + M + "-" + D
-                       var allday = res.data[0].allDay
-                       var updateNumber = 20 + allday * 20
-                       db.collection('personal').doc(res.data[0]._id).update({
-                         // data 传入需要局部更新的数据
-                         data: {
-                           whetaher: 1,
-                           MyCenterNumber: _.inc(updateNumber),
-                           MyCompanyNumber: _.inc(updateNumber),
-                           MyWorkRoomNumber: _.inc(updateNumber),
-                           MyNumber: _.inc(updateNumber),
-                           imageArray: _.push(imageurl),
-                           number: _.inc(updateNumber),
-                           day: _.inc(1),
-                           allDay: _.inc(1),
-                           time: enddate
-
-                         }
-
-                       }).then 
-                       {
-                         that.MyBranchrankings()
-                         that.MyServiceCenterrankings()
-                         that.MyStudioRankings()
-
-                       }
-                     }
-                   })
-                 wx.navigateTo({
-                   url: '../home/home'
-                 })
-
-
-               },
-               fail: err => {
-                 console.error('[云函数] [login] 调用失败', err)
-               }
-             })
-
-           },
-         })
-       },
-     })
-
-   },
    showfunc1: function() {
      var that = this;
      this.setData({
@@ -867,63 +774,86 @@ var tagValue = 1
      })
    },
    imageslect: function(openid) {
-     console.log("正确返回结果 openid === " + openid); //
-     var that = this;
-     wx.chooseImage({
-       count: 1, //最多可以选择的图片总数  
-       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
-       success: function(res) {
-         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
-         var tempFilePaths = res.tempFilePaths;
-         //启动上传等待中...  
-         wx.showToast({
-           title: '正在上传...',
-           icon: 'loading',
-           mask: true,
-           duration: 10000
-         })
-         var uploadImgCount = 0;
-         var enddate = Y + "-" + M + "-" + D
-         // 'content-type': 'application/json'
-         for (var i = 0, h = tempFilePaths.length; i < h; i++) {
-           wx.uploadFile({
-             url: 'https://hchd.zeacen.com/zeacen/wechatapplet/pictureSignIn',
-             filePath: tempFilePaths[i],
-             name: 'uploadfile',
-             formData: {
-               "openId": openidstring,
-               'time': enddate,
-             },
-             header: {
-               
-               "Content-Type": "multipart/form-data",
 
-             },
-             success: function(res) {
-               wx.showToast({
-                 title: '签到成功',
-                 icon: 'success',
-                 duration: 2000,
-               })
+    
+       wx.showLoading({
+         title: '加载中...',
+       })
+       var that = this;
+       wx.chooseImage({
+         count: 1, //最多可以选择的图片总数  
+         sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+         success: function (res) {
+           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
+           var tempFilesSize = res.tempFiles[0].size; //获取图片的大小，单位B
+           console.log("tempFilesSize" + tempFilesSize)
+           if (tempFilesSize <= 1000000) { //图片小于或者等于2M时 1可以执行获取图片
+             var tempFilePaths = res.tempFilePaths[0]; //获取图片
+             that.data.img.push(tempFilePaths); //添加到数组
+             that.setData({
+               img: that.data.img
+             })
+           } else { //图片大于2M，弹出一个提示框
+             wx.showToast({
+               title: '上传图片不能大于1M!', //标题
+               icon: 'none' //图标 none不使用图标，详情看官方文档
+             })
+           }
+           //启动上传等待中...  
+           var uploadImgCount = 0;
+           var enddate = Y + "-" + M + "-" + D
+           for (var i = 0, h = that.data.img.length; i < h; i++) {
+             wx.uploadFile({
+               url: 'https://hchd.zeacen.com/zeacen/wechatapplet/pictureSignIn',
+               filePath: that.data.img[i],
+               name: 'uploadfile',
+               formData: {
+                 "openId": openidstring,
+                 'time': enddate,
+               },
+               header: {
+                 "Content-Type": "multipart/form-data",
+               },
+               success: function (res) {
 
-               wx.navigateTo({
-                 url: '/pages/home/home'
-               })
-             },
-             fail: function(res) {
-               wx.hideToast();
-               wx.showModal({
-                 title: '错误提示',
-                 content: '上传图片失败',
-                 showCancel: false,
-                 success: function(res) {}
-               })
-             }
-           });
+                 var data = JSON.parse(res.data);
+                 console.log(data.resultcode)
+                 if (data.resultcode == 0) {
+                   wx.showToast({
+                     title: '图片上传失败',
+                     icon: 'error',
+                     duration: 2000,
+                   })
+                 } else {
+                   wx.showToast({
+                     title: '签到成功',
+                     icon: 'success',
+                     duration: 2000,
+                   })
+
+                 }
+                 wx.navigateTo({
+                   url: '/pages/home/home'
+                 })
+
+               },
+               fail: function (res) {
+                 console.log(res)
+                 wx.showModal({
+                   title: '错误提示',
+                   content: '上传图片失败',
+                   showCancel: false,
+                   success: function (res) { }
+                 })
+               }
+             });
+           }
          }
-       }
-     });
+       });
+   
+
+    
 
    },
 

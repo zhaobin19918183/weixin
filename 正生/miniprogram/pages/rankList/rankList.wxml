@@ -26,9 +26,10 @@
 
   <scroll-view scroll-y="true" class='tableview'>
     <view wx:if="{{showPersonal}}" style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
-
       <image class='imaget1' src='{{Myimage}}' style='position: absolute;margin-left:18%'></image>
+      <!-- <label style='position: absolute;word-break:break-all;color:white;font-size: 35rpx;position: absolute;margin-left:35px;margin-top:25px'>1</label> -->
       <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
+        
         <label style='position: absolute;word-break:break-all;color:white'>{{myCompanyName}}</label>
       </view>
       <label class='labelt2' style='position: absolute;margin-left:63%'>{{myCompanyNumber}}</label>

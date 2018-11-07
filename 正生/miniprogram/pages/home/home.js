@@ -121,7 +121,7 @@ Page({
     showpersonal2: false,
     showpersonal3: false,
 
-    top:"20px"
+    top:"30px"
 
 
   },
@@ -267,47 +267,9 @@ Page({
           });
         }
       })
-    
-    
-  
-
 
   },
-  updateTime: function(time) {
-    var startdate = time
-    var enddate = Y + "-" + M + "-" + D
-    var start_date = new Date(startdate.replace(/-/g, "/"));
-    var end_date = new Date(enddate.replace(/-/g, "/"));
-    var days = end_date.getTime() - start_date.getTime();
-    var day = parseInt(days / (1000 * 60 * 60 * 24));
-    if (day > 1) {
-      var enddate = Y + "-" + M + "-" + D
-      app.postAction1('http://192.168.8.67:8000/zhengsheng/updateAllDay/', {
-        "openid": openidstring,
-        "time": enddate,
-      }).then((res) => {
-
-        console.log("更新联系签到时间" + res)
-        wx.hideLoading();
-      }).catch((errMsg) => {
-        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
-      });
-
-    }
-    if (day > 0) {
-      var enddate = Y + "-" + M + "-" + D
-      app.postAction1('http://192.168.8.67:8000/zhengsheng/updatePersonal/', {
-        "openid": openidstring,
-        "time": enddate,
-      }).then((res) => {
-
-        console.log("更新个人数据" + res)
-        wx.hideLoading();
-      }).catch((errMsg) => {
-        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
-      });
-    }
-  },
+ 
   imageslect: function(openid) {
     console.log("正确返回结果 openid === " + openid); //
     var that = this;
@@ -328,7 +290,7 @@ Page({
         var uploadImgCount = 0;
         for (var i = 0, h = tempFilePaths.length; i < h; i++) {
           wx.uploadFile({
-            url: 'http://192.168.8.118:8082/zeacen/wechatapplet/signIn',
+            url: 'https://hchd.zeacen.com/zeacen/wechatapplet/signIn',
             filePath: tempFilePaths[i],
             name: 'uploadfile',
             formData: {
@@ -360,80 +322,6 @@ Page({
       }
     });
 
-  },
-  num_data: function(time) {
-    var startdate = time
-    var enddate = Y + "-" + M + "-" + D
-    var start_date = new Date(startdate.replace(/-/g, "/"));
-    var end_date = new Date(enddate.replace(/-/g, "/"));
-    var days = end_date.getTime() - start_date.getTime();
-    var day = parseInt(days / (1000 * 60 * 60 * 24));
-    const db = wx.cloud.database()
-    const _ = db.command
-
-    if (day > 1) {
-
-
-      wx.cloud.callFunction({
-        name: 'login',
-        data: {},
-        success: res => {
-
-          db.collection('personal').where({
-              _openid: res.result.openid
-            })
-            .get({
-              success: function(res) {
-                db.collection('personal').doc(res.data.id).update({
-                  // data 传入需要局部更新的数据
-                  data: {
-                    allDay: 0,
-                  }
-
-                })
-              }
-            })
-        },
-        fail: err => {
-          console.error('[云函数] [login] 调用失败', err)
-        }
-      })
-    }
-
-    if (day > 0) {
-
-      wx.cloud.callFunction({
-        name: 'login',
-        data: {},
-        success: res => {
-          console.log("当天签到 ")
-          db.collection('personal').where({
-              _openid: res.result.openid
-            })
-            .get({
-              success: function(res) {
-                db.collection('personal').doc(res.data.id).update({
-                  // data 传入需要局部更新的数据
-                  data: {
-                    whetaher: 0,
-                    share: 0
-
-                  }
-
-                })
-              }
-            })
-
-
-        },
-        fail: err => {
-          console.error('[云函数] [login] 调用失败', err)
-        }
-      })
-    } else {
-      console.log("同一天签到 ")
-
-    }
   },
   touchHandler: function(e) {
     console.log(areaChart.getCurrentDataIndex(e));
@@ -557,7 +445,7 @@ Page({
         } else {
           that.setData({
             btuBottom: "10%",
-            top: "20px"
+            top: "30px"
           })
         }
         if (model.search('iPad') != -1) {
@@ -666,25 +554,6 @@ Page({
     wx.login({
       success: res => {
         console.log('获取id===' + res.code)
-        // app.postAction('http://192.168.8.118:8082/zeacen/wechatapplet/oauthCallbak', {
-        //   "code": res.code
-        // }).then((res) => {
-        //   console.log("正确返回结果 === " + res.data); //
-        //   this.imageslect(res.data)
-        //   // app.globalData.openid = res.data
-        //   // app.postAction('首页接口', { "openId": res.data, "time": enddate }).then((res) => {
-        //   //   wx.hideLoading();
-        //   // }).catch((errMsg) => {
-        //   //   console.log("错误提示信息 === " + errMsg);//错误提示信息
-        //   //   wx.hideLoading();
-        //   // });
-
-
-        //   wx.hideLoading();
-        // }).catch((errMsg) => {
-        //   console.log("错误提示信息 === " + errMsg); //错误提示信息
-        //   wx.hideLoading();
-        // });
 
       }
     })
@@ -733,29 +602,7 @@ Page({
   onReachBottom: function() {
 
   },
-  mydetaildata: function(openidstr) {
 
-    console.log("获取openid")
-    const db = wx.cloud.database()
-    const _ = db.command
-    db.collection('personal').where({
-      _openid: openidstr
-    }).get({
-      success: res => {
-        console.log("获取time", res.data[0].time)
-        dateString = res.data[0].time
-        this.num_data(dateString)
-
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
-  },
   ToRankList: function(e) {
     console.log("id == " + e.currentTarget.id)
     wx.navigateTo({
@@ -907,7 +754,7 @@ Page({
     })
   },
   mydataAction: function() {
-    console.log("shareOpenId == " + shareOpenId)
+   
     wx.navigateTo({
       url: '../my/myData?openidstring=' + openidstring + '&shareOpenId=' + shareOpenId
     })

@@ -1,11 +1,12 @@
 {
   "cloud": true,
   "pages": [
-      "pages/home/home",
-      "pages/index/index",
-      "pages/personal/personal",
-      "pages/rankList/rankList",
-      "pages/my/myData"
+    "pages/home/home",
+    "pages/index/index",
+    "pages/personal/personal",
+    "pages/rankList/rankList",
+    "pages/my/myData",
+    "pages/share/share"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

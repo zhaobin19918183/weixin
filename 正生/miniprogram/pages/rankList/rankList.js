@@ -408,7 +408,7 @@ Page({
   },
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
-    // http://192.168.8.73:8082
+   
     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,

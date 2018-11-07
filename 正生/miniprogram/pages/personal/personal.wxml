@@ -1,7 +1,11 @@
 <!--index.wxml-->
 <import src="/wxSearch/wxSearch.wxml" />
-<nav-bar navbar-data='{{nvabarData}}'></nav-bar>
+
+<nav-bar  navbar-data='{{nvabarData}}'  ></nav-bar>
+
+
 <view style='margin-top:60px'>
+<!-- <canvas  hidden='{{sharehide}}'  canvas-id="shareCanvas" style="width:375px;height:240px"></canvas> -->
   <!-- 顶部 -->
   <view style='width:100%;height:170px;margin-top:{{btuBottom}}'>
     <image class="userinfo-avatar" style='position: absolute' src="{{userInfo.avatarUrl}}"></image>
@@ -86,6 +90,7 @@
           <view wx:if="{{showPersonal}}" style='box-shadow:0px 0px 0px 1px gray;width:100%;height:80px'>
 
             <image class='imaget1' src='{{Myimage}}' style='position: absolute;margin-left:18%'></image>
+            <!-- <label style='position: absolute;word-break:break-all;color:white;font-size: 35rpx;position: absolute;margin-left:35px;margin-top:25px'>1</label> -->
             <view style='margin-top:8%;width:20%;height:20px; font-size: 25rpx;position: absolute;margin-left:35%;word-break:break-all;'>
               <label style='position: absolute;word-break:break-all;color:black'>{{myCompanyName}}</label>
             </view>
