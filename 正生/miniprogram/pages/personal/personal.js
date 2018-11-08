@@ -360,7 +360,7 @@ var shareNumberWx = 0
    },
    shareAppMessage: function(openid) {
 
-     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
+     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share',                                                                                                                                                               {
        "openId": openidstring,
      }).then((res) => {
        console.log('分享完成1   ====== ', res.data)

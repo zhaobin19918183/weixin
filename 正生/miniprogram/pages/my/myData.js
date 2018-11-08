@@ -179,7 +179,7 @@ Page({
   },
   onLoad: function(options)
    {
-    wx.hideShareMenu()
+    // wx.hideShareMenu()
     shareOpenIdString = options.openidstring
     openidstring = options.openidstring
     this.phb1(1)
@@ -587,7 +587,7 @@ Page({
       imageUrl: '../imgs/share.png',
       success: function(res) {
         // 转发成功
-        console.log("shareNumberWx=="+shareNumberWx) 
+
         wx.showToast({
           title: '转发成功',
           icon: 'success',
@@ -603,7 +603,7 @@ Page({
   ,
   shareAppMessage:function(openid)
   {
-    console.log('分享完成3   ====== ', res.data)
+
     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/share', {
       "openId": openidstring,
     }).then((res) => {
