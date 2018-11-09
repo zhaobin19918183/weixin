@@ -80,7 +80,7 @@ Page({
     Myimage: "",
     myCompanyNumber: 0,
     myCompanyNumber: 0,
-
+    // myRownum:"",
     myCenterName: "",
     myCenterNumber: 0,
 
@@ -235,6 +235,7 @@ Page({
             myCompanyName: res.data.memberCompanyInfo.companyName,
             myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
             Myimage: res.data.memberCompanyInfo.companyImage,
+            // myRownum: res.data.memberCompanyInfo.rownum,
             showPersonal: true
           })
         }

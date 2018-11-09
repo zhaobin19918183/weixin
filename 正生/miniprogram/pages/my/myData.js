@@ -179,7 +179,7 @@ Page({
   },
   onLoad: function(options)
    {
-    // wx.hideShareMenu()
+    wx.hideShareMenu()
     shareOpenIdString = options.openidstring
     openidstring = options.openidstring
     this.phb1(1)
