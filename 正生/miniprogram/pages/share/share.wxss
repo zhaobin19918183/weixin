@@ -1,1 +1,18 @@
 /* miniprogram/pages/share/share.wxss */
+.userinfo-avatar {
+  width: 168rpx;
+  height: 168rpx;
+  margin-left: 2%;
+  margin-top: 30px;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  margin-left: 27%;
+  margin-top: 10%;
+}
+.top
+{
+  margin-top: 80px;
+}

@@ -84,7 +84,7 @@ var shareNumberWx = 0
      Myimage: "",
      myCompanyId: "",
      myCompanyNumber: 0,
-
+     myRownum: "",
      myCenterName: "",
      myCenterNumber: 0,
 
@@ -190,9 +190,10 @@ var shareNumberWx = 0
 
    },
 
-   wxSearchFn: function(e) {
+   wxSearchFn: function (e) {
      var enddate = Y + "-" + M + "-" + D
-     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
+
+     app.postAction('http://192.168.8.87:8082/wechatapplet/queryInfo', {
        "openId": openidstring,
        "tagValue": tagValue,
        "queryValue": this.data.wxSearchData.value,
@@ -229,6 +230,35 @@ var shareNumberWx = 0
      }).catch((errMsg) => {
        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
      });
+
+     // var that = this
+     // const db = wx.cloud.database()
+     // // 查询当前用户所有的 counters
+     // db.collection(this.data.name).where({
+     //   Name: that.data.wxSearchData.value
+
+     // }).get({
+     //   success: res => {
+     //     this.setData({
+     //       arrayTableData: res.data
+     //     })
+     //     if (res.data.length == 0) {
+     //       wx.showToast({
+     //         icon: 'none',
+     //         title: '查询数据为空，请检查查询条件'
+     //       })
+     //     }
+     //     console.log('[数据库] 签到成功===  ', res.data)
+
+     //   },
+     //   fail: err => {
+     //     wx.showToast({
+     //       icon: 'none',
+     //       title: '查询记录失败'
+     //     })
+     //     console.error('[数据库] [查询记录] 失败：', err)
+     //   }
+     // })
 
 
    },
@@ -453,20 +483,6 @@ var shareNumberWx = 0
      }
 
 
-    //  if (!this.data.jumpBool)
-    //  {
-       
-      
-    //  }
-    //  else
-    //  {
-    //    wx.showToast({
-    //      icon: 'none',
-    //      title: '请勿重复点击'
-    //    })
-    //  }
-
-
 
 
    },
@@ -501,7 +517,7 @@ var shareNumberWx = 0
      var data = e.target.id
      this.phb1(data)
    },
-   phb1: function(data) {
+   phb1: function (data) {
      wx.showToast({
        title: '数据载入中....... ',
        icon: 'loading',
@@ -510,9 +526,10 @@ var shareNumberWx = 0
      var that = this;
      if (data == 1) {
        tagValue = 1
-       //https://hchd.zeacen.com/zeacen/wechatapplet/rankingList
+       //http://192.168.8.87:8082/wechatapplet/rankingList
+       //http://192.168.8.87:8082/wechatapplet/rankingList
        console.log("openidstring" + openidstring)
-       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+       app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -521,7 +538,6 @@ var shareNumberWx = 0
 
          // var personal = JSON.parse(res.json_personalData);
 
-         wx.hideLoading();
          this.setData({
            searchString: "请输入分公司全称进行搜索",
            isShowCompany: true,
@@ -538,6 +554,7 @@ var shareNumberWx = 0
              myCompanyName: res.data.memberCompanyInfo.companyName,
              myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
              Myimage: res.data.memberCompanyInfo.companyImage,
+             myRownum: res.data.memberCompanyInfo.rownum,
              showPersonal: true
            })
          }
@@ -550,7 +567,7 @@ var shareNumberWx = 0
      }
      if (data == 2) {
        tagValue = 2
-       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+       app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -574,7 +591,8 @@ var shareNumberWx = 0
              myCompanyName: res.data.memberCentreInfo.serviceCentreName,
              myCompanyNumber: res.data.memberCentreInfo.serviceCentreIntegral,
              Myimage: res.data.memberCentreInfo.servicecentreImage,
-             showPersonal: true
+             showPersonal: true,
+             myRownum: res.data.memberCentreInfo.rownum,
            })
          }
 
@@ -588,7 +606,7 @@ var shareNumberWx = 0
      }
      if (data == 3) {
        tagValue = 3
-       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+       app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -610,7 +628,8 @@ var shareNumberWx = 0
              myCompanyName: res.data.memberStudioInfo.studioName,
              myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
              Myimage: dataimgae,
-             showPersonal: true
+             showPersonal: true,
+             myRownum: res.data.memberStudioInfo.rownum,
            })
          }
 
@@ -633,7 +652,7 @@ var shareNumberWx = 0
      }
      if (data == 4) {
        tagValue = 4
-       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+       app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
          "openId": openidstring,
          "tagValue": tagValue
        }).then((res) => {
@@ -653,7 +672,8 @@ var shareNumberWx = 0
              myCompanyName: res.data.memberInfo.memberName,
              myCompanyNumber: res.data.memberInfo.memberIntegral,
              Myimage: res.data.memberInfo.memberImage,
-             showPersonal: true
+             showPersonal: true,
+             myRownum: res.data.memberInfo.rownum,
            })
          }
 

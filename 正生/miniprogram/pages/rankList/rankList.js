@@ -80,7 +80,7 @@ Page({
     Myimage: "",
     myCompanyNumber: 0,
     myCompanyNumber: 0,
-    // myRownum:"",
+    myRownum:"",
     myCenterName: "",
     myCenterNumber: 0,
 
@@ -100,6 +100,7 @@ Page({
     isShowCenter: false,
     isShowPersion: false,
     btuBottom: "20%;",
+
   },
 
   /**
@@ -199,26 +200,27 @@ Page({
   },
 
   phb1: function(data) {
-    wx.showToast({
-      title: '数据载入中....... ',
-      icon: 'loading',
-      duration: 5000,
+    wx.showLoading({
+      title: '加载中...',
     })
+
     var that = this;
     if (data == 1) {
+
+     
       tagValue = 1
-      //https://hchd.zeacen.com/zeacen/wechatapplet/rankingList
+      //http://192.168.8.87:8082/wechatapplet/rankingList
+      //http://192.168.8.87:8082/wechatapplet/rankingList
       console.log("openidstring" + openidstring)
-      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
         "openId": openidstring ,
         "tagValue": tagValue
       }).then((res) => {
        
         var data = res.data.companyRankingList;
-       
+        console.log("==========="+data)
         // var personal = JSON.parse(res.json_personalData);
        
-        wx.hideLoading();
         this.setData({
           searchString: "请输入分公司全称进行搜索",
           isShowCompany: true,
@@ -235,20 +237,20 @@ Page({
             myCompanyName: res.data.memberCompanyInfo.companyName,
             myCompanyNumber: res.data.memberCompanyInfo.companyIntegral,
             Myimage: res.data.memberCompanyInfo.companyImage,
-            // myRownum: res.data.memberCompanyInfo.rownum,
+            myRownum: res.data.memberCompanyInfo.rownum,
             showPersonal: true
           })
         }
         wx.hideLoading();
       }).catch((errMsg) => {
-        console.log("错误提示信息 === " + errMsg); //错误提示信息wx.hideLoading();
+        console.log("错误提示信息 === " + errMsg);
       });
 
 
     }
     if (data == 2) {
       tagValue = 2
-      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -272,7 +274,8 @@ Page({
             myCompanyName: res.data.memberCentreInfo.serviceCentreName,
             myCompanyNumber: res.data.memberCentreInfo.serviceCentreIntegral,
             Myimage: res.data.memberCentreInfo.servicecentreImage,
-            showPersonal: true
+            showPersonal: true,
+            myRownum: res.data.memberCentreInfo.rownum,
           })
         }
 
@@ -286,7 +289,7 @@ Page({
     }
     if (data == 3) {
       tagValue = 3
-      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -308,7 +311,8 @@ Page({
             myCompanyName: res.data.memberStudioInfo.studioName,
             myCompanyNumber: res.data.memberStudioInfo.studioIntegral,
             Myimage: dataimgae,
-            showPersonal: true
+            showPersonal: true,
+            myRownum: res.data.memberStudioInfo.rownum,
           })
         }
        
@@ -331,7 +335,7 @@ Page({
     }
     if (data == 4) {
       tagValue = 4
-      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
+      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -352,7 +356,8 @@ Page({
             myCompanyName: res.data.memberInfo.memberName,
             myCompanyNumber: res.data.memberInfo.memberIntegral,
             Myimage: res.data.memberInfo.memberImage,
-            showPersonal: true
+            showPersonal: true,
+            myRownum: res.data.memberInfo.rownum,
           })
        }
  
@@ -410,7 +415,7 @@ Page({
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
    
-    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
+    app.postAction('http://192.168.8.87:8082/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,
       "queryValue": this.data.wxSearchData.value,
@@ -681,7 +686,7 @@ Page({
         console.log('[云函数] [login] user openid: ', res.result.openid)
         // 查询当前用户所有的 counters
         openidstring = res.result.openid
-        this.MyPersionald(openidstring)
+        // this.MyPersionald(openidstring)
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
