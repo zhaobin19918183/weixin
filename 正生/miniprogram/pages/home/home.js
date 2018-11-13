@@ -141,12 +141,13 @@ Page({
   Myopenid: function() {
       wx.login({
         success: res => {
-          app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/oauthCallbak', {
+          app.postAction('http://192.168.8.87:8082/wechatapplet/oauthCallbak', {
             "code": res.code
           }).then((res) => {
             openidstring = res.data
+            console.log("openidstring=====1=====" + openidstring)
             var enddate = Y + "-" + M + "-" + D
-            app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/index', {
+            app.postAction('http://192.168.8.87:8082/wechatapplet/index', {
               "openId": openidstring,
               "time": enddate
             }).then((res) => { 
@@ -154,7 +155,7 @@ Page({
               var companyRankingList = res.data.companyRankingList;
               var studioRankingList = res.data.studioRankingList;
               if (res.data.memberInfo != null) {
-                console.log("首页信息=====1=====" + res.data.memberInfo)
+               
                 if (res.data.memberInfo.totalIntegral!=null)
                 {
                   this.setData({
@@ -270,59 +271,6 @@ Page({
 
   },
  
-  imageslect: function(openid) {
-    console.log("正确返回结果 openid === " + openid); //
-    var that = this;
-    wx.chooseImage({
-      count: 1, //最多可以选择的图片总数  
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
-      success: function(res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
-        var tempFilePaths = res.tempFilePaths;
-        //启动上传等待中...  
-        wx.showToast({
-          title: '正在上传...',
-          icon: 'loading',
-          mask: true,
-          duration: 10000
-        })
-        var uploadImgCount = 0;
-        for (var i = 0, h = tempFilePaths.length; i < h; i++) {
-          wx.uploadFile({
-            url: 'https://hchd.zeacen.com/zeacen/wechatapplet/signIn',
-            filePath: tempFilePaths[i],
-            name: 'uploadfile',
-            formData: {
-              'openId': openid
-            },
-            header: {
-              "Content-Type": "multipart/form-data"
-            },
-            success: function(res) {
-              uploadImgCount++;
-              var data = JSON.parse(res.data);
-              //服务器返回格式: { "Catalog": "testFolder", "FileName": "1.jpg", "Url": "https://test.com/1.jpg" }  
-              //如果是最后一张,则隐藏等待中  
-              if (uploadImgCount == tempFilePaths.length) {
-                wx.hideToast();
-              }
-            },
-            fail: function(res) {
-              wx.hideToast();
-              wx.showModal({
-                title: '错误提示',
-                content: '上传图片失败',
-                showCancel: false,
-                success: function(res) {}
-              })
-            }
-          });
-        }
-      }
-    });
-
-  },
   touchHandler: function(e) {
     console.log(areaChart.getCurrentDataIndex(e));
     areaChart.showToolTip(e);

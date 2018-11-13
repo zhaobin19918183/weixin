@@ -180,7 +180,7 @@ Page({
   },
   onLoad: function(options)
    {
-    // wx.hideShareMenu()
+    wx.hideShareMenu()
     shareOpenIdString = options.openidstring
     openidstring = options.openidstring
     this.phb1(1)
@@ -255,7 +255,7 @@ Page({
       duration: 2000,
     })
     console.log("shareOpenIdString +===" + openidstring)
-    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/myInfo', {
+    app.postAction('http://192.168.8.87:8082/wechatapplet/myInfo', {
       "openId": openidstring,
     }).then((res) => {
      
@@ -584,7 +584,7 @@ Page({
   ,
 
   onShareAppMessage: function(res) {
-    // this.shareAppMessage(openidstring)
+    this.shareAppMessage(openidstring)
     return {
       title: '慧吃慧动100天' + "（第" + this.data.dayNumber + "天)",
       // 分享时在路径后拼接参数，可拼接多个参数。 

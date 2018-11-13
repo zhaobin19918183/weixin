@@ -15,4 +15,87 @@
 .top
 {
   margin-top: 80px;
+  background: white
+}
+/*横向布局  */
+.layout_horizontal{
+
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+
+}
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+  
+}
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin-left:150px;
+  margin-top: 160px;
+  border-radius: 50%;
+}
+.backButton{
+  width: 20%;
+  height:30px;
+  margin-left: 80%;
+  background:black;
+  flex-direction: row;
+  position: fixed;
+  bottom:10; 
+  font-size: 0.7rem;
+  text-align: center;
+  color: white;
+  opacity: 0.8;
+  line-height: 55rpx;
+  justify-content: center;
+  margin-top: 100px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.paiming
+{
+  margin-left:18%;
+  background: #ec5d2a;
+  width: 100px;
+  height: 30px;
+  margin-top: 200px;
+  text-align:  center;
+  line-height: 60rpx;
+  border-radius: 15px;
+  
+}
+
+.dk031
+{
+  width: 15%;
+  height:10%;
+  margin-left: 17%;
+  margin-top: 70%;
+  position: absolute;
+
+}
+
+.dk061
+{
+  width: 15%;
+  height:10%;
+  margin-left: 41%;
+  margin-top: 70%;
+  position: absolute;
+
+}
+ 
+.dk091
+{
+  width: 15%;
+  height:10%;
+  margin-left: 68%;
+  margin-top: 70%;
+  position: absolute;
+
 }

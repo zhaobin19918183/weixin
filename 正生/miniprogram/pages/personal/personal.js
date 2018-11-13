@@ -316,7 +316,7 @@ var shareNumberWx = 0
        duration: 2000,
      })
      
-     app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signInQuery', {
+     app.postAction('http://192.168.8.87:8082/wechatapplet/signInQuery', {
        "openId": openidstring,
      }).then((res) => {
        console.log("companyName == =" + res.data.memberRankingList)
@@ -376,7 +376,7 @@ var shareNumberWx = 0
      return {
        title: '慧吃慧动100天' + "（第" + this.data.dayNumber+"天)",
        // 分享时在路径后拼接参数，可拼接多个参数。 
-       path: '/pages/home/home?id=' + openidstring,
+       path: '/pages/share/share?id=' + openidstring,
        imageUrl: '../imgs/share.png',
        success: function (res) {
         
@@ -452,7 +452,7 @@ var shareNumberWx = 0
       //    jumpBool: true
       //  })
        var enddate = Y + "-" + M + "-" + D
-       app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/signIn', {
+       app.postAction('http://192.168.8.87:8082/wechatapplet/signIn', {
          "openId": openidstring,
          "time": enddate,
        }).then((res) => {
@@ -825,7 +825,7 @@ var shareNumberWx = 0
            var enddate = Y + "-" + M + "-" + D
            for (var i = 0, h = that.data.img.length; i < h; i++) {
              wx.uploadFile({
-               url: 'https://hchd.zeacen.com/zeacen/wechatapplet/pictureSignIn',
+               url: 'http://192.168.8.87:8082/wechatapplet/pictureSignIn',
                filePath: that.data.img[i],
                name: 'uploadfile',
                formData: {
