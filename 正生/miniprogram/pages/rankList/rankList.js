@@ -209,10 +209,8 @@ Page({
 
      
       tagValue = 1
-      //http://192.168.8.87:8082/wechatapplet/rankingList
-      //http://192.168.8.87:8082/wechatapplet/rankingList
       console.log("openidstring" + openidstring)
-      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring ,
         "tagValue": tagValue
       }).then((res) => {
@@ -250,7 +248,7 @@ Page({
     }
     if (data == 2) {
       tagValue = 2
-      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -289,7 +287,7 @@ Page({
     }
     if (data == 3) {
       tagValue = 3
-      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -335,7 +333,7 @@ Page({
     }
     if (data == 4) {
       tagValue = 4
-      app.postAction('http://192.168.8.87:8082/wechatapplet/rankingList', {
+      app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/rankingList', {
         "openId": openidstring,
         "tagValue": tagValue
       }).then((res) => {
@@ -349,7 +347,7 @@ Page({
           isShowPersion: true,
           arrayTableDataPersion: data,
         })
-       
+        
         if (res.data.memberInfo != null)
         {
           this.setData({
@@ -415,7 +413,7 @@ Page({
   wxSearchFn: function (e) {
     var enddate = Y + "-" + M + "-" + D
    
-    app.postAction('http://192.168.8.87:8082/wechatapplet/queryInfo', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/queryInfo', {
       "openId": openidstring,
       "tagValue":tagValue,
       "queryValue": this.data.wxSearchData.value,

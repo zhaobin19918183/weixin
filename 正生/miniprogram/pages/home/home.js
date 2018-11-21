@@ -20,9 +20,7 @@ var shareOpenId = ""
 var openidstring = ""
 var timestamp =
   Date.parse(new Date());
-//返回当前时间毫秒数
 timestamp = timestamp / 1000;
-//获取当前时间
 var n = timestamp *
   1000;
 var date = new Date(n);
@@ -141,13 +139,13 @@ Page({
   Myopenid: function() {
       wx.login({
         success: res => {
-          app.postAction('http://192.168.8.87:8082/wechatapplet/oauthCallbak', {
+          app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/oauthCallbak', {
             "code": res.code
           }).then((res) => {
             openidstring = res.data
-            console.log("openidstring=====1=====" + openidstring)
             var enddate = Y + "-" + M + "-" + D
-            app.postAction('http://192.168.8.87:8082/wechatapplet/index', {
+            console.log("openidstring=====2018-11-21=====" + enddate)
+            app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/index', {
               "openId": openidstring,
               "time": enddate
             }).then((res) => { 

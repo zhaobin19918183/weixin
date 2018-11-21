@@ -56,7 +56,7 @@ Page({
       title: "数据加载中",
       mask: true
     });
-    app.postAction('http://192.168.8.87:8082/wechatapplet/sharingDetail', {
+    app.postAction('https://hchd.zeacen.com/zeacen/wechatapplet/sharingDetail', {
       "openId": openid,
     }).then((res) => {
 

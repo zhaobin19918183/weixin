@@ -1,66 +1,60 @@
-<!-- <nav-bar navbar-data='{{nvabarData}}'></nav-bar> -->
 <view>
-  <!-- <image class="userinfo-avatar" style='position: absolute' src="{{avatarUrl}}"></image>
- 
-<image style='position: absolute;margin-left:25%;margin-top:20%;width:212px;height:178px' src='../imgs/dt.png'></image> -->
-  <label class="backButton" style='position: absolute;color:white'>{{nickName}}</label> 
-  <label class="paiming" style='position: absolute;color:white'>NO.{{rownum}}</label> 
+  <label class="backButton" style='position: absolute;color:white'>{{nickName}}</label>
+  <label class="paiming" style='position: absolute;color:white'>NO.{{rownum}}</label>
   <image class="userinfo-avatar" style='position: absolute' src="{{avatarUrl}}"></image>
-      <view class='layout_horizontal2'>
-      <view class='layout_vertical dk031'>
-        <label style='text-align:center;color:black;font-size:15px'>{{joinDate}}</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
-      </view>
-      <view class='layout_vertical dk061 '>
-        <label style='text-align:center;color:black;font-size:15px'>{{totalIntegral}}</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
-        
-      </view>
-      <image src='../imgs/line.png' style='margin-left:38%;margin-top: 66%;;width:1px;height:50px; position: absolute;'></image>
-      <view class='layout_vertical dk091'>
-        <label style='text-align:center;color:black;font-size:15px'>{{continuitySigninDate}}</label>
-        <label style='text-align:center;font-size:25rpx;color:black'>连续签到</label>
-     
-      </view>
-      <image src='../imgs/line.png' style='margin-left:60%;margin-top: 66%;;width:1px;height:50px; position: absolute;'></image>
+  <view class='layout_horizontal2'>
+    <view class='layout_vertical dk031'>
+      <label style='text-align:center;color:black;font-size:15px'>{{joinDate}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>参加天数</label>
     </view>
-  <view class='layout_vertical' style='position: absolute;margin-top:410px;margin-left:40px;'>
-    <view class='layout_horizontal'  style='margin-top:5px;'>
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{rownum}}</label>
-       <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:140px;font-size: 35rpx'>个人</label>
-       <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;;width:130px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{totalIntegral}}</label>
-       <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+    <view class='layout_vertical dk061 '>
+      <label style='text-align:center;color:black;font-size:15px'>{{totalIntegral}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>总积分</label>
     </view>
-    <view class='layout_horizontal'style='margin-top:15px;' >
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{workroomRowNum}}</label>
-    <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:140px;font-size: 35rpx'>{{workroomName}}</label>
-     <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;width:130px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{workroomNumber}}</label>
-     <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+    <image src='../imgs/line.png' style='margin-left:38%;margin-top: 66%;;width:1px;height:50px; position: absolute;'></image>
+    <view class='layout_vertical dk091'>
+      <label style='text-align:center;color:black;font-size:15px'>{{continuitySigninDate}}</label>
+      <label style='text-align:center;font-size:25rpx;color:black'>连续签到</label>
     </view>
-    <view class='layout_horizontal'style='margin-top:15px;'>
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{centerRowNum}}</label>
-    <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:140px;font-size: 35rpx'>{{centerName}}</label>
-    <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;width:130px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:80px;font-size: 35rpx'>{{centerNumber}}</label>
-     <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+    <image src='../imgs/line.png' style='margin-left:60%;margin-top: 66%;;width:1px;height:50px; position: absolute;'></image>
+  </view>
+  <view class='layout_vertical' style='position: absolute;margin-top:113%;margin-left:40px;'>
+    <view class='layout_horizontal' style='margin-top:5px;'>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{rownum}}</label>
+      <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:140px;font-size: 35rpx'>个人</label>
+      <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;;width:130px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{totalIntegral}}</label>
+      <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
     </view>
-    <view class='layout_horizontal'style='margin-top:15px;'>
-     <label style='text-align: center;width:80px;font-size: 35rpx;font-size: 35rpx'>{{companyRowNum}}</label>
-     <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
-    <label style='text-align: center;width:140px;font-size: 35rpx'>{{companyName}}</label>
+    <view class='layout_horizontal' style='margin-top:15px;'>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{workroomRowNum}}</label>
+      <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:140px;font-size: 35rpx'>{{workroomName}}</label>
       <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;width:130px;height:1px; position: absolute;'></image>
-    <text style='text-align: center;width:80px;font-size: 35rpx'>{{companyNumber}}</text>
-     <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{workroomNumber}}</label>
+      <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+    </view>
+    <view class='layout_horizontal' style='margin-top:15px;'>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{centerRowNum}}</label>
+      <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:140px;font-size: 35rpx'>{{centerName}}</label>
+      <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;width:130px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:80px;font-size: 35rpx'>{{centerNumber}}</label>
+      <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+    </view>
+    <view class='layout_horizontal' style='margin-top:15px;'>
+      <label style='text-align: center;width:80px;font-size: 35rpx;font-size: 35rpx'>{{companyRowNum}}</label>
+      <image src='../imgs/line2.png' style='margin-left:2%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
+      <label style='text-align: center;width:140px;font-size: 35rpx'>{{companyName}}</label>
+      <image src='../imgs/line2.png' style='margin-left:30%;margin-top: 10%;width:130px;height:1px; position: absolute;'></image>
+      <text style='text-align: center;width:80px;font-size: 35rpx'>{{companyNumber}}</text>
+      <image src='../imgs/line2.png' style='margin-left:75%;margin-top: 10%;;width:70px;height:1px; position: absolute;'></image>
     </view>
 
   </view>
 
-  <button style='position: absolute;background-color: rgba(255,255,255,0);color:#ec5d2a;margin-top:600px;margin-left:120px;' bindtap='backToHome' class='top'>前往首页>></button>
+  <button style='position: absolute;background-color: rgba(255,255,255,0);color:#ec5d2a;margin-top:165%;margin-left:35%;' bindtap='backToHome' class='top'>前往首页>></button>
 
   <image src='../imgs/sharebackground.png' mode='widthFix' style='display: block;width:100%;height:100%'></image>
 
